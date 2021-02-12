@@ -1,14 +1,6 @@
 name: Format (prettier)
 
 on: [push, pull_request]
-    # push:
-    #     branches:
-    #         - 'master'
-    # pull_request:
-    #     paths:
-    #         - '**.css'
-    #         - '**.js'
-    #         - '**.vue'
 
 jobs:
     prettier:
@@ -19,13 +11,10 @@ jobs:
                   ref: ${{ github.head_ref }}
 
             - name: Install
-              run: yarn install
-              env:
-                  CI: true
+              run: npm install
 
             - name: Run prettier
-              run: yarn run prettier . --write
-              # run: yarn run prettier --write 'src/**/*.{css,js,vue}'
+              run: prettier . --write
 
             - uses: stefanzweifel/git-auto-commit-action@v4
               with:
