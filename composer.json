@@ -28,6 +28,7 @@
         "pestphp/pest": "^1.0",
         "pestphp/pest-plugin-laravel": "^1.0",
         "phpunit/phpunit": "^9.3.3",
+        "psalm/plugin-laravel": "^1.4",
         "vimeo/psalm": "^4.5"
     },
     "config": {
