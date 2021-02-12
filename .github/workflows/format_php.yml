@@ -7,10 +7,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-
-            - name: Install
-              run: composer install
-
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 7.4
+            - name: Install Dependencies
+              run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
             - name: Run php-cs-fixer
               run: ./vendor/bin/php-cs-fixer fix --config=.php_cs.dist --allow-risky=yes
 
