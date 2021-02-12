@@ -16,12 +16,18 @@
         "laravel/tinker": "^2.5"
     },
     "require-dev": {
+        "enlightn/enlightn": "^1.13",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^2.18",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "nunomaduro/phpinsights": "^1.14",
+        "pestphp/pest": "^1.0",
+        "pestphp/pest-plugin-laravel": "^1.0",
+        "phpunit/phpunit": "^9.3.3",
+        "vimeo/psalm": "^4.5"
     },
     "config": {
         "optimize-autoloader": true,
