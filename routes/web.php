@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,10 @@ Route::group(['middleware' => 'guest'], function(){
         return view('welcome');
     });
 
+    /* Routes for oAuth */
+    Route::get('auth/{provider}', 'App\Http\Controllers\Auth\LoginController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
+
 });
 
 
@@ -30,3 +35,4 @@ Route::group(['middleware' => 'guest'], function(){
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+

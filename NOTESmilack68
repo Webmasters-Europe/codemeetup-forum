@@ -1,0 +1,92 @@
+1. install socialite packeage
+    composer require laravel/socialite
+
+2. add to config/services.php
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT'),
+    ],
+
+3. add to .env file
+    GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_SECRET
+    GOOGLE_REDIRECT
+
+4.  add web routes
+    Route::get('auth/google', 'Auth\LoginController@redirectToProviderGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
+
+5. create model and migration SocialAuth
+
+6. edit migration social_auth
+    provider_name, provider_id, user_id, foreign(user_id)
+
+7. in Model SocialAuth
+    protected $fillable = ['user_id', 'provider_name', 'provider_id'];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+8. in Model User
+
+    public function socialAuth() {
+        return $this->hasMany(SocialAuth::class);
+    }
+
+9. edit LoginController.php
+    public function redirectToProviderGithub()
+        {
+            return  Socialite::driver('github')->redirect();
+        }
+
+
+        public function handleProviderGithubCallback()
+        {
+           $oauthUser = Socialite::driver('github')->user();
+
+            $oauthUser = $this->findOrCreateUser($oauthUser, 'github');
+            Auth::login($oauthUser, true);
+            return redirect($this->redirectTo);
+        }
+
+        public function findOrCreateUser($oauthuser, $provider) {
+            $existingOAuth = SocialAuth::where('provider_name', $provider)
+                ->where('provider_id', $oauthuser->getId())
+                ->first();
+            if ($existingOAuth) {
+                return $existingOAuth->user;
+            } else {
+                $user = User::whereEmail($oauthuser->getEmail())->first();
+
+                if (!$user) {
+                    $user = User::create([
+                        'username' => $oauthuser->getNickname(),
+                        'email' => $oauthuser->getEmail(),
+                        'email_verified_at' => now(),
+                    ]);
+                }
+                $user->socialAuth()->create([
+                    'provider_name' => $provider,
+                    'provider_id' => $oauthuser->getId(),
+                ]);
+
+                /* create profile */
+                $profile = Profile::create([
+                    'about' => 'Hi, I\'m using WEBMASTERGRAM.',
+                ]);
+                $user->profile()->save($profile);
+                return $user;
+            }
+        }
+
+10. change view
+
+11. Get secrets from google
+    https://console.developers.google.com
+
+
+
+
+
