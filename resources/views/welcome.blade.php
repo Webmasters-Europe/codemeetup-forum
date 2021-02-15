@@ -22,22 +22,27 @@
             font-weight: 700;
         }
 
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
     </style>
 
 </head>
 
-<body style=";">
+<body>
     <div class="container-fluid">
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand">Forum</a>
+                <a class="navbar-brand"><img class="mr-2" src="https://picsum.photos/50" alt="logo image">Forum</a>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </nav>
-        <div class="container-fluid">
+        <div class="container-fluid border my-2 py-2">
             @auth
             <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
             @else
@@ -49,9 +54,9 @@
             @endauth
         </div>
         <div class="container-fluid">
-            <div id="section1" class="row row-cols-4">
+            <div class="row border my-2 py-2">
                 <div class="col-3 col-lg-2">
-                    <img src="https://picsum.photos/60" alt="image">
+                    <img src="https://picsum.photos/40" alt="image">
                 </div>
                 <div class="col-6 col-lg-4">
                     <h1>Section name</h1>
@@ -62,9 +67,9 @@
                         labore et dolore magna aliqua. </p>
                 </div>
             </div>
-            <div id="section2" class="row row-cols-4">
+            <div class="row border my-2 py-2">
                 <div class="col-3 col-lg-2">
-                    <img src="https://picsum.photos/60" alt="image">
+                    <img src="https://picsum.photos/40" alt="image">
                 </div>
                 <div class="col-6 col-lg-4">
                     <h1>Section name</h1>
@@ -75,9 +80,9 @@
                         labore et dolore magna aliqua. </p>
                 </div>
             </div>
-            <div id="section1" class="row row-cols-4">
+            <div class="row border my-2 py-2">
                 <div class="col-3 col-lg-2">
-                    <img src="https://picsum.photos/60" alt="image">
+                    <img src="https://picsum.photos/40" alt="image">
                 </div>
                 <div class="col-6 col-lg-4">
                     <h1>Section name</h1>
@@ -88,9 +93,9 @@
                         labore et dolore magna aliqua. </p>
                 </div>
             </div>
-            <div id="section1" class="row row-cols-4">
+            <div class="row border my-2 py-2">
                 <div class="col-3 col-lg-2">
-                    <img src="https://picsum.photos/60" alt="image">
+                    <img src="https://picsum.photos/40" alt="image">
                 </div>
                 <div class="col-6 col-lg-4">
                     <h1>Section name</h1>
