@@ -29,7 +29,7 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Save username in variable
+     * Save username in variable.
      *
      * @var string
      */
@@ -47,25 +47,26 @@ class LoginController extends Controller
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
-    public function findLoginFieldType() {
+    public function findLoginFieldType()
+    {
         $login = request()->input('login');
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         request()->merge([$fieldType => $login]);
+
         return $fieldType;
     }
 
     /**
-     * Get username property
+     * Get username property.
      *
      * @return string
      */
-    public function username() {
+    public function username()
+    {
         return $this->login;
     }
-
-
 }
