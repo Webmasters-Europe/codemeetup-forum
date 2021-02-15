@@ -8,9 +8,8 @@ jobs:
         steps:
             - uses: actions/checkout@v2
               with:
-                  fetch-depth: 0
-                  ref: ${{ github.event.pull_request.head.ref }}
-                  #ref: ${{ github.head_ref }}
+                  #fetch-depth: 0
+                  ref: ${{ github.head_ref }}
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -21,6 +20,8 @@ jobs:
             - name: Run php-cs-fixer
               run: ./vendor/bin/php-cs-fixer fix --config=.php_cs.dist --allow-risky=yes
 
-            - uses: stefanzweifel/git-auto-commit-action@v4
+            - uses: stefanzweifel/git-auto-commit-action@v4.1.0
               with:
                   commit_message: Apply php-cs-fixer changes
+                  branch: ${{ github.head_ref }}
+       
