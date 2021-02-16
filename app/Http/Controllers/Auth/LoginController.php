@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
 use App\Models\SocialAuth;
 use Laravel\Socialite\Facades\Socialite;
-
-
 
 class LoginController extends Controller
 {
@@ -35,7 +32,7 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Save username in variable
+     * Save username in variable.
      *
      * @var string
      */
@@ -53,33 +50,38 @@ class LoginController extends Controller
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
-    public function findLoginFieldType() {
+    public function findLoginFieldType()
+    {
         $login = request()->input('login');
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         request()->merge([$fieldType => $login]);
+
         return $fieldType;
     }
 
     /**
-     * Get username property
+     * Get username property.
      *
      * @return string
      */
-    public function username() {
+    public function username()
+    {
         return $this->login;
     }
 
 
-    public function redirectToProvider($provider) {
+    public function redirectToProvider($provider)
+    {
         return Socialite::driver($provider)->redirect();
     }
 
 
-    public function handleProviderCallback($provider) {
+    public function handleProviderCallback($provider)
+    {
         try {
             $oauthUser = Socialite::driver($provider)->user();
         } catch (Exception $exeption) {
@@ -90,8 +92,9 @@ class LoginController extends Controller
         return redirect($this->redirectTo);
     }
 
-    
-    public function findOrCreateUser($oauthuser, $provider) {
+
+    public function findOrCreateUser($oauthuser, $provider)
+    {
         $existingOAuth = SocialAuth::where('provider_name', $provider)
             ->where('provider_id', $oauthuser->getId())
             ->first();
@@ -109,9 +112,8 @@ class LoginController extends Controller
             $user->socialAuths()->create([
                 'provider_name' => $provider,
                 'provider_id' => $oauthuser->getId(),
-            ]); 
+            ]);
             return $user;
         }
     }
-
 }

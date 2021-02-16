@@ -1,0 +1,18 @@
+name: phpinsights_laravel
+
+on: [push, pull_request]
+
+jobs:
+  phpinsights:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: shivammathur/setup-php@v2
+      with:
+          php-version: 7.4
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+    - name: Execute phpinsight
+      run: php artisan insights -n --ansi --format=github-action
