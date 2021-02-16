@@ -20,6 +20,10 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/', function () {
         return view('welcome');
     });
+
+    /* Routes for oAuth */
+    Route::get('auth/{provider}', 'App\Http\Controllers\Auth\LoginController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 });
 
 /* Routes for authenticated users */
