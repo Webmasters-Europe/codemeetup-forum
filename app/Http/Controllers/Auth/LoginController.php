@@ -100,17 +100,10 @@ class LoginController extends Controller
         } else {
             $user = User::whereEmail($oauthuser->getEmail())->first();
             if (!$user) {
-                if (!$oauthuser->getNickName()) {
-                    $oauthuser->nickname = $oauthuser->getName();
-                }
-                if (!$oauthuser->getName()) {
-                    $oauthuser->name = $oauthuser->getNickName();
-                }
                 $user = User::create([
-                    'name' => $oauthuser->getName(),
-                    'username' => $oauthuser->getNickname() ?? '',
+                    'name' => $oauthuser->getName() ?? $oauthuser->getNickname() ?? '',
+                    'username' => $oauthuser->getNickname() ?? $oauthuser->getName() ?? '',
                     'email' => $oauthuser->getEmail(),
-                    'email_verified_at' => now(),
                 ]);
             }
             $user->socialAuths()->create([
