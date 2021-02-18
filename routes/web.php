@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+/* Routes for authentication and email verification */
+Auth::routes(['verify' => true]);
 
 /* Routes for guests */
 Route::group(['middleware' => 'guest'], function () {
@@ -26,7 +28,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 });
 
-/* Routes for authenticated users */
-Route::group(['middleware' => 'auth'], function () {
+/* Routes for authenticated and verified users */
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
