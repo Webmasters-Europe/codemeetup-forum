@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     </form>
-                    <a href="auth/google">Login with Google</a>
+                    <a href="auth/google">Login with Google</a> | <a href="auth/github">Login with Github</a>
                 </div>
             </div>
         </div>
