@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
 use App\Models\SocialAuth;
+use Illuminate\Auth\Events\Registered;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -83,7 +84,7 @@ class LoginController extends Controller
     public function handleProviderCallback($provider)
     {
         try {
-            $oauthUser = Socialite::driver($provider)->user();
+            $oauthUser = Socialite::driver($provider)->stateless()->user();
         } catch (Exception $exeption) {
             return redirect('/login');
         }
@@ -113,6 +114,7 @@ class LoginController extends Controller
                 'provider_name' => $provider,
                 'provider_id' => $oauthuser->getId(),
             ]);
+            event(new Registered($user));
             return $user;
         }
     }
