@@ -8,7 +8,6 @@ jobs:
         steps:
             - uses: actions/checkout@v2
               with:
-                  #fetch-depth: 0
                   ref: ${{ github.head_ref }}
 
             - name: Setup PHP
@@ -24,4 +23,3 @@ jobs:
               with:
                   commit_message: Apply php-cs-fixer changes
                   branch: ${{ github.head_ref }}
-       
