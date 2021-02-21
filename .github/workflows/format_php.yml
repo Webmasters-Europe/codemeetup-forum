@@ -1,6 +1,9 @@
 name: Format (PHP)
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+     - "main"
 
 jobs:
     php-cs-fixer:
@@ -21,4 +24,3 @@ jobs:
             - uses: stefanzweifel/git-auto-commit-action@v4.1.0
               with:
                   commit_message: Apply php-cs-fixer changes
-                  branch: ${{ github.head_ref }}
