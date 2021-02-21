@@ -1,14 +1,18 @@
 name: Format (prettier)
 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+     - "main"
 
 jobs:
     prettier:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-              # with:
-              #     ref: ${{ github.head_ref }}
+              with:
+                  ref: ${{ github.head_ref }}
 
             - name: Install
               run: yarn install
@@ -19,3 +23,4 @@ jobs:
             - uses: stefanzweifel/git-auto-commit-action@v4
               with:
                   commit_message: Apply prettier changes
+                  # branch: ${{ github.head_ref }}
