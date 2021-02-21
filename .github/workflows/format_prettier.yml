@@ -1,18 +1,18 @@
 name: Format (prettier)
 
 on:
-  pull_request:
   push:
     branches:
      - "main"
+  pull_request:
 
 jobs:
     prettier:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-              with:
-                  ref: ${{ github.head_ref }}
+              # with:
+              #     ref: ${{ github.head_ref }}
 
             - name: Install
               run: yarn install

@@ -1,18 +1,18 @@
 name: Format (PHP)
 
 on:
-  pull_request:
   push:
     branches:
      - "main"
+  pull_request:
 
 jobs:
     php-cs-fixer:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-              with:
-                  ref: ${{ github.head_ref }}
+              # with:
+              #     ref: ${{ github.head_ref }}
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
