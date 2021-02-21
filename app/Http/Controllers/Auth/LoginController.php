@@ -85,7 +85,7 @@ class LoginController extends Controller
     {
         try {
             $oauthUser = Socialite::driver($provider)->stateless()->user();
-        } catch (Exception $exeption) {
+        } catch (\Exception $exeption) {
             return redirect('/login');
         }
         $oauthUser = $this->findOrCreateUser($oauthUser, $provider);

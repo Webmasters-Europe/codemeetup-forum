@@ -1,6 +1,9 @@
 name: Format (prettier)
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+     - "main"
 
 jobs:
     prettier:
@@ -19,3 +22,4 @@ jobs:
             - uses: stefanzweifel/git-auto-commit-action@v4
               with:
                   commit_message: Apply prettier changes
+                  # branch: ${{ github.head_ref }}
