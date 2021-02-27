@@ -21,17 +21,15 @@ Auth::routes(['verify' => true]);
 
 /* Routes for guests */
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
 
     /* Routes for oAuth */
     Route::get('auth/{provider}', 'App\Http\Controllers\Auth\LoginController@redirectToProvider');
     Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 });
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 /* Routes for authenticated and verified users */
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('posts', PostController::class);
 });
