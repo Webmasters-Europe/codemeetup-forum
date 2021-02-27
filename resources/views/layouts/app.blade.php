@@ -32,8 +32,10 @@
             font-size: 1.5rem;
             font-weight: 700;
         }
-
+        @stack('styles')
     </style>
+ 
+        
     
 </head>
 <body>
@@ -46,7 +48,7 @@
    
         <x-sidebar></x-sidebar>
         <x-status></x-status>
-        <x-error></x-error>
+        <x-errors></x-errors>
             @yield('content')
     
     </div>
