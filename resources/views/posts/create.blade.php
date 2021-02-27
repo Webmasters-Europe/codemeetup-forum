@@ -10,7 +10,7 @@
 @section('content')
 
 
-<div class="col-lg-10 border my-2 py-2">
+<div class="col-lg-9 border my-2 py-2">
                                          
                     <form action="{{ route('posts.store') }}" method="POST" class="w-50">
                         @csrf
