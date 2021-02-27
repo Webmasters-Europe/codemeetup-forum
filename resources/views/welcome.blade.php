@@ -14,7 +14,7 @@
                 <h1>{{$category->name}}</h1>
             </div>
             <div class="col-3 col-lg-2">
-                666
+                {{$category->posts_count}}
             </div>
             <div class="col-12 col-lg-4">
                 <p>
