@@ -1,4 +1,4 @@
-<div class="col-lg-2 border my-2 py-2">
+<div class="col-lg-3 border my-2 py-2">
        
     @auth
     <a href="{{ url('/') }}" class="text-sm text-gray-700 underline">Home</a>
@@ -62,8 +62,8 @@
                 
             </div>
         </form>
-            <a class="btn btn-block btn-outline-dark my-2 p-2" href="auth/google">Login with Google</a> 
-            <a class="btn btn-block btn-outline-dark my-2 p-2" href="auth/github"> Login with Github</a> 
+            <a class="btn btn-block btn-outline-dark my-2 p-2" href="auth/google"><img src="{{ asset('icons/google.png') }}" alt="google-icon"> Login with Google</a> 
+            <a class="btn btn-block btn-outline-dark my-2 p-2" href="auth/github"><img src="{{ asset('icons/github.png') }}" alt="github-icon"> Login with Github</a> 
     </div>
 
     @if (Route::has('register'))
