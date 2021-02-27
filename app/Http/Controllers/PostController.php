@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
@@ -26,7 +27,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -38,8 +41,8 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         auth()->user()->posts()->create($request->all());
-    
-        return redirect()->route('home');
+
+        return redirect()->route('home')->withStatus('Post successfully created.');
     }
 
     /**
@@ -61,7 +64,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        
+
     }
 
     /**
