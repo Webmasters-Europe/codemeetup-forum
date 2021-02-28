@@ -22,8 +22,6 @@ class PostController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -36,13 +34,12 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request)
     {
         auth()->user()->posts()->create($request->all());
 
-        return redirect()->route('home')->withStatus('Post successfully created.');
+        return redirect('category/' . $request->get('category_id'))->withStatus('Post successfully created.');
     }
 
     /**
