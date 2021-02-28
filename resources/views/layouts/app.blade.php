@@ -42,7 +42,7 @@
             <div class="container-fluid m-0 p-0 h-100">
                 <div class="row d-flex flex-lg-row-reverse no-gutters h-100">
                     <x-sidebar></x-sidebar>
-                    <div class="col-lg-9 my-2 py-2">
+                    <div class="col-lg-9 px-4 my-2 py-2">
                         
                         <x-status></x-status>
                         <x-errors></x-errors>
