@@ -42,12 +42,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function socialAuths() {
+    public function socialAuths()
+    {
         return $this->hasMany(SocialAuth::class);
     }
 
-    public function posts() {
+    public function posts()
+    {
         return $this->hasMany(Post::class);
     }
-
 }
