@@ -1,12 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-lg-9 px-4">
+
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Category name</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $post->title }}</li>
+        </ol>
+        </nav>
+
         <h1>{{ $post->title }}</h1>
         <div>
             {{ $post->content }}
         </div>
         <div>by {{ $post->user->username }}</div>
         <div>created at {{ $post->created_at->format('d.m.Y H:i:s') }}</div>
-    </div>
+
 @endsection
