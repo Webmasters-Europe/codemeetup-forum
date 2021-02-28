@@ -1,14 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Service;
 
 trait Searchable
 {
     public static function search($search, $columns)
     {
-        return $search;
-        // if ($search) {
-        //     return $this->query()->where($columns, 'like', "%{$search}%")->get();
-        // }
+        $query = self::query();
+        foreach ($columns as $key => $column) {
+            $key == 0 ? $query = $query->where($column, 'like', "%{$search}%") : $query = $query->orWhere($column, 'like', "%{$search}%");
+        }
+
+        return $query->get();
     }
 }

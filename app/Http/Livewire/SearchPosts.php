@@ -11,9 +11,8 @@ class SearchPosts extends Component
 
     public function render()
     {
-        return view('livewire.search-posts');
-        // return view('livewire.search-posts', [
-        //     'posts' => Post::search($this->search, ['title', 'content']),
-        // ]);
+        return view('livewire.search-posts', [
+            'posts' => Post::search($this->search, ['title', 'content']),
+        ]);
     }
 }

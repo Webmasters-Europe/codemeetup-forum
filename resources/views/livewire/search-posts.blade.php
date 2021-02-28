@@ -1,4 +1,4 @@
-{{-- <div class="d-flex mx-4 my-2">
+<div class="d-flex mx-4 my-2">
     <div @click.away="opensearch = false" x-data="{ opensearch: false }">
         <div @click="opensearch= true">
             <input class="form-control me-2" type="search" aria-label="Search" id="search" wire:model="search"
@@ -9,7 +9,7 @@
             <ul>
                 @forelse($posts as $post)
                 <li>
-                    <a href="{{ route('posts.show', $post)}}"> {{$post->title}} {{$post->content->limit(30)}}</a>
+                    <a href="{{ route('posts.show', $post)}}"> {{$post->title}} {{$post->content}}</a>
                 </li>
                 @empty
                 <li>
@@ -20,5 +20,4 @@
         </div>
         @endisset
     </div>
-</div> --}}
-TEST
+</div>

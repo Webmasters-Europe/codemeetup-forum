@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Searchable;
+use App\Service\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
