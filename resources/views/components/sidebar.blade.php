@@ -6,13 +6,13 @@
 
         <form action="{{ route('logout') }}" method="POST" class="w-50">
             @csrf
-            <button type="submit" class="btn btn-dark btn-lg ml-2">Logout</button>
+            
+                <button type="submit" class="btn btn-dark btn-lg btn-block">Logout</button>
+            
         </form>
 
     @else
     <div>
-
-        <x-errors/>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

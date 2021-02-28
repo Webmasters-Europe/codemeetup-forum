@@ -19,7 +19,6 @@
         "laravel/ui": "^3.2"
     },
     "require-dev": {
-        "enlightn/enlightn": "^1.13",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^2.18",
