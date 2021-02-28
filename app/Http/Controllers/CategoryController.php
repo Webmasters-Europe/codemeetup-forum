@@ -42,11 +42,11 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
     {
-        //
+        $posts = $category->posts()->orderBy('created_at', 'desc')->get();
+        return view('categories.show', compact('category', 'posts'));
     }
 
     /**
