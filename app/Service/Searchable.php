@@ -19,7 +19,7 @@ trait Searchable
             return $query->get();
         }
         if (is_string($columns)) {
-            return self::where($columns, 'like', "%{$search}%");
+            return self::where($columns, 'like', "%{$search}%")->get();
         }
     }
 }
