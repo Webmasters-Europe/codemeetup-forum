@@ -34,6 +34,6 @@
 
               <button type="submit" class="btn btn-dark btn-lg ml-2">Create post</button>  
           </form>                      
-      </div>
+      
 @endsection
 
