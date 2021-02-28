@@ -2,8 +2,6 @@
 
 @section('content')
 
-    <div class="col-lg-9 px-4">
-
         @if (count($categories) === 0)
             <div class="row border my-2 p-2 no-gutters">
                 No categories found.
@@ -30,6 +28,5 @@
                 </div>
             </div>
         @endforeach
-    </div>
 
 @endsection
