@@ -10,7 +10,7 @@ class Post extends Model
 {
     use HasFactory, Searchable;
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'user_id', 'category_id'];
 
     protected $dates = ['deleted_at'];
 
@@ -24,7 +24,7 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function replies()
+    public function reply()
     {
         return $this->hasMany(PostReply::class);
     }

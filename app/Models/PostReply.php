@@ -9,7 +9,7 @@ class PostReply extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content'];
+    protected $fillable = ['content', 'user_id', 'post_id'];
 
     public function user()
     {
@@ -23,7 +23,7 @@ class PostReply extends Model
 
     public function reply()
     {
-        return $this->hasMany(self::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
     public function recursiveReplies()
