@@ -11,6 +11,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <!-- Styles -->
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -33,17 +34,18 @@
                 font-size: 2rem;
                 font-weight: 700;
             }
-            @stack('styles')
         </style>
+        @stack('styles')
+        @livewireStyles
     </head>
     <body class="h-100">
         <div id="app"  class="h-100">
-            <x-header></x-header>
+            <x-header><livewire:search-posts /></x-header>
             <div class="container-fluid m-0 p-0 h-100">
                 <div class="row d-flex flex-lg-row-reverse no-gutters h-100">
                     <x-sidebar></x-sidebar>
                     <div class="col-lg-9 px-4 my-2 py-2">
-                        
+
                         <x-status></x-status>
                         <x-errors></x-errors>
                         @yield('content')
@@ -51,5 +53,6 @@
                 </div>
             </div>
         </div>
+        @livewireScripts
     </body>
 </html>
