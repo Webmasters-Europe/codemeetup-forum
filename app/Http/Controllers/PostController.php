@@ -50,8 +50,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $replies = $post->reply()->get();
-        return view('posts.show', compact('post', 'replies'));
+        return view('posts.show', compact('post'));
     }
 
     /**

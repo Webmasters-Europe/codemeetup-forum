@@ -39,18 +39,7 @@ class PostReplyController extends Controller
      */
     public function store(PostReplyRequest $request, Post $post)
     {
-
-        
-        $postReply = PostReply::create([
-            'content' => $request->content,
-            'user_id' => auth()->user()->id,
-            'post_id' => $post->id,
-            'parent_id' => $post->parent_id,
-        ]);
-        
- 
-
-        return redirect()->back()->withStatus('Postreply successfully created.');
+        //
     }
 
     /**

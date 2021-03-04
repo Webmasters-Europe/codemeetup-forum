@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Post;
-use App\Models\User;
 use App\Models\PostReply;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,8 +23,8 @@ class PostReplyFactory extends Factory
     {
         return [
             'content' => $this->faker->text(150),
-            'user_id' => User::all()->random()->id,
-            'post_id' => Post::all()->random()->id,
+            'user_id' => $this->faker->numberBetween(1,20),
+            'post_id' => $this->faker->numberBetween(1,100),
             'parent_id' => $this->faker->optional()->numberBetween(1,100),
         ];
     }
