@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostReplyController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -30,11 +31,11 @@ Route::group(['middleware' => 'guest'], function () {
 
 /* Routes for authenticated and verified users */
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
+    Route::resource('/posts', PostController::class);
+    Route::resource('/replies', PostReplyController::class)->only(['show']);
+    Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, 'store'])->name('replies.store');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
 
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');

@@ -16,6 +16,6 @@ class CategorySeeder extends Seeder
     {
         Category::create(['name' => 'Katzen', 'description' => 'Für Thomas']);
         Category::create(['name' => 'Schneeglöckchen', 'description' => 'Für Michael']);
-        Category::factory(9)->create();
+        Category::factory(8)->create();
     }
 }
