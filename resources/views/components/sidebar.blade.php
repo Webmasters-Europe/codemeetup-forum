@@ -143,7 +143,8 @@
     </div>
 
     @if (Route::has('register'))
-    <a id="toggle-login-reg" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm not registered yet</a>
+    <a id="to-registration" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm not registered yet</a>
+    <a hidden id="to-login" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm already registered</a>
     @endif
     
     @endauth
