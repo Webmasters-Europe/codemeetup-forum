@@ -12,9 +12,11 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-        <!-- Styles -->
+        <script src="{{ asset('js/toggleLoginRegistration.js') }}"></script>
 
+        <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -23,6 +25,10 @@
         <style>
             body {
                 font-family: 'Nunito Sans', sans-serif;
+            }
+
+            a {
+                cursor: pointer;
             }
 
             h1 {
