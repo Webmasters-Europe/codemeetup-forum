@@ -19,6 +19,7 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 /* Routes for authentication and email verification */
+
 Auth::routes(['verify' => true]);
 
 /* Routes for guests */
@@ -30,11 +31,10 @@ Route::group(['middleware' => 'guest'], function () {
 
 /* Routes for authenticated and verified users */
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
+    Route::resource('/posts', PostController::class);
+    Route::resource('/replies', PostReplyController::class)->only(['show']);
+    Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, 'store'])->name('replies.store');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
-
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');

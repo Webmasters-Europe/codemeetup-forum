@@ -14,6 +14,9 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $withCount = ['reply'];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
