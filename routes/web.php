@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
     Route::get('/replies/create', [PostReplyController::class, 'create'])->name('replies.create');
-    Route::post('/replies/store/{post}', [PostReplyController::class, 'store'])->name('replies.store');
+    Route::post('/replies/store/{post}/{reply?}', [PostReplyController::class, 'store'])->name('replies.store');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

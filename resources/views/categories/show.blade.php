@@ -27,7 +27,7 @@
                         by {{$post->user->username}} at {{ $post->created_at->format('d.m.Y H:i:s') }}
                     </div>
                     <div class="col-3 col-lg-2">
-                        # replies
+                        {{$post->reply_count}} Replies
                     </div>
                 </div>
             @endforeach
