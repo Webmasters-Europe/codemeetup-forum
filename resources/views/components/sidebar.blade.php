@@ -10,8 +10,7 @@
             </div>
         </div>
 
-        //Backend: add link to views/userprofile/showuserprofile.blade.php for this button:
-        <button class="btn btn-dark btn-block m-0 mb-4 py-2">Show profile details</button>
+        <a href="{{ route('users.show', auth()->user() ) }}" type="button" class="btn btn-dark btn-block m-0 mb-4 py-2">Show profile details</a>
 
         <form action="{{ route('logout') }}" method="POST" class="w-100">
             @csrf
