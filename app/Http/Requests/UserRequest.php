@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -27,9 +27,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,'.$this->user->id,
-            'email' => 'required|string|email|max:255|unique:users,email,'.$this->user->id
+            'email' => 'required|string|email|max:255|unique:users,email,'.$this->user->id,
         ];
     }
 }
-
-

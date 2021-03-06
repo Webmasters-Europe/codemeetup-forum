@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('verified');
     }
-
-
 
     /**
      * Display a listing of the resource.
@@ -80,6 +77,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->update($request->all());
+
         return redirect()->route('home')->withStatus('Profile successfully updated.');
     }
 
