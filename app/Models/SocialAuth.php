@@ -9,7 +9,7 @@ class SocialAuth extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['provider_name', 'provider_id', 'user_id'];
+    protected $fillable = ['provider_name', 'provider_id'];
 
     public function user()
     {
