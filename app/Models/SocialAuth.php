@@ -11,7 +11,8 @@ class SocialAuth extends Model
 
     protected $fillable = ['provider_name', 'provider_id', 'user_id'];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

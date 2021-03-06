@@ -1,10 +1,19 @@
 <div class="col-lg-3 my-2 py-2 px-4">
 
     @auth
-        <a href="{{ url('/') }}" class="text-sm text-gray-700 underline">Home</a>
-        <a href="{{ route('posts.create') }}">Create Post</a>
+        
+        <div id="user-profile" class="d-flex justify-content-between mb-4 py-2">
+            <img src="https://picsum.photos/100/100" alt="userphoto">
+            <div id="user-profile-text">
+                <p>{{ auth()->user()->name }}</p>
+                <p>{{ auth()->user()->username }}</p>
+            </div>
+        </div>
 
-        <form action="{{ route('logout') }}" method="POST" class="w-50">
+        //Backend: add link to views/userprofile/showuserprofile.blade.php for this button:
+        <button class="btn btn-dark btn-block m-0 mb-4 py-2">Show profile details</button>
+
+        <form action="{{ route('logout') }}" method="POST" class="w-100">
             @csrf
 
             <button type="submit" class="btn btn-dark btn-lg btn-block">Logout</button>
@@ -165,6 +174,9 @@
                 already registered</a>
         @endif
 
+    <a id="to-registration" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm not registered yet</a>
+    <a hidden id="to-login" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm already registered</a>
+    
     @endauth
 
 </div>

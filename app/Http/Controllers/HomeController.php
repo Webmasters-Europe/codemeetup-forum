@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('name')->get();
+        $categories = Category::orderBy('name')->paginate(10);
 
         return view('welcome', compact('categories'));
     }

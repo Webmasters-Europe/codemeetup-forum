@@ -16,7 +16,6 @@ class Post extends Model
 
     protected $withCount = ['reply'];
 
-
     public function user()
     {
         return $this->belongsTo(User::class);

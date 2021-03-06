@@ -48,8 +48,8 @@ class PostReplyController extends Controller
      */
     public function store(PostReplyRequest $request, Post $post, PostReply $postReply)
     {
+        if (! $postReply) {
 
-        if(!$postReply) {
             $post->reply()->create([
                 'content' => $request->content,
                 'user_id' => auth()->user()->id,
@@ -60,8 +60,7 @@ class PostReplyController extends Controller
                 'user_id' => auth()->user()->id,
                 'post_id' => $post->id,
             ]);
-        };
-
+        }
 
         return redirect()->back()->withStatus('Postreply successfully created.');
     }

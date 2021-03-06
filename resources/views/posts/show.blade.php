@@ -92,6 +92,9 @@
                         No replies found for this post.
                     </div>
                 @endforelse
-            </div> <!-- end show PostReplies -->
+
+                {{ $replies->links() }}
+
+           </div> <!-- end show PostReplies -->
 
 @endsection
