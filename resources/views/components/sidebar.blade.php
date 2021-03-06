@@ -5,8 +5,8 @@
         <div id="user-profile" class="d-flex justify-content-between mb-4 py-2">
             <img src="https://picsum.photos/100/100" alt="userphoto">
             <div id="user-profile-text">
-                <p>Name: Max Mustermann</p>
-                <p>Username: max-mustermann</p>
+                <p>{{ auth()->user()->name }}</p>
+                <p>{{ auth()->user()->username }}</p>
             </div>
         </div>
 
