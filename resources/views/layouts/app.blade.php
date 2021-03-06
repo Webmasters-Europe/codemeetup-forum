@@ -16,7 +16,7 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -51,7 +51,6 @@
                 <div class="row d-flex flex-lg-row-reverse no-gutters h-100">
                     <x-sidebar></x-sidebar>
                     <div class="col-lg-9 px-4 my-2 py-2">
-
                         <x-status></x-status>
                         <x-errors></x-errors>
                         @yield('content')

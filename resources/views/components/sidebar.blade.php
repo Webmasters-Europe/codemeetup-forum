@@ -2,7 +2,7 @@
 
     @auth
         <a href="{{ url('/') }}" class="text-sm text-gray-700 underline">Home</a>
-        <a href="{{ route('posts.create') }}">Create Post</a>
+       
 
         <form action="{{ route('logout') }}" method="POST" class="w-50">
             @csrf
@@ -165,6 +165,9 @@
                 already registered</a>
         @endif
 
+    <a id="to-registration" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm not registered yet</a>
+    <a hidden id="to-login" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm already registered</a>
+    
     @endauth
 
 </div>

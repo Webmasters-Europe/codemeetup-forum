@@ -9,7 +9,12 @@
         </ol>
     </nav>
 
+
     <h1>{{$category->name}}</h1>
+
+     @auth
+     <a class="btn btn-dark my-2" href="{{ route('posts.create') }}">Create Post</a>
+     @endauth
 
     @forelse($posts as $post)
         <div class="row border my-2 p-2 no-gutters">

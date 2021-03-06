@@ -79,7 +79,9 @@
                     </div>
                 @endforelse
 
+
                 {{ $replies->links() }}
-            </div> <!-- end show PostReplies -->
+
+           </div> <!-- end show PostReplies -->
 
 @endsection
