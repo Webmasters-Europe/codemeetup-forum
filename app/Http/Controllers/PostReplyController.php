@@ -8,6 +8,15 @@ use App\Models\PostReply;
 
 class PostReplyController extends Controller
 {
+
+    public function __construct() {
+
+        $this->middleware('auth', ['except' => ['index','show']]);
+
+        $this->middleware('verified', ['except' => ['index','show']]);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +49,7 @@ class PostReplyController extends Controller
     public function store(PostReplyRequest $request, Post $post, PostReply $postReply)
     {
         if (! $postReply) {
+
             $post->reply()->create([
                 'content' => $request->content,
                 'user_id' => auth()->user()->id,

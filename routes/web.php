@@ -29,12 +29,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderCallback']);
 });
 
-/* Routes for authenticated and verified users */
-Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::resource('/posts', PostController::class);
-    Route::resource('/replies', PostReplyController::class)->only(['show']);
-    Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, 'store'])->name('replies.store');
-});
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, 'store'])->name('replies.store');
+Route::resource('/posts', PostController::class);
 Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');

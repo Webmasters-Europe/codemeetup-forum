@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    public function __construct() {
+
+        $this->middleware('auth', ['except' => ['index','show']]);
+
+        $this->middleware('verified', ['except' => ['index','show']]);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +35,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::all()->sortBy('name');
 
         return view('posts.create', compact('categories'));
     }
