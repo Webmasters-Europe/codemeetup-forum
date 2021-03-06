@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\PostReplyController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -20,12 +19,13 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 /* Routes for authentication and email verification */
+
 Auth::routes(['verify' => true]);
 
 /* Routes for guests */
 Route::group(['middleware' => 'guest'], function () {
     /* Routes for oAuth */
-    Route::get('auth/{provider}', [LoginController::class, 'redirectToProvider']);
+    Route::get('auth/{provider}', [LoginController::class, 'redirectToProvider'])->name('oauth');
     Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderCallback']);
 });
 
@@ -38,4 +38,3 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
-
