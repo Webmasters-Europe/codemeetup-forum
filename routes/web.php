@@ -25,7 +25,7 @@ Auth::routes(['verify' => true]);
 /* Routes for guests */
 Route::group(['middleware' => 'guest'], function () {
     /* Routes for oAuth */
-    Route::get('auth/{provider}', [LoginController::class, 'redirectToProvider']);
+    Route::get('auth/{provider}', [LoginController::class, 'redirectToProvider'])->name('oauth');
     Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderCallback']);
 });
 
