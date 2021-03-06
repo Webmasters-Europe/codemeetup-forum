@@ -10,7 +10,7 @@ class Post extends Model
 {
     use HasFactory, Searchable;
 
-    protected $fillable = ['title', 'content', 'user_id', 'category_id'];
+    protected $fillable = ['title', 'content'];
 
     protected $dates = ['deleted_at'];
 

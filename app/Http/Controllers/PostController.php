@@ -45,7 +45,11 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = auth()->user()->posts()->create($request->all());
+        $post = new Post($request->all());
+
+        $post->category()->associate($request->category_id);
+
+        auth()->user()->posts()->save($post);
 
         return redirect()->route('category.show', $post->category->id)->withStatus('Post successfully created.');
     }
