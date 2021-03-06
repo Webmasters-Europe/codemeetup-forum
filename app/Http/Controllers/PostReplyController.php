@@ -42,11 +42,11 @@ class PostReplyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function store(PostReplyRequest $request, Post $post, PostReply $postReply)
     {
-        if (! $postReply) {
+        if (!$postReply) {
             $post->reply()->create([
                 'content' => $request->content,
                 'user_id' => auth()->user()->id,
