@@ -24,7 +24,7 @@
                 </a>
             </div>
             <div class="col-3 col-lg-4">
-                by {{$post->user->username}} at {{ $post->created_at->format('d.m.Y H:i:s') }}
+                by <a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a> at {{ $post->created_at->format('d.m.Y H:i:s') }}
             </div>
             <div class="col-3 col-lg-2">
                 {{$post->reply_count}} Replies

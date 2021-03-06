@@ -14,7 +14,7 @@
         <div>
             {{ $post->content }}
         </div>
-        <div>by {{ $post->user->username }}</div>
+        <div>by <a href=" {{ route('users.show', $post->user) }}">{{ $post->user->username }}</a></div>
         <div>created at {{ $post->created_at->format('d.m.Y H:i:s') }}</div>
 
         @auth
