@@ -50,7 +50,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $replies = $post->reply;
+        $replies = $post->reply()->paginate(3);
         return view('posts.show', compact('post', 'replies'));
     }
 
