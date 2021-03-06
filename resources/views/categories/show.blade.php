@@ -9,6 +9,10 @@
         </ol>
         </nav>
 
+        @auth
+        <a class="btn btn-dark my-2" href="{{ route('posts.create') }}">Create Post</a>
+        @endauth
+
         <h1>{{$category->name}}</h1>
 
         @if (count($posts) === 0)
