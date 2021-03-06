@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Post;
-use App\Models\User;
 use App\Models\PostReply;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostReplyFactory extends Factory
@@ -30,6 +30,7 @@ class PostReplyFactory extends Factory
             'parent_id' => $this->getParent(),
         ];
     }
+
     private function getParent()
     {
         $posts = Post::all();
@@ -38,6 +39,7 @@ class PostReplyFactory extends Factory
         if ($parents->isEmpty()) {
             return Post::factory();
         }
+
         return $parents->random();
     }
 }

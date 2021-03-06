@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use App\Models\User;
 use App\Models\SocialAuth;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -74,12 +74,10 @@ class LoginController extends Controller
         return $this->login;
     }
 
-
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
     }
-
 
     public function handleProviderCallback($provider)
     {
@@ -90,9 +88,9 @@ class LoginController extends Controller
         }
         $oauthUser = $this->findOrCreateUser($oauthUser, $provider);
         auth()->login($oauthUser, true);
+
         return redirect($this->redirectTo);
     }
-
 
     public function findOrCreateUser($oauthuser, $provider)
     {
@@ -103,7 +101,7 @@ class LoginController extends Controller
             return $existingOAuth->user;
         } else {
             $user = User::whereEmail($oauthuser->getEmail())->first();
-            if (!$user) {
+            if (! $user) {
                 $user = User::create([
                     'name' => $oauthuser->getName() ?? $oauthuser->getNickname() ?? '',
                     'username' => $oauthuser->getNickname() ?? $oauthuser->getName() ?? '',
@@ -115,6 +113,7 @@ class LoginController extends Controller
                 'provider_id' => $oauthuser->getId(),
             ]);
             event(new Registered($user));
+
             return $user;
         }
     }
