@@ -10,7 +10,7 @@ class HomeTest extends DuskTestCase
 {
     public function testElementsPresent()
     {
-        $this->browse(function (Browser $browser){
+        $this->browse(function (Browser $browser) {
 
             $browser->visit('/')
                 ->assertTitle('Codemeetup-Forum')
@@ -30,7 +30,7 @@ class HomeTest extends DuskTestCase
 
     public function testToggleLoginAndRegistrationForms()
     {
-        $this->browse(function (Browser $browser){
+        $this->browse(function (Browser $browser) {
 
             $browser->visit('/');
 
@@ -49,6 +49,38 @@ class HomeTest extends DuskTestCase
                 ->assertVisible('#password')
                 ->assertMissing('#name')
                 ->assertMissing('#username');
+        });
+    }
+
+    public function testClickForgotYourPasswordLink()
+    {
+        $this->browse(function (Browser $browser) {
+
+            $browser->visit('/');
+
+            $browser->click('@forgot-password')
+                ->assertPathIs('/password/reset')
+                ->assertSee('Send Password Reset Link')
+                ->assertVisible('#login')
+                ->assertVisible('#password')
+                ->assertPresent('#email');
+
+        });
+    }
+
+    public function testLoginWithInvalidData()
+    {
+        $this->browse(function (Browser $browser) {
+
+            $browser->visit('/');
+
+            $this->browse(function ($browser) {
+                $browser->type('login', 'John Doe')
+                    ->type('password', '123')
+                    ->click('@login-button')
+                    ->assertSee('These credentials do not match our records.');
+            });
+
         });
     }
 }
