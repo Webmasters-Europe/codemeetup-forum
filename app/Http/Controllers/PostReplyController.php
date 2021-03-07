@@ -54,6 +54,7 @@ class PostReplyController extends Controller
 
         if ($postReply) {
             $postReply->reply()->save($newPostReply);
+
             return redirect()->back()->withStatus('Postreply successfully created.');
         }
 
