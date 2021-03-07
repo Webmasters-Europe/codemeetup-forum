@@ -85,3 +85,21 @@ Optional: If you want to refresh all DB tables (this deletes all data stored bef
 # php artisan view:clear
 ```
 
+### How to run the Dusk browser tests?
+
+Before running the tests for the first time you might want to install a Chrome driver:
+
+```
+# php artisan dusk:chrome-driver
+```
+
+To run all Dusk tests:
+
+```
+# php artisan dusk
+```
+
+If you want to switch between headless and non-headless mode, check out the
+driver() method within tests/DuskTestCase.php.
+
+
