@@ -1,7 +1,7 @@
 <div class="col-lg-3 my-2 py-2 px-4">
 
     @auth
-        
+
         <div id="user-profile" class="d-flex justify-content-between mb-4 py-2">
             <img src="https://picsum.photos/100/100" alt="userphoto">
             <div id="user-profile-text">
@@ -166,16 +166,9 @@
 
         </div>
 
-        @if (Route::has('register'))
-            <a id="to-registration" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm
-                not registered yet</a>
-            <a hidden id="to-login" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm
-                already registered</a>
-        @endif
-
     <a id="to-registration" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm not registered yet</a>
     <a hidden id="to-login" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm already registered</a>
-    
+
     @endauth
 
 </div>
