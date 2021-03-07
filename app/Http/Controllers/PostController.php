@@ -19,7 +19,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
@@ -45,7 +45,11 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = auth()->user()->posts()->create($request->all());
+        $post = new Post($request->all());
+
+        $post->category()->associate($request->category_id);
+
+        auth()->user()->posts()->save($post);
 
         return redirect()->route('category.show', $post->category->id)->withStatus('Post successfully created.');
     }
@@ -54,7 +58,7 @@ class PostController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function show(Post $post)
     {

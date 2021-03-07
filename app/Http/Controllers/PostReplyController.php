@@ -42,22 +42,22 @@ class PostReplyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function store(PostReplyRequest $request, Post $post, PostReply $postReply)
     {
-        if (! $postReply) {
-            $post->reply()->create([
-                'content' => $request->content,
-                'user_id' => auth()->user()->id,
-            ]);
-        } else {
-            $postReply->reply()->create([
-                'content' => $request->content,
-                'user_id' => auth()->user()->id,
-                'post_id' => $post->id,
-            ]);
+        $newPostReply = new PostReply(['content' => $request->content]);
+
+        $newPostReply->user()->associate(auth()->user());
+
+        $newPostReply->post()->associate($post);
+
+        if ($postReply) {
+            $postReply->reply()->save($newPostReply);
+            return redirect()->back()->withStatus('Postreply successfully created.');
         }
+
+        $newPostReply->save();
 
         return redirect()->back()->withStatus('Postreply successfully created.');
     }
