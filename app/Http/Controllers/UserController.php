@@ -78,7 +78,7 @@ class UserController extends Controller
     {
         if ($request->password) {
             $request->merge([
-                'password' => bcrypt($request->password)
+                'password' => bcrypt($request->password),
             ]);
         }
         $user->update($request->all());

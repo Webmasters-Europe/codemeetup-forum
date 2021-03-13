@@ -24,8 +24,7 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-
-        $validation_array =  [
+        $validation_array = [
             'name' => 'sometimes|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,'.$this->user->id,
             'email' => 'required|string|email|max:255|unique:users,email,'.$this->user->id,
