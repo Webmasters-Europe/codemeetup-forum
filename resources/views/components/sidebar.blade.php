@@ -3,7 +3,11 @@
     @auth
 
         <div id="user-profile" class="d-flex justify-content-between mb-4 py-2">
-            <img src="https://picsum.photos/100/100" alt="userphoto">
+            @if (auth()->user()->avatar)
+                <img src="{{ asset('storage/'.auth()->user()->avatar) }}" width="100px" alt="Avatar von  {{ auth()->user()->username }}">
+            @else
+                <img src="{{ asset('icons/blank-profile-picture.png') }}" width="100px" alt="Avatar von  {{ auth()->user()->username }}">
+            @endif
             <div id="user-profile-text">
                 <p>{{ auth()->user()->name }}</p>
                 <p>{{ auth()->user()->username }}</p>
