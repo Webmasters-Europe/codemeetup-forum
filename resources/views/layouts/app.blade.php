@@ -25,6 +25,7 @@
         <style>
             body {
                 font-family: 'Nunito Sans', sans-serif;
+                
             }
 
             a {
@@ -50,7 +51,7 @@
             }
 
             footer {
-                
+                position: absolute;
                 height: 50px;
                 bottom: 0;
                 width: 100%;
@@ -59,6 +60,15 @@
                 display:flex;
                 align-items:center;
             }
+
+            #app {
+                position: relative;
+                min-height: 100vh;
+            }
+
+            .content-wrap {
+                padding-bottom: 50px;
+            }
         </style>
         @stack('styles')
         @livewireStyles
@@ -66,7 +76,7 @@
     <body>
         <div id="app"  class="h-100">
             <x-header><livewire:search-posts /></x-header>
-            <div class="container-fluid m-0 p-0 h-100">
+            <div class="content-wrap container-fluid m-0 px-0 pt-0 h-100">
                 <div class="row d-flex flex-lg-row-reverse no-gutters h-100">
                     <x-sidebar></x-sidebar>
                     <div class="col-lg-9 px-4 my-2 py-2">
@@ -76,8 +86,8 @@
                     </div>
                 </div>
             </div>
+            <x-footer></x-footer>
         </div>
-        <x-footer></x-footer>
         @livewireScripts
     </body>
 </html>
