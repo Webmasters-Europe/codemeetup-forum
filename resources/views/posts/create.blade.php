@@ -31,11 +31,10 @@
 
               <div class="form-group p-2">
                 <label for="postContent">Post</label>
-                <textarea class="form-control tinymce" id="postContent" name="content" rows="6">{{ old('content') }}</textarea>
+                <x-easy-mde name="content"/>
               </div>
 
               <button type="submit" class="btn btn-dark btn-lg ml-2">Create post</button>
           </form>
 
 @endsection
-

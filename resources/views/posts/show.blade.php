@@ -11,9 +11,9 @@
         </nav>
 
         <h1>{{ $post->title }}</h1>
-        <div>
-            {!!  $post->content !!}
-        </div>
+
+        @markdown($post->content)
+
         <div>by <a href=" {{ route('users.show', $post->user) }}">{{ $post->user->username }}</a></div>
         <div>created at {{ $post->created_at->format('d.m.Y H:i:s') }}</div>
 
@@ -23,7 +23,7 @@
                 @csrf
                 <div class="form-group p-2">
                     <label for="postContent">Reply:</label>
-                    <textarea class="form-control tinymce" name="content" rows="6">{{ old('content') }}</textarea>
+                    <x-easy-mde name="content"/>
                 </div>
                 <button type="submit" class="btn btn-dark btn-lg ml-2">Create Reply</button>
             </form>
