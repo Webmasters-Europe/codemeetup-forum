@@ -12,7 +12,6 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-        <script src="https://cdn.tiny.cloud/1/863tjauc2udjon8byscybgfso3bk4l6874zd0csdni9ri7ut/tinymce/5/tinymce.min.js"></script>
         <script src="{{ asset('js/toggleLoginRegistration.js') }}"></script>
 
         <!-- Styles -->
@@ -73,6 +72,7 @@
         </style>
         @stack('styles')
         @livewireStyles
+        @bukStyles(true)
     </head>
     <body>
         <div id="app"  class="h-100">
@@ -90,16 +90,7 @@
             <x-footer></x-footer>
         </div>
         @livewireScripts
+        @bukScripts(true)
 
-        <script>
-            tinymce.init({
-                selector:'textarea.tinymce',
-                branding: false,
-                language: 'en',
-                plugins: 'lists, link, code',
-                menubar: false,
-                toolbar: "bold italic underline strikethrough bullist numlist link unlink code"
-            });
-        </script>
     </body>
 </html>
