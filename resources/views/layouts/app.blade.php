@@ -76,7 +76,7 @@
     <body>
         <div id="app"  class="h-100">
             <x-header><livewire:search-posts /></x-header>
-            <div class="content-wrap container-fluid m-0 px-0 pb- h-100">
+            <div class="content-wrap container-fluid m-0 px-0 pt-0 h-100">
                 <div class="row d-flex flex-lg-row-reverse no-gutters h-100">
                     <x-sidebar></x-sidebar>
                     <div class="col-lg-9 px-4 my-2 py-2">
