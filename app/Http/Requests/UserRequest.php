@@ -14,7 +14,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->is(request()->user());
     }
 
     /**
@@ -24,10 +24,29 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,'.$this->user->id,
-            'email' => 'required|string|email|max:255|unique:users,email,'.$this->user->id,
+
+        $validation_array =  [
+            'name' => 'sometimes|string|max:255'
         ];
+
+        if ($this->username != auth()->user()->username) {
+            $validation_array = array_merge($validation_array, [
+                'username' => 'sometimes|string|max:255|unique:users,username',
+            ]);
+        }
+
+        if ($this->email != auth()->user()->email) {
+            $validation_array = array_merge($validation_array, [
+                'email' => 'sometimes|string|email|max:255|unique:users,email',
+            ]);
+        }
+
+        if ($this->password) {
+            $validation_array = array_merge($validation_array, [
+                'password' => 'string|min:8|confirmed',
+            ]);
+        }
+
+        return $validation_array;
     }
 }

@@ -76,6 +76,12 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
+        if ($request->password) {
+            $request->merge([
+                'password' => bcrypt($request->password)
+            ]);
+        }
+
         $user->update($request->all());
 
         return redirect()->route('home')->withStatus('Profile successfully updated.');
