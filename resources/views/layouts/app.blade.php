@@ -31,6 +31,14 @@
                 cursor: pointer;
             }
 
+            footer a {
+                color: white;
+            }
+            
+            footer a:hover {
+                color: gray;
+            }
+
             h1 {
                 font-size: 1.2rem;
                 font-weight: 700;
@@ -40,11 +48,22 @@
                 font-size: 2rem;
                 font-weight: 700;
             }
+
+            footer {
+                
+                height: 50px;
+                bottom: 0;
+                width: 100%;
+                font-style: bold;
+                font-size: 16px;
+                display:flex;
+                align-items:center;
+            }
         </style>
         @stack('styles')
         @livewireStyles
     </head>
-    <body class="h-100">
+    <body>
         <div id="app"  class="h-100">
             <x-header><livewire:search-posts /></x-header>
             <div class="container-fluid m-0 p-0 h-100">
@@ -58,6 +77,7 @@
                 </div>
             </div>
         </div>
+        <x-footer></x-footer>
         @livewireScripts
     </body>
 </html>
