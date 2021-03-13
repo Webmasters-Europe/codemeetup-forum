@@ -169,33 +169,7 @@
     <a id="to-registration" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm not registered yet</a>
     <a hidden id="to-login" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm already registered</a>
 
-    <div class="last-entries mt-5">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Last entries</span>
-            <span class="badge badge-secondary badge-pill">3</span>
-        </h4>
-        <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                    <h6 class="my-0">Ein Posting aus Österreich</h6>
-                    <small class="text-muted">Aus Thema: Katze</small>
-                </div>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                    <h6 class="my-0">Second posting</h6>
-                    <small class="text-muted">Brief description</small>
-                </div>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                    <h6 class="my-0">Third posting</h6>
-                    <small class="text-muted">Brief description</small>
-                </div>
-            </li>
-        </ul>
-    </div>
 
     @endauth
-
+    <livewire:last-posts />
 </div>
