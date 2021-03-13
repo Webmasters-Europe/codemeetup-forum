@@ -76,7 +76,12 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $user->update($request->all());
+        $user->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'avatar' => $request->avatar ? $request->file('avatar')->store('avatars', 'public') : $user->avatar,
+        ]);
 
         return redirect()->route('home')->withStatus('Profile successfully updated.');
     }
