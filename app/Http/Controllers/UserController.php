@@ -76,12 +76,17 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $user->update([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'avatar' => $request->avatar ? $request->file('avatar')->store('avatars', 'public') : $user->avatar,
-        ]);
+        if ($request->password) {
+            $request->merge([
+                'password' => bcrypt($request->password)
+            ]);
+        }
+        $user->update($request->all());
+
+        if ($request->avatar) {
+            $user->avatar = $request->file('avatar')->store('avatars', 'public');
+            $user->save();
+        }
 
         return redirect()->route('home')->withStatus('Profile successfully updated.');
     }
