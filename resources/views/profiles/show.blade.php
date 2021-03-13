@@ -6,6 +6,13 @@
         <div>{{ $user->name }}</div>
         <div>{{ $user->username }}</div>
         <div>{{ $user->email }}</div>
+        <div>
+            @if ($user->avatar)
+                <img src="{{ asset('storage/'.$user->avatar) }}" width="100px" alt="Avatar von  {{ $user->username }}">
+            @else
+                <img src="{{ asset('icons/blank-profile-picture.png') }}" width="100px" alt="Avatar von  {{ $user->username }}">
+            @endif
+        </div>
         
         @auth
             @if(auth()->user()->id == $user->id)

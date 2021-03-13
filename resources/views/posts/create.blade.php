@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @push('styles')
-    @media screen and (max-width:480px ){
-    .w-50 {
-    width: 100%!important;
-    }
-    }
+    <style>
+        @media screen and (max-width:480px ){
+            .w-50 {
+                width: 100%!important;
+            }
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -29,11 +31,11 @@
 
               <div class="form-group p-2">
                 <label for="postContent">Post</label>
-                <textarea class="form-control" id="postContent" name="content" rows="6">{{ old('content') }}</textarea>
+                <textarea class="form-control tinymce" id="postContent" name="content" rows="6">{{ old('content') }}</textarea>
               </div>
 
-              <button type="submit" class="btn btn-dark btn-lg ml-2">Create post</button>  
-          </form>                      
-      
+              <button type="submit" class="btn btn-dark btn-lg ml-2">Create post</button>
+          </form>
+
 @endsection
 

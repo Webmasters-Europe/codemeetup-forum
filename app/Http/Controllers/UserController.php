@@ -81,8 +81,12 @@ class UserController extends Controller
                 'password' => bcrypt($request->password)
             ]);
         }
-
         $user->update($request->all());
+
+        if ($request->avatar) {
+            $user->avatar = $request->file('avatar')->store('avatars', 'public');
+            $user->save();
+        }
 
         return redirect()->route('home')->withStatus('Profile successfully updated.');
     }

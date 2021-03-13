@@ -26,20 +26,11 @@ class UserRequest extends FormRequest
     {
 
         $validation_array =  [
-            'name' => 'sometimes|string|max:255'
+            'name' => 'sometimes|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,'.$this->user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$this->user->id,
+            'avatar' => 'sometimes|image|max:5000',
         ];
-
-        if ($this->username != auth()->user()->username) {
-            $validation_array = array_merge($validation_array, [
-                'username' => 'sometimes|string|max:255|unique:users,username',
-            ]);
-        }
-
-        if ($this->email != auth()->user()->email) {
-            $validation_array = array_merge($validation_array, [
-                'email' => 'sometimes|string|email|max:255|unique:users,email',
-            ]);
-        }
 
         if ($this->password) {
             $validation_array = array_merge($validation_array, [
