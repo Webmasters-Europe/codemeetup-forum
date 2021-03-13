@@ -38,7 +38,6 @@
             <div>
                 <h1>Replies:</h1>
                 @forelse ($replies as $reply)
-                @if(!$reply->parent_id)
                     <ul class="row border my-2 p-2 no-gutters">
                         <li class="list-unstyled">{{ $reply->content}} </br>
                             by {{ $reply->user->username }}, created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
@@ -86,7 +85,6 @@
                         </div>
                     </div> <!-- End Modal -->
                     @endauth
-                @endif
                 @empty
                     <div class="row border my-2 p-2 no-gutters">
                         No replies found for this post.
