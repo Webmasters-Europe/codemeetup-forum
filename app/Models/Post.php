@@ -34,6 +34,7 @@ class Post extends Model
     public function getReplyCountAttribute()
     {
         $replies = $this->reply()->where('parent_id', null);
+
         return $replies->count();
     }
 }

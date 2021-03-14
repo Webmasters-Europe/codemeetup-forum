@@ -31,9 +31,11 @@ class PostReplyFactory extends Factory
             'parent_id' =>  $this->getParent(),
         ];
     }
+
     private function getPost()
     {
         $this->post = Post::inRandomOrder()->first() ?: Post::factory();
+
         return $this->post;
     }
 
@@ -44,6 +46,7 @@ class PostReplyFactory extends Factory
         if ($parents->isEmpty()) {
             return null;
         }
+
         return $parents->random()->id;
     }
 }
