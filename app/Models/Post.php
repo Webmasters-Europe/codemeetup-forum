@@ -28,10 +28,11 @@ class Post extends Model
 
     public function reply()
     {
-        return $this->hasMany(PostReply::class);
+        return $this->hasMany(PostReply::class)->whereNull('parent_id');
     }
 
-    public function getReplyCountAttribute(){
+    public function getReplyCountAttribute()
+    {
         $replies = $this->reply()->where('parent_id', null);
         return $replies->count();
     }

@@ -14,6 +14,9 @@ class PostReplySeeder extends Seeder
      */
     public function run()
     {
-        PostReply::factory(10)->create();
+        PostReply::factory(5)->create();
+        PostReply::factory(5)->create();
+        PostReply::factory(5)->create();
+        PostReply::factory(5)->create();
     }
 }
