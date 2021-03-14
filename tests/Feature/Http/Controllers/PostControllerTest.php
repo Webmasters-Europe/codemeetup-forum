@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Category;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
@@ -60,7 +60,6 @@ class PostControllerTest extends TestCase
         ]);
     }
 
-
     /**
      * @test
      */
@@ -68,10 +67,8 @@ class PostControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-
         $title = $this->faker->name;
         $content = $this->faker->sentence;
-
 
         $this->assertDatabaseCount('posts', 0);
 
@@ -86,6 +83,7 @@ class PostControllerTest extends TestCase
         $response->assertSessionHasErrors('category_id');
         $response->assertRedirect(route('posts.create'));
     }
+
     /**
      * @test
      */
@@ -97,7 +95,6 @@ class PostControllerTest extends TestCase
 
         $title = $this->faker->name;
         $content = $this->faker->sentence;
-
 
         $this->assertDatabaseCount('posts', 0);
 
@@ -111,6 +108,7 @@ class PostControllerTest extends TestCase
 
         $response->assertRedirect(route('posts.create'));
     }
+
     /**
      * @test
      */
@@ -133,6 +131,7 @@ class PostControllerTest extends TestCase
 
         $response->assertRedirect(route('posts.create'));
     }
+
     /**
      * @test
      */
@@ -142,7 +141,6 @@ class PostControllerTest extends TestCase
 
         $title = $this->faker->name;
         $content = $this->faker->sentence;
-
 
         $this->assertDatabaseCount('posts', 0);
 
