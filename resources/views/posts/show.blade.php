@@ -11,9 +11,9 @@
         </nav>
 
         <h1>{{ $post->title }}</h1>
-        <div>
-            {{ $post->content }}
-        </div>
+
+        @markdown($post->content)
+
         <div>by <a href=" {{ route('users.show', $post->user) }}">{{ $post->user->username }}</a></div>
         <div>created at {{ $post->created_at->format('d.m.Y H:i:s') }}</div>
 
@@ -23,7 +23,7 @@
                 @csrf
                 <div class="form-group p-2">
                     <label for="postContent">Reply:</label>
-                    <textarea class="form-control" name="content" rows="6">{{ old('content') }}</textarea>
+                    <x-easy-mde name="content"/>
                 </div>
                 <button type="submit" class="btn btn-dark btn-lg ml-2">Create Reply</button>
             </form>
@@ -38,9 +38,8 @@
             <div>
                 <h1>Replies:</h1>
                 @forelse ($replies as $reply)
-                @if(!$reply->parent_id)
                     <ul class="row border my-2 p-2 no-gutters">
-                        <li class="list-unstyled">{{ $reply->content}} </br>
+                        <li class="list-unstyled">{!! $reply->content !!} </br>
                             by {{ $reply->user->username }}, created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
 
                             @auth
@@ -55,7 +54,7 @@
                             <ul>
                                 @foreach ($reply->reply as $item)
                                     <li>
-                                        {{ $item->content }} </br>
+                                        {!! $item->content !!} </br>
                                         by {{ $item->user->username }}, created at {{ $item->created_at->format('d.m.Y H:i:s') }}
                                     </li>
                                 @endforeach
@@ -73,9 +72,9 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('replies.store', [$post, $reply]) }}" method="POST" class="w-50">
+                                    <form action="{{ route('replies.store', [$post, $reply]) }}" method="POST">
                                         @csrf
-                                        <textarea rows="10" cols="64" name="content">{{ old('content') }}</textarea>
+                                        <textarea rows="10" cols="64" name="content" class="tinymce">{{ old('content') }}</textarea>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close') }}</button>
@@ -86,7 +85,6 @@
                         </div>
                     </div> <!-- End Modal -->
                     @endauth
-                @endif
                 @empty
                     <div class="row border my-2 p-2 no-gutters">
                         No replies found for this post.
