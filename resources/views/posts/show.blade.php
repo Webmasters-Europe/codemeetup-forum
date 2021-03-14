@@ -38,18 +38,19 @@
             <div>
                 <h1>Replies:</h1>
                 @forelse ($replies as $reply)
-                    <ul class="row border my-2 p-2 no-gutters">
-                        <li class="list-unstyled">{!! $reply->content !!} </br>
-                            by {{ $reply->user->username }}, created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
+                    @if(!$reply->parent_id)
+                        <ul class="row border my-2 p-2 no-gutters">
+                            <li class="list-unstyled">{!! $reply->content !!} </br>
+                                by {{ $reply->user->username }}, created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
 
-                            @auth
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
-                                {{__('Leave a comment') }}
-                            </button>
-                            @else
-                                <div class="alert-danger">{{__('Login to leave a comment') }}</div>
-                            @endauth
-
+                                @auth
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
+                                    {{__('Leave a comment') }}
+                                </button>
+                                @else
+                                    <div class="alert-danger">{{__('Login to leave a comment') }}</div>
+                                @endauth
+                    @endif
                             {{-- show reply to reply --}}
                             <ul>
                                 @foreach ($reply->reply as $item)

@@ -14,7 +14,7 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $withCount = ['reply'];
+    protected $appends = ['replyCount'];
 
     public function user()
     {
@@ -29,5 +29,10 @@ class Post extends Model
     public function reply()
     {
         return $this->hasMany(PostReply::class);
+    }
+
+    public function getReplyCountAttribute(){
+        $replies = $this->reply()->where('parent_id', null);
+        return $replies->count();
     }
 }

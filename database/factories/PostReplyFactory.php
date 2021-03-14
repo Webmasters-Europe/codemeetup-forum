@@ -27,7 +27,7 @@ class PostReplyFactory extends Factory
             'content' => $this->faker->text(150),
             'user_id' => User::inRandomOrder()->first() ?: User::factory(),
             'post_id' => Post::inRandomOrder()->first() ?: Post::factory(),
-            'parent_id' => $this->getParent(),
+            'parent_id' =>  $this->faker->randomElement([null, $this->getParent()]),
         ];
     }
 
@@ -39,7 +39,6 @@ class PostReplyFactory extends Factory
         if ($parents->isEmpty()) {
             return Post::factory();
         }
-
         return $parents->random();
     }
 }
