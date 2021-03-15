@@ -31,7 +31,7 @@
 
               <div class="form-group p-2">
                 <label for="postContent">Post</label>
-                <x-easy-mde name="content"/>
+                <x-easy-mde name="content" :options="['hideIcons' => ['image']]">{{ old('content') }}</x-easy-mde>
               </div>
 
               <button type="submit" class="btn btn-dark btn-lg ml-2">Create post</button>
