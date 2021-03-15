@@ -44,7 +44,7 @@ class PostReplyController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function store(PostReplyRequest $request, Post $post, PostReply $postReply)
+    public function store(PostReplyRequest $request, Post $post, PostReply $postReply = null)
     {
         $newPostReply = new PostReply(['content' => $request->content]);
 
@@ -55,7 +55,7 @@ class PostReplyController extends Controller
         if ($postReply) {
             $postReply->reply()->save($newPostReply);
 
-            return redirect()->back()->withStatus('Postreply successfully created.');
+            return redirect()->back()->withStatus('Comment successfully created.');
         }
 
         $newPostReply->save();

@@ -16,8 +16,6 @@ class PostControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $user = User::factory()->create();
     }
 
     /**
@@ -152,6 +150,6 @@ class PostControllerTest extends TestCase
 
         $this->assertDatabaseCount('posts', 0);
 
-        $response->assertRedirect(route('login'));
+        $response->assertRedirect(route('home'));
     }
 }
