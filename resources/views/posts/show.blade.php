@@ -23,7 +23,7 @@
                 @csrf
                 <div class="form-group p-2">
                     <label for="postContent">Reply:</label>
-                    <x-easy-mde name="content"/>
+                    <x-easy-mde name="content" :options="['hideIcons' => ['image']]"/>
                 </div>
                 <button type="submit" class="btn btn-dark btn-lg ml-2">Create Reply</button>
             </form>
@@ -64,7 +64,7 @@
                                         <div class="modal-body">
                                             <form action="{{ route('replies.store', [$post, $reply]) }}" method="POST">
                                                 @csrf
-                                                <textarea rows="10" cols="64" name="content" class="tinymce">{{ old('content') }}</textarea>
+                                                <x-easy-mde name="content" :options="['hideIcons' => ['image']]">{{ old('content') }}</x-easy-mde>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close') }}</button>
