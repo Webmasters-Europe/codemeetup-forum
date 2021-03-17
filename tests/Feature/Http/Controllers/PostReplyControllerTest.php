@@ -27,7 +27,7 @@ class PostReplyControllerTest extends TestCase
             ->from(route('posts.show', $post))
             ->actingAs($user)
             ->post(route('replies.store', $post), [
-            'content' => $content
+            'content' => $content,
         ]);
 
         $response->assertRedirect(route('posts.show', $post));
@@ -38,7 +38,7 @@ class PostReplyControllerTest extends TestCase
             'content' => $content,
             'user_id' => $user->id,
             'post_id' => $post->id,
-            'parent_id' => null
+            'parent_id' => null,
         ]);
     }
 
@@ -56,7 +56,7 @@ class PostReplyControllerTest extends TestCase
             ->from(route('posts.show', $post->id))
             ->actingAs($user)
             ->post(route('replies.store', [$post, $postReply]), [
-                'content' => $content
+                'content' => $content,
             ]);
 
         $response->assertRedirect(route('posts.show', $post->id));
@@ -67,7 +67,7 @@ class PostReplyControllerTest extends TestCase
             'content' => $content,
             'user_id' => $user->id,
             'post_id' => $post->id,
-            'parent_id' => $postReply->id
+            'parent_id' => $postReply->id,
         ]);
     }
 
@@ -104,7 +104,7 @@ class PostReplyControllerTest extends TestCase
             ->from(route('posts.show', 1))
             ->actingAs($user)
             ->post(route('replies.store', 1), [
-                'content' => $content
+                'content' => $content,
             ]);
 
         $this->assertDatabaseCount('post_replies', 0);
@@ -122,7 +122,7 @@ class PostReplyControllerTest extends TestCase
         $response = $this
             ->from(route('posts.show', $post->id))
             ->post(route('replies.store', $post), [
-                'content' => $content
+                'content' => $content,
             ]);
 
         $this->assertDatabaseCount('post_replies', 0);

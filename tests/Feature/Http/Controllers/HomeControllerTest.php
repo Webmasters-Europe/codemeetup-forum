@@ -35,5 +35,4 @@ class HomeControllerTest extends TestCase
         $response->assertViewIs('welcome');
         $response->assertViewHas('categories');
     }
-
 }
