@@ -44,7 +44,7 @@ class PostReplyController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function store(PostReplyRequest $request, Post $post, PostReply $postReply)
+    public function store(PostReplyRequest $request, Post $post, PostReply $postReply = null)
     {
         $newPostReply = new PostReply(['content' => $request->content]);
 
