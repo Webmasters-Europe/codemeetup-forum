@@ -1,17 +1,17 @@
 @extends('layouts.app')
-@push('styles')
+<!-- @push('styles')
     <style>
-        @media screen and (max-width:480px ){
+        @media screen and (max-width:992px ){
             .w-50 {
                 width: 100%!important;
             }
         }
     </style>
-@endpush
+@endpush -->
 
 @section('content')
 
-          <form action="{{ route('posts.store') }}" method="POST" class="w-50">
+          <form action="{{ route('posts.store') }}" method="POST" class="w-100">
               @csrf
 
               <div class="form-group p-2">

@@ -69,6 +69,9 @@
             .content-wrap {
                 padding-bottom: 50px;
             }
+
+
+
         </style>
         @stack('styles')
         @livewireStyles
