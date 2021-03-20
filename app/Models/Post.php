@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Upload;
 use App\Service\Searchable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
@@ -37,4 +38,9 @@ class Post extends Model
 
         return $replies->count();
     }
+
+    public function uploads(){
+        return $this->hasMany(Upload::class);
+    }
+    
 }

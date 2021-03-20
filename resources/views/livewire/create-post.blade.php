@@ -1,5 +1,14 @@
 
     <form wire:submit.prevent="submitForm" class="w-100">
+      @if($errors->any())
+    <div class="alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         @csrf
         <div class="form-group p-2">
             <label for="categoryId">Category</label>
@@ -27,6 +36,18 @@
             {{ old('content', $content) }}
           </x-easy-mde>
         </div>
+        <div>
+          @if($files)
+            @foreach($files as $file)
+              
+                <img src="{{ $file->temporaryUrl() }}" width="120">
+                         @endforeach
+          @endif
+        </div>
+        @error('files') <span class="error">{{ $message }}</span> @enderror
+        <div class="form-group p-2"> 
+          <input wire:model="files" type="file" multiple>
+        </div>
 
-        <button type="submit" btn btn-dark btn-lg ml-2">Create post</button>
+        <button type="submit" class="btn btn-dark btn-lg ml-2">Create post</button>
       </form>
