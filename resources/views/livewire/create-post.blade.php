@@ -20,8 +20,7 @@
           <label for="postContent">Post</label>
           <x-easy-mde name="content" :options="['hideIcons' => ['image']]">
             <x-slot name="script">
-              easyMDE.codemirror.on('change', function() => {
-                console.log(easyMDE.value())
+              easyMDE.codemirror.on('blur', function() {
                 @this.set('content', easyMDE.value())
               });
             </x-slot>

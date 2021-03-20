@@ -8,7 +8,6 @@ use Livewire\WithFileUploads;
 
 class CreatePost extends Component
 {
-
     use WithFileUploads;
 
     public $category_id = -1;
@@ -18,18 +17,19 @@ class CreatePost extends Component
 
     protected $rules = [
         'title' => 'required|string|max:255',
-   
+
         'category_id' => 'required',
     ];
 
     public function submitForm()
     {
         $this->validate();
-        
-        dd($this->content);
+        /**
+         * Todo Save Form
+         */
     }
-    
-    
+
+
     public function render()
     {
         $categories = Category::all()->sortBy('name');
