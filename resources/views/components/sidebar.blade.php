@@ -177,6 +177,6 @@
 
         @endauth
         <livewire:last-posts />
-    </div>
+    
     
 </div>
