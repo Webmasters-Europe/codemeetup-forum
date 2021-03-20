@@ -15,15 +15,24 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        if (! User::whereUsername('susi')->exists()) {
+        if (!User::whereUsername('susi')->exists()) {
             User::create([
                 'name' => 'Susi Musterfrau',
                 'username' => 'susi',
-                'email' =>  'susi@musterfrau.de',
+                'email' => 'susi@musterfrau.de',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
-            ]);
+            ])->assignRole('super-admin');
         }
-        User::factory(5)->create();
+
+        $users = User::factory(5)->create();
+        foreach ($users as $user) {
+            $user->assignRole('moderator');
+        }
+
+        $users = User::factory(5)->create();
+        foreach ($users as $user) {
+            $user->assignRole('participant');
+        }
     }
 }
