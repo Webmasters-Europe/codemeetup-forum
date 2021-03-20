@@ -1,4 +1,4 @@
-<div class="col-lg-3 my-2 py-2 px-4">
+<div class="col-lg-3 px-4">
     <div id="sidebar" class="d-lg-block collapse">
         @auth
 
