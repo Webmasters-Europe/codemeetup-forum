@@ -69,6 +69,9 @@
             .content-wrap {
                 padding-bottom: 50px;
             }
+
+
+
         </style>
         @stack('styles')
         @livewireStyles
@@ -80,7 +83,7 @@
             <div class="content-wrap container-fluid m-0 px-0 pt-0 h-100">
                 <div class="row d-flex flex-lg-row-reverse no-gutters h-100">
                     <x-sidebar></x-sidebar>
-                    <div class="col-lg-9 px-4 my-2 py-2">
+                    <div class="col-lg-9 px-4">
                         <x-status></x-status>
                         <x-errors></x-errors>
                         @yield('content')
