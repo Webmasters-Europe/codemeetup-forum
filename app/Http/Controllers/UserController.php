@@ -91,6 +91,14 @@ class UserController extends Controller
         return redirect()->route('home')->withStatus('Profile successfully updated.');
     }
 
+    public function reset_avatar()
+    {
+        $user = auth()->user();
+        $user->update([
+            'avatar' => null
+        ]);
+        return redirect()->route('home')->withStatus('Avatar successfully set to default picture.');    
+    }
     /**
      * Remove the specified resource from storage.
      *
