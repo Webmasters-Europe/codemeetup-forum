@@ -1,7 +1,7 @@
-<div class="d-flex mx-4 my-2">
-    <div @click.away="opensearch = false" x-data="{ opensearch: false }">
+<div class="d-flex my-2">
+    <div class="w-100" @click.away="opensearch = false" x-data="{ opensearch: false }">
         <div @click="opensearch= true">
-            <input class="form-control me-2" type="search" aria-label="Search" id="search" wire:model="search"
+            <input class="form-control me-2 w-100" type="search" aria-label="Search" id="search" wire:model="search"
                 placeholder="Search Posts ..." />
         </div>
         @isset($posts)
