@@ -16,6 +16,9 @@
         
         @auth
             @if(auth()->user()->id == $user->id)
+            <div>
+                <a href="{{ route('users.reset_avatar', $user) }}" type="button" class="btn btn-danger btn-block m-0 mb-4 py-2">Reset Avatar to Default Picture</a>
+            </div>
                 <div>
                     <a href="{{ route('users.edit', $user) }}" type="button" class="btn btn-dark btn-block m-0 mb-4 py-2">Edit Your Profile</a>
                 </div>
