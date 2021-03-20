@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Category;
+use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class CreatePost extends Component
@@ -24,15 +24,15 @@ class CreatePost extends Component
     public function submitForm()
     {
         $this->validate();
-        /**
+        /*
          * Todo Save Form
          */
     }
 
-
     public function render()
     {
         $categories = Category::all()->sortBy('name');
+
         return view('livewire.create-post', compact('categories'));
     }
 }

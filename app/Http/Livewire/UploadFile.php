@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -15,11 +14,9 @@ class UploadFile extends Component
     public $title;
     public $content;
     public $files = [];
-        
-    
-    public function store() 
-    { 
-       
+
+    public function store()
+    {
         $this->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
@@ -31,7 +28,7 @@ class UploadFile extends Component
             'title' => $this->title,
             'content' => $this->content,
         ]);
-        
+
         $post->category()->associate($this->category_id);
 
         auth()->user()->posts->save($post);
@@ -42,9 +39,7 @@ class UploadFile extends Component
         }
 
         return redirect()->route('category.show', $post->category->id)->withStatus('Post successfully created.');
-
     }
-
 
     public function render()
     {
