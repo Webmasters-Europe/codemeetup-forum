@@ -37,3 +37,4 @@ Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, '
 Route::resource('/posts', PostController::class);
 Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
 Route::resource('/users', UserController::class);
+Route::get('/users/reset_avatar/{users}', [UserController::class, 'reset_avatar'])->name('users.reset_avatar');
