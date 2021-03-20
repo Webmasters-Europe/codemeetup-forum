@@ -1,27 +1,28 @@
-<div class="col-lg-3 px-4">
-    <div id="sidebar" class="d-lg-block collapse">
-        @auth
 
-            <div id="user-profile" class="d-flex justify-content-between mb-4 py-2">
-                @if (auth()->user()->avatar)
-                    <img src="{{ asset('storage/'.auth()->user()->avatar) }}" width="100px" alt="Avatar von  {{ auth()->user()->username }}">
-                @else
-                    <img src="{{ asset('icons/blank-profile-picture.png') }}" width="100px" alt="Avatar von  {{ auth()->user()->username }}">
-                @endif
-                <div id="user-profile-text">
-                    <p>{{ auth()->user()->name }}</p>
-                    <p>{{ auth()->user()->username }}</p>
-                </div>
-            </div>
+<div class="col-lg-3 my-2 py-2 px-4">
 
-            <a href="{{ route('users.show', auth()->user() ) }}" type="button" class="btn btn-dark btn-block m-0 mb-4 py-2">Show profile details</a>
+    @auth
 
-            <form action="{{ route('logout') }}" method="POST" class="w-100">
-                @csrf
+    <div id="user-profile" class="d-flex justify-content-start mb-4 py-2">
+    @if (auth()->user()->avatar)
+        <img src="{{ asset('storage/'.auth()->user()->avatar) }}" width="100px" alt="Avatar von  {{ auth()->user()->username }}">
+    @else
+        <img src="{{ asset('icons/blank-profile-picture.png') }}" width="100px" alt="Avatar von  {{ auth()->user()->username }}">
+    @endif
+        <div class="ml-4" id="user-profile-text">
+            <h5>Name: <strong>{{ auth()->user()->name }}</strong></h5>
+            <h5>Username: <strong>{{ auth()->user()->username }}</strong></h5>
+        </div>
+    </div>
 
-                <button type="submit" class="btn btn-dark btn-lg btn-block">Logout</button>
+    <a href="{{ route('users.show', auth()->user() ) }}" type="button" class="btn btn-dark btn-block m-0 mb-4 py-2">Show profile details</a>
 
-            </form>
+    <form action="{{ route('logout') }}" method="POST" class="w-100">
+        @csrf
+
+        <button type="submit" class="btn btn-dark btn-lg btn-block">Logout</button>
+
+    </form>
 
         @else
             <div>
