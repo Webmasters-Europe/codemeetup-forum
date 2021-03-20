@@ -1,5 +1,5 @@
 
-<div class="col-lg-3 my-2">
+<div class="col-lg-3 my-2 px-4">
     <div id="sidebar" class="d-lg-block collapse">
         @auth
 
