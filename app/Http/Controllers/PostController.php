@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -43,15 +42,9 @@ class PostController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function store(PostRequest $request)
+    public function store()
     {
-        $post = new Post($request->all());
-
-        $post->category()->associate($request->category_id);
-
-        auth()->user()->posts()->save($post);
-
-        return redirect()->route('category.show', $post->category->id)->withStatus('Post successfully created.');
+        //
     }
 
     /**
@@ -62,9 +55,28 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $replies = $post->reply()->paginate(3);
 
-        return view('posts.show', compact('post', 'replies'));
+        $replies = $post->reply()->paginate(3);
+        
+        $uploads = $post->uploads()->get();
+
+        $images = [];
+        $otherFiles = [];
+        foreach($uploads as $upload) {
+            if($this->isImage($upload->filename)) {
+                array_push($images, $upload);
+            } else {
+                array_push($otherFiles, $upload);
+            }
+        }
+        return view('posts.show', compact('post', 'images', 'otherFiles', 'replies'));
+    }
+
+
+    private function isImage($file) {
+        $info = pathinfo($file);
+        return in_array(strtolower($info['extension']), 
+                        array("jpg", "jpeg", "gif", "png", "bmp"));
     }
 
     /**

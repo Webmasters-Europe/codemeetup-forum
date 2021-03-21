@@ -1,10 +1,19 @@
 
-    <form wire:submit.prevent="submitForm" class="w-100">
+    <form wire:submit.prevent="submitForm" class="w-50">
+      @if($errors->any())
+    <div class="alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         @csrf
         <div class="form-group p-2">
             <label for="categoryId">Category</label>
-            <select wire:model="category_id" id="categoryId" name="category_id" required>
-                <option value=-1 disabled selected>Choose category</option>
+            <select wire:model="category_id" id="categoryId" name="category_id">
+                <option value="" disabled selected>Choose category</option>
                 @foreach($categories as $category)
                     <option {{ old('category_id') == $category->id ? 'selected' : '' }} value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
@@ -28,5 +37,28 @@
           </x-easy-mde>
         </div>
 
-        <button type="submit" btn btn-dark btn-lg ml-2">Create post</button>
+        <div  wire:ignore 
+              x-data 
+              x-init="
+                FilePond.registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType);
+                FilePond.setOptions({
+                  allowMultiple: 'true',
+                  allowFileTypeValidation: 'true',
+                  acceptedFileTypes: ['image/*', 'application/pdf'],
+                  server: {
+                      process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                        @this.upload('files', file, load, error, progress)
+                      },
+                      revert: (filename, load) => {
+                        @this.removeUpload('files', filename, load)
+                      },
+                    },
+                  });
+                FilePond.create($refs.input);
+              "
+        >
+              <input wire:model="files" type="files" x-ref="input" multiple>
+        </div>
+
+        <button type="submit" class="btn btn-dark btn-lg ml-2 mb-4">Create post</button>
       </form>
