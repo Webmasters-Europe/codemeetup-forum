@@ -55,28 +55,29 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-
         $replies = $post->reply()->paginate(3);
-        
+
         $uploads = $post->uploads()->get();
 
         $images = [];
         $otherFiles = [];
-        foreach($uploads as $upload) {
-            if($this->isImage($upload->filename)) {
+        foreach ($uploads as $upload) {
+            if ($this->isImage($upload->filename)) {
                 array_push($images, $upload);
             } else {
                 array_push($otherFiles, $upload);
             }
         }
+
         return view('posts.show', compact('post', 'images', 'otherFiles', 'replies'));
     }
 
-
-    private function isImage($file) {
+    private function isImage($file)
+    {
         $info = pathinfo($file);
-        return in_array(strtolower($info['extension']), 
-                        array("jpg", "jpeg", "gif", "png", "bmp"));
+
+        return in_array(strtolower($info['extension']),
+                        ['jpg', 'jpeg', 'gif', 'png', 'bmp']);
     }
 
     /**

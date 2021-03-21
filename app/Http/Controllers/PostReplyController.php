@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\User;
-use App\Mail\ReplyToPost;
-use App\Models\PostReply;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\PostReplyRequest;
+use App\Mail\ReplyToPost;
+use App\Models\Post;
+use App\Models\PostReply;
+use App\Models\User;
 use App\Notifications\ReplyNotification;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 class PostReplyController extends Controller
@@ -72,12 +72,9 @@ class PostReplyController extends Controller
             $this->postContent = $post->content,
         ));
 
-       
-
         return redirect()->back()->withStatus('Postreply successfully created.');
     }
 
-    
     /**
      * Display the specified resource.
      *

@@ -43,7 +43,7 @@ class ReplyToPost extends Mailable
             'replyUsername' => $this->replyUsername,
             'postUsername' => $this->postUsername,
             'postTitle' => $this->postTitle,
-            'postContent' => $this->postContent
+            'postContent' => $this->postContent,
         ]);
     }
 }

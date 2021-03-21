@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\Upload;
 use Livewire\Component;
-use App\Models\Category;
 use Livewire\WithFileUploads;
 
 class CreatePost extends Component
 {
     use WithFileUploads;
 
-    public $category_id="";
+    public $category_id = '';
     public $title;
     public $content;
     public $files = [];
@@ -34,18 +34,19 @@ class CreatePost extends Component
         ]);
 
         $post->category()->associate($this->category_id);
-        
+
         auth()->user()->posts()->save($post);
 
         foreach ($this->files as $file) {
-            $filename = $file->store('uploads','public');
+            $filename = $file->store('uploads', 'public');
             $upload = new Upload([
-                'filename' => $filename
+                'filename' => $filename,
             ]);
             $upload->post()->associate($post->id);
             $upload->save();
         }
         session()->flash('status', 'Post successfully created.');
+
         return redirect()->route('category.show', $post->category->id);
     }
 
