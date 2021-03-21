@@ -64,16 +64,16 @@ class PostReplyController extends Controller
         }
         $newPostReply->save();
 
-        if($post->user->reply_email_notification) {
+        if ($post->user->reply_email_notification) {
             Mail::to($post->user->email)->send(new ReplyToPost(
                 $this->replyContent = $newPostReply->content,
                 $this->replyUsername = $newPostReply->user->username,
                 $this->postUsername = $post->user->username,
                 $this->postTitle = $post->title,
                 $this->postContent = $post->content,
-            ));    
+            ));
         }
-        
+
         return redirect()->back()->withStatus('Postreply successfully created.');
     }
 

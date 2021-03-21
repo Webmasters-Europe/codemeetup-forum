@@ -82,15 +82,14 @@ class UserController extends Controller
             ]);
         }
 
-        $request['reply_email_notification'] = (int)$request->has('reply_email_notification');
-        
+        $request['reply_email_notification'] = (int) $request->has('reply_email_notification');
+
         $user->update($request->all());
-    
+
         if ($request->avatar) {
             $user->avatar = $request->file('avatar')->store('avatars', 'public');
             $user->save();
         }
-        
 
         return redirect()->route('home')->withStatus('Profile successfully updated.');
     }
