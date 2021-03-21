@@ -12,7 +12,7 @@ class CreatePost extends Component
 {
     use WithFileUploads;
 
-    public $category_id = -1;
+    public $category_id="";
     public $title;
     public $content;
     public $files = [];
@@ -21,7 +21,7 @@ class CreatePost extends Component
         'title' => 'required|string|max:255',
         'content' => 'required',
         'category_id' => 'required',
-        'files.*' => 'image|max:5000',
+        'files.*' => 'max:5000',
     ];
 
     public function submitForm()
@@ -38,9 +38,9 @@ class CreatePost extends Component
         auth()->user()->posts()->save($post);
 
         foreach ($this->files as $file) {
-            $filename = $file->store('uploads');
+            $filename = $file->store('uploads','public');
             $upload = new Upload([
-                'filename' => basename($filename)
+                'filename' => $filename
             ]);
             $upload->post()->associate($post->id);
             $upload->save();

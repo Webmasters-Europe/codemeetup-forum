@@ -1,5 +1,5 @@
 
-    <form wire:submit.prevent="submitForm" class="w-100">
+    <form wire:submit.prevent="submitForm" class="w-50">
       @if($errors->any())
     <div class="alert-danger">
         <ul>
@@ -12,8 +12,8 @@
         @csrf
         <div class="form-group p-2">
             <label for="categoryId">Category</label>
-            <select wire:model="category_id" id="categoryId" name="category_id" required>
-                <option value=-1 disabled selected>Choose category</option>
+            <select wire:model="category_id" id="categoryId" name="category_id">
+                <option value="" disabled selected>Choose category</option>
                 @foreach($categories as $category)
                     <option {{ old('category_id') == $category->id ? 'selected' : '' }} value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
@@ -36,18 +36,29 @@
             {{ old('content', $content) }}
           </x-easy-mde>
         </div>
-        <div>
-          @if($files)
-            @foreach($files as $file)
-              
-                <img src="{{ $file->temporaryUrl() }}" width="120">
-                         @endforeach
-          @endif
-        </div>
-        @error('files') <span class="error">{{ $message }}</span> @enderror
-        <div class="form-group p-2"> 
-          <input wire:model="files" type="file" multiple>
+
+        <div  wire:ignore 
+              x-data 
+              x-init="
+                FilePond.registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType);
+                FilePond.setOptions({
+                  allowMultiple: 'true',
+                  allowFileTypeValidation: 'true',
+                  acceptedFileTypes: ['image/*', 'application/pdf'],
+                  server: {
+                      process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                        @this.upload('files', file, load, error, progress)
+                      },
+                      revert: (filename, load) => {
+                        @this.removeUpload('files', filename, load)
+                      },
+                    },
+                  });
+                FilePond.create($refs.input);
+              "
+        >
+              <input wire:model="files" type="files" x-ref="input" multiple>
         </div>
 
-        <button type="submit" class="btn btn-dark btn-lg ml-2">Create post</button>
+        <button type="submit" class="btn btn-dark btn-lg ml-2 mb-4">Create post</button>
       </form>
