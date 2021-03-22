@@ -10,5 +10,5 @@
 @endpush -->
 
 @section('content')
-    @livewire('create-post')
+    @livewire('create-post', ['category' => $category])
 @endsection

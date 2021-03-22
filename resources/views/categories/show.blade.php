@@ -13,7 +13,7 @@
     <h1>{{$category->name}}</h1>
 
      @auth
-     <a class="btn btn-dark my-2" href="{{ route('posts.create') }}">Create Post</a>
+     <a class="btn btn-dark my-2" href="{{ route('posts.create', $category) }}">Create Post</a>
      @endauth
 
     @forelse($posts as $post)
