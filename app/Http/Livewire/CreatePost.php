@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
 use App\Models\Post;
 use App\Models\Upload;
 use Livewire\Component;
@@ -12,7 +11,7 @@ class CreatePost extends Component
 {
     use WithFileUploads;
 
-    public $category_id = '';
+    public $category;
     public $title;
     public $content;
     public $files = [];
@@ -20,7 +19,6 @@ class CreatePost extends Component
     protected $rules = [
         'title' => 'required|string|max:255',
         'content' => 'required',
-        'category_id' => 'required',
         'files.*' => 'max:5000',
     ];
 
@@ -33,7 +31,7 @@ class CreatePost extends Component
             'content' => $this->content,
         ]);
 
-        $post->category()->associate($this->category_id);
+        $post->category()->associate($this->category);
 
         auth()->user()->posts()->save($post);
 
@@ -52,8 +50,6 @@ class CreatePost extends Component
 
     public function render()
     {
-        $categories = Category::all()->sortBy('name');
-
-        return view('livewire.create-post', compact('categories'));
+        return view('livewire.create-post');
     }
 }

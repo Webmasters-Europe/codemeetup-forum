@@ -30,11 +30,9 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Category $category)
     {
-        $categories = Category::all()->sortBy('name');
-
-        return view('posts.create', compact('categories'));
+        return view('posts.create', compact('category'));
     }
 
     /**

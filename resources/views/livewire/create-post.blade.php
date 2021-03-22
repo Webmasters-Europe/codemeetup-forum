@@ -12,12 +12,7 @@
         @csrf
         <div class="form-group p-2">
             <label for="categoryId">Category</label>
-            <select wire:model="category_id" id="categoryId" name="category_id">
-                <option value="" disabled selected>Choose category</option>
-                @foreach($categories as $category)
-                    <option {{ old('category_id') == $category->id ? 'selected' : '' }} value="{{$category->id}}">{{$category->name}}</option>
-                @endforeach
-            </select>
+            <h5>{{ $category->name }}</h5>
         </div>
 
         <div class="form-group p-2">
