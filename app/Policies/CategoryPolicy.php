@@ -12,7 +12,7 @@ class CategoryPolicy
     /**
      * Determine whether the user can view any category.
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user)
     {
         return true;
     }
@@ -20,7 +20,7 @@ class CategoryPolicy
     /**
      * Determine whether the user can view the category.
      */
-    public function view(User $user)
+    public function view(?User $user)
     {
         return true;
     }
