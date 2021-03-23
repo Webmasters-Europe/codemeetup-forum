@@ -140,4 +140,23 @@ return [
 
         'store' => 'default',
     ],
+
+    'roles' => [
+        'super-admin',
+        'moderator',
+        'user',
+    ],
+
+    'permissions' => [
+        'create posts' => ['moderator', 'user'],
+        'update posts' => ['moderator'],
+        'delete posts' => ['moderator'],
+        'create post replies' => ['moderator, user'],
+        'update post replies' => ['moderator'],
+        'delete post replies' => ['moderator'],
+        'create categories' => ['moderator'],
+        'update categories' => ['moderator'],
+        'delete categories' => ['moderator'],
+    ]
+
 ];

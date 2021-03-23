@@ -26,6 +26,6 @@ class AssignUserRoleAfterRegistration
      */
     public function handle(Registered $event)
     {
-        $event->user->assignRole('participant');
+        $event->user->assignRole('user');
     }
 }
