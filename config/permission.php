@@ -160,7 +160,7 @@ return [
         'edit own profile' => ['moderator', 'user'],
         'edit any profile' => ['moderator'],
         'delete own user' => ['moderator', 'user'],
-        'delete any user' => ['moderator']
-    ]
+        'delete any user' => ['moderator'],
+    ],
 
 ];

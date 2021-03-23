@@ -31,14 +31,14 @@ class PermissionSeeder extends Seeder
         foreach ($predefinedRoles as $roleName) {
             $role = Role::create(['name' => $roleName]);
 
-            if ($roleName === 'super-admin') continue; // super-admin gets all permissions via Gate::before rule (AuthServiceProvider)
+            if ($roleName === 'super-admin') {
+                continue;
+            } // super-admin gets all permissions via Gate::before rule (AuthServiceProvider)
 
             foreach ($predefinedPermissions as $permissionName => $assigendRoles) {
-
                 if (in_array($roleName, $assigendRoles)) {
                     $role->givePermissionTo($permissionName);
                 }
-
             }
         }
     }

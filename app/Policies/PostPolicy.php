@@ -54,5 +54,4 @@ class PostPolicy
             return true;
         }
     }
-
 }

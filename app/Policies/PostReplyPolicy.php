@@ -54,7 +54,4 @@ class PostReplyPolicy
             return true;
         }
     }
-
 }
-
-

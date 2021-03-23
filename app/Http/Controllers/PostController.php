@@ -47,7 +47,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-
         $this->authorize('view', Post::class);
 
         $replies = $post->reply()->paginate(3);

@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        if (!User::whereUsername('susi')->exists()) {
+        if (! User::whereUsername('susi')->exists()) {
             User::create([
                 'name' => 'Susi Musterfrau',
                 'username' => 'susi',
