@@ -6,10 +6,8 @@ use App\Http\Requests\PostReplyRequest;
 use App\Mail\ReplyToPost;
 use App\Models\Post;
 use App\Models\PostReply;
-use App\Models\User;
 use App\Notifications\ReplyNotification;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
 
 class PostReplyController extends Controller
 {
@@ -28,18 +26,9 @@ class PostReplyController extends Controller
      */
     public function index(Post $post)
     {
-        //
-    }
+        $this->authorize('viewAny', PostReply::class);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Post $post)
-    {
-        //
+        // List post replies...
     }
 
     /**
@@ -51,6 +40,8 @@ class PostReplyController extends Controller
      */
     public function store(PostReplyRequest $request, Post $post, PostReply $postReply = null)
     {
+        $this->authorize('create', PostReply::class);
+
         $newPostReply = new PostReply(['content' => $request->content]);
 
         $newPostReply->user()->associate(auth()->user());
@@ -78,18 +69,6 @@ class PostReplyController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @param  \App\Models\PostReply  $postReply
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post, PostReply $postReply)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Post  $post
@@ -98,7 +77,9 @@ class PostReplyController extends Controller
      */
     public function edit(Post $post, PostReply $postReply)
     {
-        //
+        $this->authorize('update', PostReply::class);
+
+        // Show the form...
     }
 
     /**
@@ -111,7 +92,9 @@ class PostReplyController extends Controller
      */
     public function update(PostReplyRequest $request, Post $post, PostReply $postReply)
     {
-        //
+        $this->authorize('update', PostReply::class);
+
+        // Update the post reply...
     }
 
     /**
@@ -123,6 +106,8 @@ class PostReplyController extends Controller
      */
     public function destroy(Post $post, PostReply $postReply)
     {
-        //
+        $this->authorize('delete', PostReply::class);
+
+        // Delete the post reply...
     }
 }

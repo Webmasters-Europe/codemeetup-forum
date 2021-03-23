@@ -21,28 +21,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $this->authorize('viewAny', User::class);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        // List the users...
     }
 
     /**
@@ -53,6 +34,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view', User::class);
+
         return view('profiles.show', compact('user'));
     }
 
@@ -64,6 +47,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update', [User::class, $user]);
+
         return view('profiles.edit', compact('user'));
     }
 
@@ -76,6 +61,8 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
+        $this->authorize('update', [User::class, $user]);
+
         if ($request->password) {
             $request->merge([
                 'password' => bcrypt($request->password),
@@ -97,6 +84,9 @@ class UserController extends Controller
     public function reset_avatar()
     {
         $user = auth()->user();
+
+        $this->authorize('update', [User::class, $user]);
+
         $user->update([
             'avatar' => null,
         ]);
@@ -112,6 +102,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $this->authorize('delete', [User::class, $user]);
+
+        // Delete the user...
     }
 }
