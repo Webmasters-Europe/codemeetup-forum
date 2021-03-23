@@ -13,8 +13,8 @@
                 <img src="{{ asset('icons/blank-profile-picture.png') }}" width="100px" alt="Avatar von  {{ $user->username }}">
             @endif
         </div>
-        
-        @auth
+
+        @can('edit own profile')
             @if(auth()->user()->id == $user->id)
             <div>
                 <a href="{{ route('users.reset_avatar', $user) }}" type="button" class="btn btn-danger btn-block m-0 mb-4 py-2">Reset Avatar to Default Picture</a>
@@ -23,6 +23,6 @@
                     <a href="{{ route('users.edit', $user) }}" type="button" class="btn btn-dark btn-block m-0 mb-4 py-2">Edit Your Profile</a>
                 </div>
             @endif
-        @endauth
+        @endcan
 
 @endsection

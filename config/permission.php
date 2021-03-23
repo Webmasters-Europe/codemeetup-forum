@@ -151,14 +151,14 @@ return [
         'create posts' => ['moderator', 'user'],
         'update posts' => ['moderator'],
         'delete posts' => ['moderator'],
-        'create post replies' => ['moderator, user'],
+        'create post replies' => ['moderator', 'user'],
         'update post replies' => ['moderator'],
         'delete post replies' => ['moderator'],
         'create categories' => ['moderator'],
         'update categories' => ['moderator'],
         'delete categories' => ['moderator'],
-        'edit own profile' => ['moderator, user'],
-        'edit others user profile' => ['moderator']
+        'edit own profile' => ['moderator', 'user'],
+        'edit others user profile' => ['moderator'],
     ]
 
 ];
