@@ -157,6 +157,8 @@ return [
         'create categories' => ['moderator'],
         'update categories' => ['moderator'],
         'delete categories' => ['moderator'],
+        'edit own profile' => ['moderator, user'],
+        'edit others user profile' => ['moderator']
     ]
 
 ];
