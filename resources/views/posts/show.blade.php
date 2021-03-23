@@ -17,6 +17,25 @@
         <div>by <a href=" {{ route('users.show', $post->user) }}">{{ $post->user->username }}</a></div>
         <div>created at {{ $post->created_at->format('d.m.Y H:i:s') }}</div>
 
+        {{-- begin show all uploads to this post --}}
+        <div>
+            <p>Images:</p>
+            @forelse ($images as $image)
+                <img src="{{ asset('storage/'.$image->filename) }}" width="100" alt="">
+            @empty
+                No uploded images for this post.
+            @endforelse
+            <p>Files:</p>
+            <ul> 
+                @forelse ($otherFiles as $otherFile)
+                    <li><a href="{{ asset('storage/'.$otherFile->filename) }}">{{ basename($otherFile->filename) }}</a></li>
+                @empty
+                    No uploded Files for this post.
+                @endforelse
+            </ul>
+        </div>
+        {{-- end show all uploads to this post --}}
+
         @auth
         <div>
             <form action="{{ route('replies.store', $post) }}" method="POST" class="w-50">

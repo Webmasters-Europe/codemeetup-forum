@@ -38,6 +38,11 @@
                    name="password_confirmation"/>
         </div>
 
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="replyEmailSwitch" name="reply_email_notification" {{ $user->reply_email_notification == 1 ? 'checked' : '' }} />
+            <label class="custom-control-label" for="replyEmailSwitch">Send me an E-Mail-Notification when someone replies to my post</label>
+          </div>
+
         <div class="form-group p-2">
             <input type="file" name="avatar">
             @error('avatar')

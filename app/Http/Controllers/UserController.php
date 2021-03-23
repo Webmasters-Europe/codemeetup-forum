@@ -81,6 +81,9 @@ class UserController extends Controller
                 'password' => bcrypt($request->password),
             ]);
         }
+
+        $request['reply_email_notification'] = (int) $request->has('reply_email_notification');
+
         $user->update($request->all());
 
         if ($request->avatar) {
