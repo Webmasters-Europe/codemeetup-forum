@@ -4,16 +4,16 @@
             @markdown($reply->content)
             by {{ $reply->user->username }}, created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
 
-            @auth
-            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
-                {{__('Comment') }}
-            </button>
-            @endauth
+            @can('create post replies')
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
+                    {{__('Comment') }}
+                </button>
+            @endcan
 
             <x-replies :reply="$reply" :post="$post" />
 
               <!-- Begin Modal -->
-              @auth
+              @can('create post replies')
               <div class="modal fade" id="replyModal_{{$reply->id}}" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel">
                   <div class="modal-dialog" role="document">
                       <div class="modal-content">

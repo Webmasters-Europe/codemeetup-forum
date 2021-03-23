@@ -4,12 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Models\Post;
 use App\Models\Upload;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class CreatePost extends Component
 {
     use WithFileUploads;
+    use AuthorizesRequests;
 
     public $category;
     public $title;
@@ -24,6 +26,8 @@ class CreatePost extends Component
 
     public function submitForm()
     {
+        $this->authorize('create', Post::class);
+
         $this->validate();
 
         $post = new Post([

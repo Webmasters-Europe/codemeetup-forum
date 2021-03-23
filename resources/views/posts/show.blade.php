@@ -26,7 +26,7 @@
                 No uploded images for this post.
             @endforelse
             <p>Files:</p>
-            <ul> 
+            <ul>
                 @forelse ($otherFiles as $otherFile)
                     <li><a href="{{ asset('storage/'.$otherFile->filename) }}">{{ basename($otherFile->filename) }}</a></li>
                 @empty
@@ -36,7 +36,7 @@
         </div>
         {{-- end show all uploads to this post --}}
 
-        @auth
+        @can('create post replies')
         <div>
             <form action="{{ route('replies.store', $post) }}" method="POST" class="w-50">
                 @csrf
@@ -49,7 +49,7 @@
         </div>
         @else
             <div class="alert-danger">{{__('Login to leave a reply') }}</div>
-        @endauth
+        @endcan
 
         <hr>
         <!-- begin show PostReplies -->
@@ -62,17 +62,17 @@
                                 @markdown($reply->content)
                                 by {{ $reply->user->username }}, created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
 
-                                @auth
+                                @can('create post replies')
                                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
                                     {{__('Comment') }}
                                 </button>
-                                @endauth
+                                @endcan
 
                             {{-- show reply to reply --}}
                             <x-replies :reply="$reply" :post="$post" />
 
                             <!-- Begin Modal -->
-                            @auth
+                            @can('create post replies')
                             <div class="modal fade" id="replyModal_{{$reply->id}}" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <!-- End Modal -->
-                            @endauth
+                            @endcan
                         </li>
                     </ul>
                 @empty

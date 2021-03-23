@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('viewAny', Category::class);
+
+        // Show categories...
     }
 
     /**
@@ -24,7 +26,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Category::class);
+
+        // Show the form...
     }
 
     /**
@@ -35,7 +39,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Category::class);
+
+        // Store the category...
     }
 
     /**
@@ -45,6 +51,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $this->authorize('view', Category::class);
+
         $posts = $category->posts()->orderBy('created_at', 'desc')->with('user')->paginate(10);
 
         return view('categories.show', compact('category', 'posts'));
@@ -58,7 +66,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $this->authorize('update', Category::class);
+
+        // Show the form...
     }
 
     /**
@@ -70,7 +80,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $this->authorize('update', Category::class);
+
+        // Update the category...
     }
 
     /**
@@ -81,6 +93,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $this->authorize('delete', Category::class);
+
+        // Delete the category...
     }
 }

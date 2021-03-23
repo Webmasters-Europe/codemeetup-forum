@@ -22,6 +22,8 @@ class PostController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Post::class);
+
         $posts = Post::all();
 
         return view('posts.index', compact('posts'));
@@ -32,17 +34,9 @@ class PostController extends Controller
      */
     public function create(Category $category)
     {
-        return view('posts.create', compact('category'));
-    }
+        $this->authorize('create', Post::class);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     */
-    public function store()
-    {
-        //
+        return view('posts.create', compact('category'));
     }
 
     /**
@@ -53,6 +47,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+
+        $this->authorize('view', Post::class);
+
         $replies = $post->reply()->paginate(3);
 
         $uploads = $post->uploads()->get();
@@ -86,6 +83,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('update', Post::class);
+
+        // Show the form...
     }
 
     /**
@@ -97,7 +97,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $this->authorize('update', Post::class);
+
+        // Update the post...
     }
 
     /**
@@ -108,6 +110,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $this->authorize('delete', Post::class);
+
+        // Delete the post...
     }
 }

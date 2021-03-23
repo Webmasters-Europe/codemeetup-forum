@@ -1,7 +1,7 @@
 
 <div class="col-lg-3 my-2 px-4">
     <div id="sidebar" class="d-lg-block collapse">
-        @auth
+        @can('edit own profile')
 
         <div id="user-profile" class="d-flex justify-content-start mb-4 py-2">
         @if (auth()->user()->avatar)
@@ -175,8 +175,8 @@
             <a hidden id="to-login" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm already registered</a>
 
 
-            @endauth
+            @endcan
             <livewire:last-posts />
-        
+
     </div>
 </div>
