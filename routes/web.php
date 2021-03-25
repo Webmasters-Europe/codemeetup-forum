@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 /* Routes for authentication and email verification */
-
 Auth::routes(['verify' => true]);
 
 /* Routes for guests */
@@ -38,3 +37,6 @@ Route::get('/posts/create/{category}', [PostController::class, 'create'])->name(
 Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
 Route::resource('/users', UserController::class);
 Route::get('/users/reset_avatar/{users}', [UserController::class, 'reset_avatar'])->name('users.reset_avatar');
+
+/* Routes for admin area */
+require __DIR__.'/admin.php';

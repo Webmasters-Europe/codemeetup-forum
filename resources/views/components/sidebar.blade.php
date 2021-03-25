@@ -15,7 +15,11 @@
             </div>
         </div>
 
-        <a href="{{ route('users.show', auth()->user() ) }}" type="button" class="btn btn-dark btn-block m-0 mb-4 py-2">Show profile details</a>
+        <a href="{{ route('users.show', auth()->user() ) }}" type="button" class="btn btn-dark btn-block m-0 mb-4 py-2">Profile</a>
+
+        @can('access admin area')
+            <a href="{{ route('admin-area.dashboard') }}" type="button" class="btn btn-primary btn-block m-0 mb-4 py-2">Admin Area</a>
+        @endcan
 
         <form action="{{ route('logout') }}" method="POST" class="w-100">
             @csrf

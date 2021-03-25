@@ -161,6 +161,10 @@ return [
         'edit any profile' => ['moderator'],
         'delete own user' => ['moderator', 'user'],
         'delete any user' => ['moderator'],
+        'access admin area' => ['moderator'],
+        'admin users' => ['moderator'],
+        'admin categories' => ['moderator'],
+        'admin posts' => ['moderator'],
     ],
 
 ];
