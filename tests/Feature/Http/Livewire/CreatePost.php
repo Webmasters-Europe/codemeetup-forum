@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Livewire;
 
+use App\Http\Livewire\CreatePost as CreatePostComponent;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,7 +11,6 @@ use Livewire\Livewire;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
-use App\Http\Livewire\CreatePost as CreatePostComponent;
 
 class CreatePost extends TestCase
 {
@@ -46,7 +46,6 @@ class CreatePost extends TestCase
      */
     public function it_stores_a_post_and_redirects_with_status()
     {
-
         $user = User::factory()->create()->assignRole('user');
         $this->actingAs($user);
 
@@ -87,7 +86,6 @@ class CreatePost extends TestCase
             ->assertViewIs('livewire.create-post');
 
         $this->assertDatabaseCount('posts', 0);
-
     }
 
     /**

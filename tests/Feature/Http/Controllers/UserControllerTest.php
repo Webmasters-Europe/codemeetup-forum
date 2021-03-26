@@ -55,13 +55,13 @@ class UserControllerTest extends TestCase
             ->put(route('users.update', $user->id), [
                 'name' => 'updated name',
                 'username' => 'updated username',
-                'email' => 'updated@email.com'
+                'email' => 'updated@email.com',
             ]);
 
         $this->assertDatabaseHas('users', [
             'name' => 'updated name',
             'username' => 'updated username',
-            'email' => 'updated@email.com'
+            'email' => 'updated@email.com',
         ]);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('home'));

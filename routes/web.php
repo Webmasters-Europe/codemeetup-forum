@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 /* Routes for authentication and email verification */
 Auth::routes(['verify' => true]);
 
-Route::get('/login', function(){
+Route::get('/login', function () {
     return redirect(route('home'));
 })->name('login');
 

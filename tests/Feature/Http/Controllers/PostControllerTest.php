@@ -36,5 +36,4 @@ class PostControllerTest extends TestCase
 
         $response->assertViewIs('posts.create');
     }
-
 }
