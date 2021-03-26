@@ -7,6 +7,8 @@ use App\Models\PostReply;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class PostReplyControllerTest extends TestCase
@@ -14,12 +16,21 @@ class PostReplyControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Permission::create(['name' => 'create post replies']);
+        $userRole = Role::create(['name' => 'user']);
+        $userRole->givePermissionTo('create post replies');
+    }
+
     /**
      * @test
      */
     public function it_stores_a_post_reply_and_redirects_with_status()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('user');
         $post = Post::factory()->create();
         $content = $this->faker->sentence;
 
@@ -47,7 +58,7 @@ class PostReplyControllerTest extends TestCase
      */
     public function it_stores_a_comment_to_a_post_reply_and_redirects_with_status()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('user');
         $post = Post::factory()->create();
         $postReply = PostReply::factory()->create();
         $content = $this->faker->sentence;
@@ -76,7 +87,7 @@ class PostReplyControllerTest extends TestCase
      */
     public function it_does_not_store_a_post_reply_with_no_content_provided()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create()->assignRole('user');
         $post = Post::factory()->create();
 
         $response = $this
@@ -87,28 +98,6 @@ class PostReplyControllerTest extends TestCase
         $this->assertDatabaseCount('post_replies', 0);
         $response->assertSessionHasErrors('content');
         $response->assertRedirect(route('posts.show', $post->id));
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_store_a_post_reply_with_no_existing_post_provided()
-    {
-        $user = User::factory()->create();
-
-        $content = $this->faker->sentence;
-
-        $this->assertDatabaseCount('posts', 0);
-
-        $response = $this
-            ->from(route('posts.show', 1))
-            ->actingAs($user)
-            ->post(route('replies.store', 1), [
-                'content' => $content,
-            ]);
-
-        $this->assertDatabaseCount('post_replies', 0);
-        $response->assertRedirect(route('posts.show', 1));
     }
 
     /**
@@ -127,6 +116,6 @@ class PostReplyControllerTest extends TestCase
 
         $this->assertDatabaseCount('post_replies', 0);
 
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('login'));
     }
 }
