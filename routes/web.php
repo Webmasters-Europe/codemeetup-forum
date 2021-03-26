@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 /* Routes for authentication and email verification */
 Auth::routes(['verify' => true]);
 
+Route::get('/login', function(){
+    return redirect(route('home'));
+})->name('login');
+
 /* Routes for guests */
 Route::group(['middleware' => 'guest'], function () {
     /* Routes for oAuth */
