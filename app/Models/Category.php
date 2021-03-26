@@ -17,4 +17,13 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function scopeSearch($query, $term) {
+        $term = "%$term%";
+        $query->where(function($query) use ($term) {
+            $query->where('name', 'like', $term)
+            ->orWhere('description', 'like', $term);
+        });
+    }
+
 }
