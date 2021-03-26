@@ -10,5 +10,18 @@
     </nav>
 
     <h1>Administrate Categories</h1>
+    
+    @livewire('admin-area-categories') 
 
 @endsection
+
+@push('scripts')
+<script>
+    window.addEventListener('show-form', event => {
+        $('#addCategoryModal').modal('show');
+    });
+    window.addEventListener('hide-form', event => {
+        $('#addCategoryModal').modal('hide');
+    });
+</script>
+@endpush
