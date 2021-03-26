@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Category;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class AdminAreaCategories extends Component
@@ -21,20 +21,20 @@ class AdminAreaCategories extends Component
         'description' => 'nullable|string|max:255',
     ];
 
-
     public function render()
     {
-        $categories = Category::search(trim($this->search))->orderBy('created_at','DESC')->paginate($this->paginate);
+        $categories = Category::search(trim($this->search))->orderBy('created_at', 'DESC')->paginate($this->paginate);
+
         return view('livewire.admin-area-categories', compact('categories'));
     }
 
-    
-    public function showCategoryForm(){
+    public function showCategoryForm()
+    {
         $this->dispatchBrowserEvent('show-form');
     }
 
-    public function addNewCategory(){
-        
+    public function addNewCategory()
+    {
         $this->validate();
 
         Category::create([
@@ -47,8 +47,7 @@ class AdminAreaCategories extends Component
         $this->description = '';
 
         session()->flash('status', 'Category successfully created.');
-        return redirect()->back();
-        
-    }
 
+        return redirect()->back();
+    }
 }
