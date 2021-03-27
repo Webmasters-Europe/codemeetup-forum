@@ -2,21 +2,19 @@
     <div class="w-100" @click.away="opensearch = false" x-data="{ opensearch: false }">
         <div @click="opensearch= true">
             <input class="form-control me-2 w-100" type="search" aria-label="Search" id="search" wire:model="search"
-                placeholder="Search Posts ..." />
+                placeholder="Search Posts ..." list="search-results" autocomplete="off" onchange="redirectToPost(this.value)" />
         </div>
         @isset($posts)
         <div x-show="opensearch">
-            <ul>
+            <datalist id="search-results">
                 @forelse($posts as $post)
-                <li>
-                    <a href="{{ route('posts.show', $post)}}"> {{$post->title}} {{$post->content}}</a>
-                </li>
+                <option value="{{ route('posts.show', $post) }}" >
+                  {{$post->title}} {{$post->content}}
+                  </option>
                 @empty
-                <li>
-                    No Post found
-                </li>
+                <option value="No Post found">
                 @endforelse
-            </ul>
+            </datalist>
         </div>
         @endisset
     </div>
