@@ -15,6 +15,10 @@
                     </div>
                 </div>
             </div>
+            <div class="custom-control custom-switch">
+                <input wire:model="showDeletedCategories" type="checkbox" class="custom-control-input" id="showDeletedCategories" name="showDeletedCategories" />
+                <label class="custom-control-label" for="showDeletedCategories">Show deleted Categories</label>
+            </div>
             <div>
                 <button wire:click.prevent="showCategoryForm" class="btn btn-sm btn-success"><i
                         class="fas fa-plus-circle mr-2"></i>Add new Category</button>
@@ -42,12 +46,21 @@
                             <td>{{ $category->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>{{ $category->updated_at->format('d.m.Y H:i:s') }}</td>
                             <td>
-                                <button class="btn btn-primary btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                @if(!$showDeletedCategories)
+                                    <button wire:click="selectCategory({{ $category->id }}, 'update')"
+                                        class="btn btn-primary btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button wire:click="selectCategory({{ $category->id }}, 'delete')"
+                                        class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                @else
+                                    <button wire:click="selectCategory({{ $category->id }}, 'restore')"
+                                        class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-trash-restore"></i>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -74,30 +87,87 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">Category Name</label>
-                            <input wire:model.defer="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name">
-                            @error('name')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description <small>(optional)</small></label>
-                            <input wire:model.defer="description" type="text" class="form-control @error('description') is-invalid @enderror" id="description"
-                                name="description">
-                                @error('description')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
+                    @include('components.categoryForm')
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Update Category-->
+    <div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel"
+        aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <form wire:submit.prevent="update">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateCategoryModalLabel">Update Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @include('components.categoryForm')
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Delete Category-->
+    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
+        aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <form wire:submit.prevent="delete">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteCategoryModalLabel">Delete this Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you really want to delete this category:
+                        <h5>{{ $name }}</h5>
+                        <p>Description: <br> {{ $description }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Restore Category-->
+    <div class="modal fade" id="restoreCategoryModal" tabindex="-1" aria-labelledby="restoreCategoryModalLabel"
+        aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <form wire:submit.prevent="restore">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="restoreCategoryModalLabel">Restore this Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you really want to restore this category:
+                        <h5>{{ $name }}</h5>
+                        <p>Description: <br> {{ $description }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Yes, Restore</button>
                     </div>
                 </div>
             </form>

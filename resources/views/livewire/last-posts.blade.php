@@ -11,7 +11,6 @@
                         <a href="{{ route('posts.show', $post)}}"><h6 class="my-0">{{ $post->title }}</h6></a>
                         <small class="text-muted">{{ $post->category->name }}</small>
                         <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
-
                     </div>
                 </li>
             @endforeach
