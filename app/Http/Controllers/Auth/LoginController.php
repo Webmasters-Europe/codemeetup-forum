@@ -117,4 +117,9 @@ class LoginController extends Controller
             return $user;
         }
     }
+
+    public function showLoginForm()
+    {
+        return abort(404);
+    }
 }
