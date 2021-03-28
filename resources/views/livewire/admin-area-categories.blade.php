@@ -16,7 +16,8 @@
                 </div>
             </div>
             <div class="custom-control custom-switch">
-                <input wire:model="showDeletedCategories" type="checkbox" class="custom-control-input" id="showDeletedCategories" name="showDeletedCategories" />
+                <input wire:model="showDeletedCategories" type="checkbox" class="custom-control-input"
+                    id="showDeletedCategories" name="showDeletedCategories" />
                 <label class="custom-control-label" for="showDeletedCategories">Show deleted Categories</label>
             </div>
             <div>
@@ -31,11 +32,11 @@
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Posts</th>
-                        <th>created</th>
-                        <th>updated</th>
+                        <th wire:click="sortBy('name')" style="cursor: pointer;">Name @include('components.sort_icon',['field' => 'name'])</th>
+                        <th wire:click="sortBy('description')" style="cursor: pointer;">Description @include('components.sort_icon',['field' => 'description'])</th>
+                        <th wire:click="sortBy('posts_count')" style="cursor: pointer;">Posts @include('components.sort_icon',['field' => 'posts_count'])</th>
+                        <th wire:click="sortBy('created_at')" style="cursor: pointer;">created @include('components.sort_icon',['field' => 'created_at'])</th>
+                        <th wire:click="sortBy('updated_at')" style="cursor: pointer;">updated @include('components.sort_icon',['field' => 'updated_at'])</th>
                         <th>Action</th>
                     </tr>
                     @foreach ($categories as $category)
@@ -46,7 +47,7 @@
                             <td>{{ $category->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>{{ $category->updated_at->format('d.m.Y H:i:s') }}</td>
                             <td>
-                                @if(!$showDeletedCategories)
+                                @if (!$showDeletedCategories)
                                     <button wire:click="selectCategory({{ $category->id }}, 'update')"
                                         class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit"></i>

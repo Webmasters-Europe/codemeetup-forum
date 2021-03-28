@@ -18,6 +18,8 @@ class AdminAreaCategories extends Component
     public $showDeletedCategories;
     public $selectedCategory;
     public $action;
+    public $sortBy = 'created_at';
+    public $sortDirection = 'desc';
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -27,12 +29,22 @@ class AdminAreaCategories extends Component
     public function render()
     {
         if ($this->showDeletedCategories) {
-            $categories = Category::onlyTrashed()->search(trim($this->search))->orderBy('created_at', 'DESC')->paginate($this->paginate);
+            $categories = Category::onlyTrashed()->search(trim($this->search))->orderBy($this->sortBy, $this->sortDirection)->paginate($this->paginate);
         } else {
-            $categories = Category::search(trim($this->search))->orderBy('created_at', 'DESC')->paginate($this->paginate);
+            $categories = Category::search(trim($this->search))->orderBy($this->sortBy, $this->sortDirection)->paginate($this->paginate);
         }
 
         return view('livewire.admin-area-categories', compact('categories'));
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortDirection == 'desc') {
+            $this->sortDirection = 'asc';
+        } else {
+            $this->sortDirection = 'desc';
+        }
+        return $this->sortBy = $field;
     }
 
     public function showCategoryForm()
@@ -97,7 +109,7 @@ class AdminAreaCategories extends Component
         Category::findOrFail($this->selectedCategory)->delete();
         $this->dispatchBrowserEvent('closeDeleteModal');
         $this->resetInputFields();
-        session()->flash('status', 'Category successfully deleted.');
+        session()->flash('status', 'Category and all posts and replies in this category successfully deleted.');
         return redirect()->route('admin-area.categories');
     }
 

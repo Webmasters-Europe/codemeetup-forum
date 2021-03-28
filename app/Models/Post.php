@@ -4,18 +4,23 @@ namespace App\Models;
 
 use App\Models\Upload;
 use App\Service\Searchable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Askedio\SoftCascade\Traits\SoftCascadeTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, Searchable, SoftDeletes, SoftCascadeTrait;
 
     protected $fillable = ['title', 'content'];
 
     protected $dates = ['deleted_at'];
 
     protected $appends = ['replyCount'];
+
+    protected $softCascade = ['reply', 'uploads'];
+
 
     public function user()
     {
