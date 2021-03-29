@@ -27,7 +27,7 @@ class Category extends Model
     public function postsTrashed()
     {
         return $this->hasMany(Post::class)->onlyTrashed();
-    }   
+    }
 
     public function scopeSearch($query, $term)
     {
