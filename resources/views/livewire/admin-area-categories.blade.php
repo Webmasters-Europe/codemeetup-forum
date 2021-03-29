@@ -25,25 +25,43 @@
                         class="fas fa-plus-circle mr-2"></i>Add new Category</button>
             </div>
             <div class=" col-md-4">
-                <input wire:model="search" type="search" class="form-control" placeholder="Search by name, description">
+                <input wire:model="search" type="search" class="form-control" placeholder="Search in name and description">
             </div>
         </div>
         <div class="card-body table-responsive p-0">
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th wire:click="sortBy('name')" style="cursor: pointer;">Name @include('components.sort_icon',['field' => 'name'])</th>
-                        <th wire:click="sortBy('description')" style="cursor: pointer;">Description @include('components.sort_icon',['field' => 'description'])</th>
+                        <th wire:click="sortBy('name')" style="cursor: pointer;">
+                            Name @include('components.sort_icon',['field' => 'name'])
+                           
+                        </th>
+                        <th wire:click="sortBy('description')" style="cursor: pointer;">
+                            Description @include('components.sort_icon',['field' => 'description'])
+                        </th>
                         <th wire:click="sortBy('posts_count')" style="cursor: pointer;">Posts @include('components.sort_icon',['field' => 'posts_count'])</th>
                         <th wire:click="sortBy('created_at')" style="cursor: pointer;">created @include('components.sort_icon',['field' => 'created_at'])</th>
                         <th wire:click="sortBy('updated_at')" style="cursor: pointer;">updated @include('components.sort_icon',['field' => 'updated_at'])</th>
                         <th>Action</th>
                     </tr>
+                    <tr>
+                        <th> <input wire:model="searchName" type="search" class="form-control" placeholder="Search Name"></th>
+                        <th> <input wire:model="searchDescription" type="search" class="form-control" placeholder="Search Description"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                     @foreach ($categories as $category)
                         <tr>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->description }}</td>
-                            <td>{{ $category->posts_count }}</td>
+                            <td>@if (!$showDeletedCategories)
+                                    {{ $category->posts_count }}
+                                @else
+                                    {{ $category->posts_trashed_count }}
+                                @endif
+                            </td>
                             <td>{{ $category->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>{{ $category->updated_at->format('d.m.Y H:i:s') }}</td>
                             <td>
