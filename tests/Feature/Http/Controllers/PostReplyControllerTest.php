@@ -116,6 +116,6 @@ class PostReplyControllerTest extends TestCase
 
         $this->assertDatabaseCount('post_replies', 0);
 
-        $response->assertRedirect(route('login'));
+        $response->assertRedirect(route('home'));
     }
 }
