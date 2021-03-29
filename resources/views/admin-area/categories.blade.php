@@ -17,11 +17,29 @@
 
 @push('scripts')
 <script>
-    window.addEventListener('show-form', event => {
+    window.addEventListener('openAddCategoryModal', event => {
         $('#addCategoryModal').modal('show');
     });
-    window.addEventListener('hide-form', event => {
+    window.addEventListener('closeAddCategoryModal', event => {
         $('#addCategoryModal').modal('hide');
+    });
+    window.addEventListener('openUpdateModal', event => {
+        $('#updateCategoryModal').modal('show');
+    });
+    window.addEventListener('closeUpdateModal', event => {
+        $('#updateCategoryModal').modal('hide');
+    });
+    window.addEventListener('openDeleteModal', event => {
+        $('#deleteCategoryModal').modal('show');
+    });
+    window.addEventListener('closeDeleteModal', event => {
+        $('#deleteCategoryModal').modal('hide');
+    });
+    window.addEventListener('openRestoreModal', event => {
+        $('#restoreCategoryModal').modal('show');
+    });
+    window.addEventListener('closeRestoreModal', event => {
+        $('#restoreCategoryModal').modal('hide');
     });
 </script>
 @endpush

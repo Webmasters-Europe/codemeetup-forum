@@ -15,6 +15,11 @@ class AdminAreaCategories extends Component
     public $search = '';
     public $name;
     public $description;
+    public $showDeletedCategories;
+    public $selectedCategory;
+    public $action;
+    public $sortBy = 'created_at';
+    public $sortDirection = 'desc';
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -23,14 +28,29 @@ class AdminAreaCategories extends Component
 
     public function render()
     {
-        $categories = Category::search(trim($this->search))->orderBy('created_at', 'DESC')->paginate($this->paginate);
+        if ($this->showDeletedCategories) {
+            $categories = Category::onlyTrashed()->search(trim($this->search))->orderBy($this->sortBy, $this->sortDirection)->paginate($this->paginate);
+        } else {
+            $categories = Category::search(trim($this->search))->orderBy($this->sortBy, $this->sortDirection)->paginate($this->paginate);
+        }
 
         return view('livewire.admin-area-categories', compact('categories'));
     }
 
+    public function sortBy($field)
+    {
+        if ($this->sortDirection == 'desc') {
+            $this->sortDirection = 'asc';
+        } else {
+            $this->sortDirection = 'desc';
+        }
+        return $this->sortBy = $field;
+    }
+
     public function showCategoryForm()
     {
-        $this->dispatchBrowserEvent('show-form');
+        $this->resetInputFields();
+        $this->dispatchBrowserEvent('openAddCategoryModal');
     }
 
     public function addNewCategory()
@@ -42,12 +62,69 @@ class AdminAreaCategories extends Component
             'description' => $this->description,
         ]);
 
-        $this->dispatchBrowserEvent('hide-form');
-        $this->name = '';
-        $this->description = '';
+        $this->dispatchBrowserEvent('closeAddCategoryModal');
+        $this->resetInputFields();
 
         session()->flash('status', 'Category successfully created.');
 
-        return redirect()->back();
+        return redirect()->route('admin-area.categories');
+    }
+
+    public function selectCategory($categoryId, $action)
+    {
+        $this->selectedCategory = $categoryId;
+        $category = Category::withTrashed()->findOrFail($this->selectedCategory);
+        $this->name = $category->name;
+        $this->description = $category->description;
+
+        switch ($action) {
+            case 'delete':
+                $this->dispatchBrowserEvent('openDeleteModal');
+                break;
+            case 'update':
+                $this->dispatchBrowserEvent('openUpdateModal');
+                break;
+            case 'restore':
+                $this->dispatchBrowserEvent('openRestoreModal');
+                break;
+        }
+    }
+
+    public function update()
+    {
+        $this->validate();
+        $category = Category::findOrFail($this->selectedCategory);
+        $category->update([
+            'name' => $this->name,
+            'description' => $this->description,
+        ]);
+        $this->dispatchBrowserEvent('closeUpdateModal');
+        $this->resetInputFields();
+        session()->flash('status', 'Category successfully updated.');
+        return redirect()->route('admin-area.categories');
+    }
+
+    public function delete()
+    {
+        Category::findOrFail($this->selectedCategory)->delete();
+        $this->dispatchBrowserEvent('closeDeleteModal');
+        $this->resetInputFields();
+        session()->flash('status', 'Category and all posts and replies in this category successfully deleted.');
+        return redirect()->route('admin-area.categories');
+    }
+
+    public function restore()
+    {
+        Category::onlyTrashed()->findOrFail($this->selectedCategory)->restore();
+        $this->dispatchBrowserEvent('closeRestoreModal');
+        $this->resetInputFields();
+        session()->flash('status', 'Category successfully restored.');
+        return redirect()->route('admin-area.categories');
+    }
+
+    private function resetInputFields()
+    {
+        $this->name = '';
+        $this->description = '';
     }
 }

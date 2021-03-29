@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
+use Askedio\SoftCascade\Traits\SoftCascadeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PostReply extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, SoftCascadeTrait;
 
     protected $fillable = ['content'];
+
+    protected $softCascade = ['reply'];
 
     public function user()
     {
