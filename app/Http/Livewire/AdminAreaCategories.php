@@ -44,6 +44,7 @@ class AdminAreaCategories extends Component
         } else {
             $this->sortDirection = 'desc';
         }
+
         return $this->sortBy = $field;
     }
 
@@ -101,6 +102,7 @@ class AdminAreaCategories extends Component
         $this->dispatchBrowserEvent('closeUpdateModal');
         $this->resetInputFields();
         session()->flash('status', 'Category successfully updated.');
+
         return redirect()->route('admin-area.categories');
     }
 
@@ -110,6 +112,7 @@ class AdminAreaCategories extends Component
         $this->dispatchBrowserEvent('closeDeleteModal');
         $this->resetInputFields();
         session()->flash('status', 'Category and all posts and replies in this category successfully deleted.');
+
         return redirect()->route('admin-area.categories');
     }
 
@@ -119,6 +122,7 @@ class AdminAreaCategories extends Component
         $this->dispatchBrowserEvent('closeRestoreModal');
         $this->resetInputFields();
         session()->flash('status', 'Category successfully restored.');
+
         return redirect()->route('admin-area.categories');
     }
 

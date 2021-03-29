@@ -4,10 +4,10 @@ namespace App\Models;
 
 use App\Models\Upload;
 use App\Service\Searchable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Askedio\SoftCascade\Traits\SoftCascadeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
@@ -20,7 +20,6 @@ class Post extends Model
     protected $appends = ['replyCount'];
 
     protected $softCascade = ['reply', 'uploads'];
-
 
     public function user()
     {
