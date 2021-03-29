@@ -15,7 +15,7 @@ class Category extends Model
 
     protected $fillable = ['name', 'description'];
 
-    protected $withCount = ['posts'];
+    protected $withCount = ['posts', 'postsTrashed'];
 
     protected $softCascade = ['posts'];
 
@@ -24,12 +24,33 @@ class Category extends Model
         return $this->hasMany(Post::class);
     }
 
+    public function postsTrashed()
+    {
+        return $this->hasMany(Post::class)->onlyTrashed();
+    }   
+
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
             $query->where('name', 'like', $term)
             ->orWhere('description', 'like', $term);
+        });
+    }
+
+    public function scopeSearchName($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('name', 'like', $term);
+        });
+    }
+
+    public function scopeSearchDescription($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('description', 'like', $term);
         });
     }
 }

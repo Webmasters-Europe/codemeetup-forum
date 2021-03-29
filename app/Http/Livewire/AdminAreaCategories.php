@@ -13,6 +13,8 @@ class AdminAreaCategories extends Component
     protected $paginationTheme = 'bootstrap';
     public $paginate = 10;
     public $search = '';
+    public $searchName = '';
+    public $searchDescription = '';
     public $name;
     public $description;
     public $showDeletedCategories;
@@ -29,9 +31,31 @@ class AdminAreaCategories extends Component
     public function render()
     {
         if ($this->showDeletedCategories) {
-            $categories = Category::onlyTrashed()->search(trim($this->search))->orderBy($this->sortBy, $this->sortDirection)->paginate($this->paginate);
+            $categories = Category::onlyTrashed()
+            ->when($this->searchName, function ($query) {
+                $query->searchName(trim($this->searchName));
+            })
+            ->when($this->searchDescription, function ($query) {
+                $query->searchDescription(trim($this->searchDescription));
+            })
+            ->when($this->search, function ($query) {
+                $query->search(trim($this->search));
+            })
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate($this->paginate);
         } else {
-            $categories = Category::search(trim($this->search))->orderBy($this->sortBy, $this->sortDirection)->paginate($this->paginate);
+            $categories = Category::query()
+            ->when($this->searchName, function ($query) {
+                $query->searchName(trim($this->searchName));
+            })
+            ->when($this->searchDescription, function ($query) {
+                $query->searchDescription(trim($this->searchDescription));
+            })
+            ->when($this->search, function ($query) {
+                $query->search(trim($this->search));
+            })
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate($this->paginate);
         }
 
         return view('livewire.admin-area-categories', compact('categories'));
