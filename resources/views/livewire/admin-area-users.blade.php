@@ -74,10 +74,10 @@
                     </td>
                     <td>
                         @if (!$showDeletedElements)
-                            <button wire:click="selectModelInstance({{ $user->id }}, 'update')"
-                                    class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </button>
+{{--                            <button wire:click="selectModelInstance({{ $user->id }}, 'update')"--}}
+{{--                                    class="btn btn-primary btn-sm">--}}
+{{--                                <i class="fas fa-edit"></i>--}}
+{{--                            </button>--}}
                             @if ($user->id != auth()->user()->id )
                                 <button wire:click="selectModelInstance({{ $user->id }}, 'delete')"
                                         class="btn btn-danger btn-sm">
