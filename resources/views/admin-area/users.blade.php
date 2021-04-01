@@ -14,3 +14,5 @@
     @livewire('admin-area-users')
 
 @endsection
+
+<x-table-modal-event-listeners/>

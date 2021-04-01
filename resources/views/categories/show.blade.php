@@ -23,7 +23,12 @@
                 </a>
             </div>
             <div class="col-3 col-lg-4">
-                by <a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a>
+                by
+                @if ($post->user->trashed())
+                    a deleted user
+                @else
+                    <a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a>
+                @endif
                 at {{ $post->created_at->format('d.m.Y H:i:s') }}
             </div>
             <div class="col-3 col-lg-2">

@@ -14,7 +14,14 @@
 
         @markdown($post->content)
 
-        <div>by <a href=" {{ route('users.show', $post->user) }}">{{ $post->user->username }}</a></div>
+        <div>
+            by
+            @if ($post->user->trashed())
+                a deleted user
+            @else
+                <a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a>
+            @endif
+        </div>
         <div>created at {{ $post->created_at->format('d.m.Y H:i:s') }}</div>
 
         {{-- begin show all uploads to this post --}}
@@ -60,7 +67,14 @@
                 <ul class="row border my-2 p-2 no-gutters">
                             <li class="list-unstyled">
                                 @markdown($reply->content)
-                                by {{ $reply->user->username }}, created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
+
+                                by
+                                @if ($reply->user->trashed())
+                                    a deleted user,
+                                @else
+                                    <a href=" {{ route('users.show', $reply->user) }}">{{$reply->user->username}}</a>,
+                                @endif
+                                created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
 
                                 @can('create post replies')
                                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">

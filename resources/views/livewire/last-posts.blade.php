@@ -10,7 +10,17 @@
                     <div>
                         <a href="{{ route('posts.show', $post)}}"><h6 class="my-0">{{ $post->title }}</h6></a>
                         <small class="text-muted">{{ $post->category->name }}</small>
-                        <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
+                        <div>
+                            <small class="text-muted">
+                                by
+                                @if ($post->user->trashed())
+                                    a deleted user
+                                @else
+                                    <a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a>
+                                @endif
+                            </small>
+                            <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
+                        </div>
                     </div>
                 </li>
             @endforeach

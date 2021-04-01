@@ -83,14 +83,14 @@
     </div>
 
     <!-- Modal for Add new Category-->
-    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+    <div class="modal fade" id="addModelInstanceModal" tabindex="-1" aria-labelledby="addModelInstanceModalLabel"
         aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <form wire:submit.prevent="addNewCategory">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addCategoryModalLabel">Add new Category</h5>
+                        <h5 class="modal-title" id="addModelInstanceModalLabel">Add new Category</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -106,14 +106,14 @@
     </div>
 
     <!-- Modal for Update Category-->
-    <div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel"
+    <div class="modal fade" id="updateModelInstanceModal" tabindex="-1" aria-labelledby="updateModelInstanceModalLabel"
         aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <form wire:submit.prevent="update">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="updateCategoryModalLabel">Update Category</h5>
+                        <h5 class="modal-title" id="updateModelInstanceModalLabel">Update Category</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -129,14 +129,14 @@
     </div>
 
     <!-- Modal for Delete Category-->
-    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
+    <div class="modal fade" id="deleteModelInstanceModal" tabindex="-1" aria-labelledby="deleteModelInstanceModalLabel"
         aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <form wire:submit.prevent="delete">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteCategoryModalLabel">Delete this Category</h5>
+                        <h5 class="modal-title" id="deleteModelInstanceModalLabel">Delete this Category</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -156,14 +156,14 @@
     </div>
 
     <!-- Modal for Restore Category-->
-    <div class="modal fade" id="restoreCategoryModal" tabindex="-1" aria-labelledby="restoreCategoryModalLabel"
+    <div class="modal fade" id="restoreModelInstanceModal" tabindex="-1" aria-labelledby="restoreModelInstanceModalLabel"
         aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <form wire:submit.prevent="restore">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="restoreCategoryModalLabel">Restore this Category</h5>
+                        <h5 class="modal-title" id="restoreModelInstanceModalLabel">Restore this Category</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
