@@ -1,20 +1,9 @@
 <div>
     <div>
         <div class="d-flex justify-content-between align-content-center mb-2">
-            <div class="d-flex">
-                <div>
-                    <div class="d-flex align-items-center ml-4">
-                        <label for="paginate" class="text-nowrap mr-2 mb-0">Per Page</label>
-                        <select wire:model="paginate" name="paginate" id="paginate"
-                            class="form-control form-control-sm">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+
+            <x-table-pagination/>
+
             <div class="custom-control custom-switch">
                 <input wire:model="showDeletedCategories" type="checkbox" class="custom-control-input"
                     id="showDeletedCategories" name="showDeletedCategories" />
@@ -34,7 +23,7 @@
                     <tr>
                         <th wire:click="sortBy('name')" style="cursor: pointer;">
                             Name @include('components.sort_icon',['field' => 'name'])
-                           
+
                         </th>
                         <th wire:click="sortBy('description')" style="cursor: pointer;">
                             Description @include('components.sort_icon',['field' => 'description'])

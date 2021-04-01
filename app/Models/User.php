@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
+
+    protected $withCount = ['posts', 'postReplies'];
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +45,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime'
     ];
 
     public function socialAuths()
@@ -53,5 +56,28 @@ class User extends Authenticatable implements MustVerifyEmail
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function postReplies()
+    {
+        return $this->hasMany(PostReply::class);
+    }
+
+    public function scopeGlobalSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('name', 'like', $term)
+                ->orWhere('username', 'like', $term)
+                ->orWhere('email', 'like', $term);
+        });
+    }
+
+    public function scopeSingleFieldSearch($query, $term, $field)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term, $field) {
+            $query->where($field, 'like', $term);
+        });
     }
 }

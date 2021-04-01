@@ -3,15 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
-use Livewire\Component;
-use Livewire\WithPagination;
 
-class AdminAreaCategories extends Component
+class AdminAreaCategories extends TableComponent
 {
-    use WithPagination;
-
-    protected $paginationTheme = 'bootstrap';
-    public $paginate = 10;
     public $search = '';
     public $searchName = '';
     public $searchDescription = '';
@@ -59,17 +53,6 @@ class AdminAreaCategories extends Component
         }
 
         return view('livewire.admin-area-categories', compact('categories'));
-    }
-
-    public function sortBy($field)
-    {
-        if ($this->sortDirection == 'desc') {
-            $this->sortDirection = 'asc';
-        } else {
-            $this->sortDirection = 'desc';
-        }
-
-        return $this->sortBy = $field;
     }
 
     public function showCategoryForm()

@@ -11,4 +11,6 @@
 
     <h1>Administrate Users</h1>
 
+    @livewire('admin-area-users')
+
 @endsection
