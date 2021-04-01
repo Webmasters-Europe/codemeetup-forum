@@ -23,12 +23,12 @@ class AdminAreaUsers extends TableComponent
 
     // Actions:
     public $action;
-    public $showDeletedUsers;
-    public $selectedUser;
+    public $showDeletedElements;
+    public $selectedModelInstance;
 
     public function render()
     {
-        if ($this->showDeletedUsers) {
+        if ($this->showDeletedElements) {
             $users = User::onlyTrashed();
         } else {
             $users = User::query();
@@ -56,5 +56,32 @@ class AdminAreaUsers extends TableComponent
         $users = $users->paginate($this->paginate);
 
         return view('livewire.admin-area-users', compact('users'));
+    }
+
+    function selectModelInstance($id, $action)
+    {
+        $this->selectedModelInstance = $id;
+        $user = User::withTrashed()->findOrFail($this->selectedModelInstance);
+
+        $this->name = $user->name;
+        $this->username = $user->username;
+        $this->email = $user->email;
+
+        $this->dispatchBrowserEventByAction($action);
+    }
+
+    function deleteModelInstance()
+    {
+        User::findOrFail($this->selectedModelInstance)->delete();
+        $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
+    }
+
+    function restoreModelInstance()
+    {
+        User::onlyTrashed()->findOrFail($this->selectedModelInstance)->restore();
+        $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
+        session()->flash('status', 'User successfully restored.');
+
+        return redirect()->route('admin-area.users');
     }
 }

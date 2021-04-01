@@ -4,9 +4,9 @@
         <x-table-pagination/>
 
         <div class="custom-control custom-switch">
-            <input wire:model="showDeletedUsers" type="checkbox" class="custom-control-input"
-                   id="showDeletedUsers" name="showDeletedUsers"/>
-            <label class="custom-control-label" for="showDeletedUsers">Show deleted Users</label>
+            <input wire:model="showDeletedElements" type="checkbox" class="custom-control-input"
+                   id="showDeletedElements" name="showDeletedElements"/>
+            <label class="custom-control-label" for="showDeletedElements">Show deleted Users</label>
         </div>
         <div class=" col-md-4">
             <input wire:model="globalSearch" type="search" class="form-control"
@@ -73,24 +73,23 @@
                         {{ $user->post_replies_count }}
                     </td>
                     <td>
-                        TODO
-{{--                        @if (!$showDeletedUsers)--}}
-{{--                            <button wire:click="selectUser({{ $user->id }}, 'update')"--}}
+                        @if (!$showDeletedElements)
+{{--                            <button wire:click="selectModelInstance({{ $user->id }}, 'update')"--}}
 {{--                                    class="btn btn-primary btn-sm">--}}
 {{--                                <i class="fas fa-edit"></i>--}}
 {{--                            </button>--}}
-{{--                            @if ($user->id != auth()->user()->id )--}}
-{{--                                <button wire:click="selectUser({{ $user->id }}, 'delete')"--}}
-{{--                                        class="btn btn-danger btn-sm">--}}
-{{--                                    <i class="fas fa-trash"></i>--}}
-{{--                                </button>--}}
-{{--                            @endif--}}
-{{--                        @else--}}
-{{--                            <button wire:click="selectUser({{ $user->id }}, 'restore')"--}}
-{{--                                    class="btn btn-secondary btn-sm">--}}
-{{--                                <i class="fas fa-trash-restore"></i>--}}
-{{--                            </button>--}}
-{{--                        @endif--}}
+                            @if ($user->id != auth()->user()->id )
+                                <button wire:click="selectModelInstance({{ $user->id }}, 'delete')"
+                                        class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            @endif
+                        @else
+                            <button wire:click="selectModelInstance({{ $user->id }}, 'restore')"
+                                    class="btn btn-secondary btn-sm">
+                                <i class="fas fa-trash-restore"></i>
+                            </button>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -102,4 +101,69 @@
             {{ $users->links() }}
         </div>
     </div>
+
+    <!-- Modal for Delete User -->
+    <div class="modal fade" id="deleteModelInstanceModal" tabindex="-1" aria-labelledby="deleteModelInstanceModalLabel"
+         aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <form wire:submit.prevent="deleteModelInstance">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModelInstanceLabel">Delete this User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Do you really want to delete this User?</h4>
+                        <p>Name: {{ $name }}</p>
+                        <p>Username: {{ $username }}</p>
+                        <p>Email: {{ $email }}</p>
+                        <p>
+                            The posts and replies of this user will not be deleted but they will be shown in an anonymous way.
+                            The user will not be able to login any more.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Restore User -->
+    <div class="modal fade" id="restoreModelInstanceModal" tabindex="-1" aria-labelledby="restoreModelInstanceModalLabel"
+         aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <form wire:submit.prevent="restoreModelInstance">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="restoreModelInstanceModalLabel">Restore this User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Do you really want to restore this User?</h4>
+                        <p>Name: {{ $name }}</p>
+                        <p>Username: {{ $username }}</p>
+                        <p>Email: {{ $email }}</p>
+                        <p>
+                            The posts and replies of this user will not be anonymized any longer
+                            and the user will be able to login again.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Yes, Restore</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>

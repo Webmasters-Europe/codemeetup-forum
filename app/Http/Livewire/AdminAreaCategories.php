@@ -58,7 +58,7 @@ class AdminAreaCategories extends TableComponent
     public function showCategoryForm()
     {
         $this->resetInputFields();
-        $this->dispatchBrowserEvent('openAddCategoryModal');
+        $this->dispatchBrowserEvent('openAddModelInstanceModal');
     }
 
     public function addNewCategory()
@@ -70,7 +70,7 @@ class AdminAreaCategories extends TableComponent
             'description' => $this->description,
         ]);
 
-        $this->dispatchBrowserEvent('closeAddCategoryModal');
+        $this->dispatchBrowserEvent('closeAddModelInstanceModal');
         $this->resetInputFields();
 
         session()->flash('status', 'Category successfully created.');
@@ -85,17 +85,7 @@ class AdminAreaCategories extends TableComponent
         $this->name = $category->name;
         $this->description = $category->description;
 
-        switch ($action) {
-            case 'delete':
-                $this->dispatchBrowserEvent('openDeleteModal');
-                break;
-            case 'update':
-                $this->dispatchBrowserEvent('openUpdateModal');
-                break;
-            case 'restore':
-                $this->dispatchBrowserEvent('openRestoreModal');
-                break;
-        }
+        $this->dispatchBrowserEventByAction($action);
     }
 
     public function update()
@@ -106,7 +96,7 @@ class AdminAreaCategories extends TableComponent
             'name' => $this->name,
             'description' => $this->description,
         ]);
-        $this->dispatchBrowserEvent('closeUpdateModal');
+        $this->dispatchBrowserEvent('closeUpdateModelInstanceModal');
         $this->resetInputFields();
         session()->flash('status', 'Category successfully updated.');
 
@@ -116,7 +106,7 @@ class AdminAreaCategories extends TableComponent
     public function delete()
     {
         Category::findOrFail($this->selectedCategory)->delete();
-        $this->dispatchBrowserEvent('closeDeleteModal');
+        $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
         $this->resetInputFields();
         session()->flash('status', 'Category and all posts and replies in this category successfully deleted.');
 
@@ -126,7 +116,7 @@ class AdminAreaCategories extends TableComponent
     public function restore()
     {
         Category::onlyTrashed()->findOrFail($this->selectedCategory)->restore();
-        $this->dispatchBrowserEvent('closeRestoreModal');
+        $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
         $this->resetInputFields();
         session()->flash('status', 'Category successfully restored.');
 

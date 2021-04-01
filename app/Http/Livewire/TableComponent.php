@@ -23,4 +23,19 @@ abstract class TableComponent extends Component
 
         return $this->sortBy = $field;
     }
+
+    function dispatchBrowserEventByAction($action)
+    {
+        switch ($action) {
+            case 'delete':
+                $this->dispatchBrowserEvent('openDeleteModelInstanceModal');
+                break;
+            case 'update':
+                $this->dispatchBrowserEvent('openUpdateModelInstanceModal');
+                break;
+            case 'restore':
+                $this->dispatchBrowserEvent('openRestoreModelInstanceModal');
+                break;
+        }
+    }
 }
