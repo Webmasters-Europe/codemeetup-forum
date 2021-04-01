@@ -73,23 +73,24 @@
                         {{ $user->post_replies_count }}
                     </td>
                     <td>
-                        @if (!$showDeletedUsers)
-                            <button wire:click="selectUser({{ $user->id }}, 'update')"
-                                    class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            @if ($user->id != auth()->user()->id )
-                                <button wire:click="selectUser({{ $user->id }}, 'delete')"
-                                        class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            @endif
-                        @else
-                            <button wire:click="selectUser({{ $user->id }}, 'restore')"
-                                    class="btn btn-secondary btn-sm">
-                                <i class="fas fa-trash-restore"></i>
-                            </button>
-                        @endif
+                        TODO
+{{--                        @if (!$showDeletedUsers)--}}
+{{--                            <button wire:click="selectUser({{ $user->id }}, 'update')"--}}
+{{--                                    class="btn btn-primary btn-sm">--}}
+{{--                                <i class="fas fa-edit"></i>--}}
+{{--                            </button>--}}
+{{--                            @if ($user->id != auth()->user()->id )--}}
+{{--                                <button wire:click="selectUser({{ $user->id }}, 'delete')"--}}
+{{--                                        class="btn btn-danger btn-sm">--}}
+{{--                                    <i class="fas fa-trash"></i>--}}
+{{--                                </button>--}}
+{{--                            @endif--}}
+{{--                        @else--}}
+{{--                            <button wire:click="selectUser({{ $user->id }}, 'restore')"--}}
+{{--                                    class="btn btn-secondary btn-sm">--}}
+{{--                                <i class="fas fa-trash-restore"></i>--}}
+{{--                            </button>--}}
+{{--                        @endif--}}
                     </td>
                 </tr>
             @endforeach
