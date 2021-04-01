@@ -58,7 +58,7 @@ class AdminAreaUsers extends TableComponent
         return view('livewire.admin-area-users', compact('users'));
     }
 
-    function selectModelInstance($id, $action)
+    public function selectModelInstance($id, $action)
     {
         $this->selectedModelInstance = $id;
         $user = User::withTrashed()->findOrFail($this->selectedModelInstance);
@@ -70,13 +70,13 @@ class AdminAreaUsers extends TableComponent
         $this->dispatchBrowserEventByAction($action);
     }
 
-    function deleteModelInstance()
+    public function deleteModelInstance()
     {
         User::findOrFail($this->selectedModelInstance)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
     }
 
-    function restoreModelInstance()
+    public function restoreModelInstance()
     {
         User::onlyTrashed()->findOrFail($this->selectedModelInstance)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');

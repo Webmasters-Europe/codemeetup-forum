@@ -24,7 +24,7 @@ abstract class TableComponent extends Component
         return $this->sortBy = $field;
     }
 
-    function dispatchBrowserEventByAction($action)
+    public function dispatchBrowserEventByAction($action)
     {
         switch ($action) {
             case 'delete':
