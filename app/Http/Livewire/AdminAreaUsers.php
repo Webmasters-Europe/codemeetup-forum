@@ -77,6 +77,7 @@ class AdminAreaUsers extends TableComponent
         $this->resetFormFields();
 
         session()->flash('status', 'User successfully deleted.');
+
         return redirect()->route('admin-area.users');
     }
 
@@ -89,7 +90,8 @@ class AdminAreaUsers extends TableComponent
         return redirect()->route('admin-area.users');
     }
 
-    function resetFormFields() {
+    public function resetFormFields()
+    {
         $this->name = '';
         $this->username = '';
         $this->email = '';

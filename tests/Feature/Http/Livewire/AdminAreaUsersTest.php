@@ -168,7 +168,7 @@ class AdminAreaUsersTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => 'Rolf Liebermann',
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
 
         $this->testUser->deleted_at = '2021-04-01 15:36:41';
@@ -176,7 +176,7 @@ class AdminAreaUsersTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => 'Rolf Liebermann',
-            'deleted_at' => '2021-04-01 15:36:41'
+            'deleted_at' => '2021-04-01 15:36:41',
         ]);
 
         Livewire::test(AdminAreaUsers::class)
@@ -184,7 +184,6 @@ class AdminAreaUsersTest extends TestCase
             ->assertDontSee('Rolf Liebermann')
             ->set('showDeletedElements', true)
             ->assertSee('Rolf Liebermann');
-
     }
 
     /**
@@ -194,7 +193,7 @@ class AdminAreaUsersTest extends TestCase
     {
         $this->assertDatabaseHas('users', [
             'name' => 'Rolf Liebermann',
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
 
         $testUserId = $this->testUser->id;
@@ -202,7 +201,7 @@ class AdminAreaUsersTest extends TestCase
         // Delete user:
         Livewire::test(AdminAreaUsers::class)
             ->call('render')
-            ->call('selectModelInstance',  $testUserId, 'delete')
+            ->call('selectModelInstance', $testUserId, 'delete')
             ->assertDispatchedBrowserEvent('openDeleteModelInstanceModal')
             ->assertSee('Delete this User')
             ->assertSee('Name: Rolf Liebermann')
@@ -215,7 +214,7 @@ class AdminAreaUsersTest extends TestCase
 
         $this->assertDatabaseMissing('users', [
             'name' => 'Rolf Liebermann',
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
 
         // Restore user:
@@ -223,7 +222,7 @@ class AdminAreaUsersTest extends TestCase
             ->set('showDeletedElements', true)
             ->assertSee('Rolf Liebermann')
             ->assertSeeHtml('<i class="fas fa-trash-restore"></i>')
-            ->call('selectModelInstance',  $testUserId, 'restore')
+            ->call('selectModelInstance', $testUserId, 'restore')
             ->assertSee('Restore this User')
             ->assertSee('Name: Rolf Liebermann')
             ->assertSee('Yes, Restore')
@@ -235,8 +234,7 @@ class AdminAreaUsersTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => 'Rolf Liebermann',
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
-
     }
 }
