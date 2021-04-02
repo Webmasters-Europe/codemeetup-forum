@@ -74,6 +74,10 @@ class AdminAreaUsers extends TableComponent
     {
         User::findOrFail($this->selectedModelInstance)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
+        $this->resetFormFields();
+
+        session()->flash('status', 'User successfully deleted.');
+        return redirect()->route('admin-area.users');
     }
 
     public function restoreModelInstance()
@@ -83,5 +87,11 @@ class AdminAreaUsers extends TableComponent
         session()->flash('status', 'User successfully restored.');
 
         return redirect()->route('admin-area.users');
+    }
+
+    function resetFormFields() {
+        $this->name = '';
+        $this->username = '';
+        $this->email = '';
     }
 }
