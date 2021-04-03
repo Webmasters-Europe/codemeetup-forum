@@ -29,11 +29,12 @@
         <style>
             body {
                 font-family: 'Nunito Sans', sans-serif;
-
+                color: #212529;
             }
 
             a {
                 cursor: pointer;
+                color: #212529;
             }
 
             footer a {
@@ -74,7 +75,27 @@
                 padding-bottom: 50px;
             }
 
+            #search-results {
+                position: absolute;
+                background-color: white;
+                z-index: 999;
+                border: 1px solid;
+                box-shadow: 0 12px 12px rgba(0,0,0,0.15);
+            }
 
+            #search-results ul {
+                list-style-type: none;
+                margin:0;
+                padding:0;
+            }
+
+            #search-results ul h5 {
+                margin-top:1rem;
+            }
+            #search-results .opensearch-inner {
+                overflow-y:scroll;
+                height: 80vh;
+            }
 
         </style>
         @stack('styles')
