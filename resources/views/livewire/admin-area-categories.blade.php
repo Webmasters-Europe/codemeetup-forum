@@ -77,6 +77,7 @@
         </div>
         <div class="row mt-4">
             <div class="col-sm-6 offset-5">
+                {{ $categories->firstItem()}} - {{ $categories->lastItem() }} from {{ $categories->total() }} results
                 {{ $categories->links() }}
             </div>
         </div>

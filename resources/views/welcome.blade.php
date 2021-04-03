@@ -34,7 +34,7 @@
                 </div>
             </div>
         @endforeach
-
+        {{ $categories->firstItem()}} - {{ $categories->lastItem() }} from {{ $categories->total() }} results
         {{ $categories->links() }}
 
 @endsection

@@ -40,7 +40,7 @@
             No posts found in this category.
         </div>
     @endforelse
-
+    {{ $posts->firstItem()}} - {{ $posts->lastItem() }} from {{ $posts->total() }} results
     {{ $posts->links() }}
 
 @endsection

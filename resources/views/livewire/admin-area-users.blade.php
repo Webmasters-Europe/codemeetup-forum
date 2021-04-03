@@ -98,6 +98,7 @@
     </div>
     <div class="row mt-4">
         <div class="col-sm-6 offset-5">
+            {{ $users->firstItem()}} - {{ $users->lastItem() }} from {{ $users->total() }} results
             {{ $users->links() }}
         </div>
     </div>
