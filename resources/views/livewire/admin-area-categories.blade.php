@@ -5,7 +5,7 @@
             <x-table-pagination/>
 
             <div class="custom-control custom-switch">
-                <input wire:model="showDeletedCategories" type="checkbox" class="custom-control-input"
+                <input wire:model="showDeletedCategories" wire:click="resetPaginatorPage" type="checkbox" class="custom-control-input"
                     id="showDeletedCategories" name="showDeletedCategories" />
                 <label class="custom-control-label" for="showDeletedCategories">Show deleted Categories</label>
             </div>

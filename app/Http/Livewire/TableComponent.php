@@ -38,4 +38,9 @@ abstract class TableComponent extends Component
                 break;
         }
     }
+
+    public function resetPaginatorPage()
+    {
+        $this->resetPage();
+    }
 }
