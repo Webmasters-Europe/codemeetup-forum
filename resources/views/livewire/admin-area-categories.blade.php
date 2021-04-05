@@ -1,17 +1,46 @@
 <div>
     <div>
         <div class="d-flex justify-content-between align-content-center mb-2">
-
             <x-table-pagination />
-
             <div class="custom-control custom-switch">
                 <input wire:model="showDeletedCategories" wire:click="resetPaginatorPage" type="checkbox"
                     class="custom-control-input" id="showDeletedCategories" name="showDeletedCategories" />
                 <label class="custom-control-label" for="showDeletedCategories">Show deleted Categories</label>
             </div>
             <div>
-                <button wire:click.prevent="showCategoryForm" class="btn btn-sm btn-success"><i
-                        class="fas fa-plus-circle mr-2"></i>Add new Category</button>
+                {{-- Add new Category Modal --}}
+                <span x-data="{ showAddModal: @entangle('showAddModal') }">
+                    <button x-on:click="$wire.showCategoryForm()" class="btn btn-success btn-sm"><i
+                            class="fas fa-plus-circle mr-2"></i>Add new Category
+                    </button>
+                    <div x-show="showAddModal" @click.away="showAddModal = false" x-cloak>
+                        <div class="modal fade-in" style="display:block;" x-cloak>
+                            <div class="modal-dialog">
+                                <form wire:submit.prevent="addNewCategory">
+                                    @csrf
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                                Add new Category
+                                            </h5>
+                                            <button type="button" class="close" x-on:click="showAddModal = false">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        @include('components.categoryForm')
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                x-on:click="showAddModal = false">Cancel</button>
+                                            <button type="submit" class="btn btn-success">
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </span>
             </div>
             <div class=" col-md-4">
                 <input wire:model="search" type="search" class="form-control"
@@ -62,42 +91,72 @@
                             <td>{{ $category->updated_at->format('d.m.Y H:i:s') }}</td>
                             <td>
                                 @if (!$showDeletedCategories)
-                                    <button wire:click="selectCategory({{ $category->id }}, 'update')"
-                                        class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                                    {{-- Edit Category Modal --}}
+                                    <span x-data="{ showEditModal: @entangle('showEditModal') }">
+                                        <button x-on:click="$wire.selectCategory({{ $category->id }}, 'edit')"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <div x-show="showEditModal" x-cloak>
+                                            <div class="modal fade-in" style="display:block;" x-cloak>
+                                                <div class="modal-dialog">
+                                                    <form wire:submit.prevent="update">
+                                                        @csrf
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">
+                                                                    Edit Category
+                                                                </h5>
+                                                                <button type="button" class="close"
+                                                                    x-on:click="showEditModal = false">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            @include('components.categoryForm')
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    x-on:click="showEditModal = false">Cancel</button>
+                                                                <button type="submit" class="btn btn-success">
+                                                                    Save
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                    {{-- Delete Category Modal --}}
                                     <span x-data="{ showDeleteModal: @entangle('showDeleteModal') }">
-                                        <button
-                                            x-on:click="$wire.selectCategory({{ $category->id }}, 'delete')" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                                            </button>
-                                        <div x-show="showDeleteModal" @click.away="showDeleteModal = false">
-                                            <div class="modal fade show" id="deleteModelInstanceModal"
-                                                style="display:block" tabindex="-1" aria-hidden="true" x-cloak>
+                                        <button x-on:click="$wire.selectCategory({{ $category->id }}, 'delete')"
+                                            class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
+                                        </button>
+                                        <div x-show="showDeleteModal" @click.away="showDeleteModal = false" x-cloak>
+                                            <div class="modal fade-in" style="display:block;" x-cloak>
                                                 <div class="modal-dialog">
                                                     <form wire:submit.prevent="delete">
                                                         @csrf
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title"
-                                                                    id="deleteModelInstanceModalLabel">Delete this
-                                                                    Category</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close"
+                                                                <h5 class="modal-title">
+                                                                    Delete this Category
+                                                                </h5>
+                                                                <button type="button" class="close"
                                                                     x-on:click="showDeleteModal = false">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 Do you really want to delete this category:
-
-                                                                <h5 x-text="$wire.name"></h5>
+                                                                <h5>{{ $name }}</h5>
                                                                 <p>Description: <br> {{ $description }}</p>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     x-on:click="showDeleteModal = false">Cancel</button>
-                                                                <button type="submit" class="btn btn-danger">Yes,
-                                                                    Delete</button>
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    Yes, Delete
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -106,10 +165,44 @@
                                         </div>
                                     </span>
                                 @else
-                                    <button wire:click="selectCategory({{ $category->id }}, 'restore')"
-                                        class="btn btn-secondary btn-sm">
-                                        <i class="fas fa-trash-restore"></i>
-                                    </button>
+                                    <!-- Restore Cagegory Modal -->
+                                    <span x-data="{ showRestoreModal: @entangle('showRestoreModal') }">
+                                        <button x-on:click="$wire.selectCategory({{ $category->id }}, 'restore')"
+                                            class="btn btn-secondary btn-sm"><i class="fas fa-trash-restore"></i>
+                                        </button>
+                                        <div x-show="showRestoreModal" @click.away="showRestoreModal = false" x-cloak>
+                                            <div class="modal fade-in" style="display:block;" x-cloak>
+                                                <div class="modal-dialog">
+                                                    <form wire:submit.prevent="restore">
+                                                        @csrf
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">
+                                                                    Restore this Category
+                                                                </h5>
+                                                                <button type="button" class="close"
+                                                                    x-on:click="showRestoreModal = false">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Do you really want to restore this category:
+                                                                <h5>{{ $name }}</h5>
+                                                                <p>Description: <br> {{ $description }}</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    x-on:click="showRestoreModal = false">Cancel</button>
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    Yes, Restore
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
                                 @endif
                             </td>
                         </tr>
@@ -117,88 +210,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="row mt-4">
-            <div class="col-sm-6 offset-5">
-                {{ $categories->firstItem() }} - {{ $categories->lastItem() }} from {{ $categories->total() }}
-                results
-                {{ $categories->links() }}
-            </div>
+        <div class="row mt-4 justify-content-center">
+            {{ $categories->links() }}
+            <span class="ml-4">
+                {{ $categories->firstItem() }} - {{ $categories->lastItem() }} from {{ $categories->total() }} results
+            </span>
         </div>
     </div>
-
-    <!-- Modal for Add new Category-->
-    <div class="modal fade" id="addModelInstanceModal" tabindex="-1" aria-labelledby="addModelInstanceModalLabel"
-        aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog">
-            <form wire:submit.prevent="addNewCategory">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addModelInstanceModalLabel">Add new Category</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    @include('components.categoryForm')
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal for Update Category-->
-    <div class="modal fade" id="updateModelInstanceModal" tabindex="-1" aria-labelledby="updateModelInstanceModalLabel"
-        aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog">
-            <form wire:submit.prevent="update">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="updateModelInstanceModalLabel">Update Category</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    @include('components.categoryForm')
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Update</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-
-    <!-- Modal for Restore Category-->
-    <div class="modal fade" id="restoreModelInstanceModal" tabindex="-1"
-        aria-labelledby="restoreModelInstanceModalLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog">
-            <form wire:submit.prevent="restore">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="restoreModelInstanceModalLabel">Restore this Category</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Do you really want to restore this category:
-                        <h5>{{ $name }}</h5>
-                        <p>Description: <br> {{ $description }}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Yes, Restore</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
 </div>
