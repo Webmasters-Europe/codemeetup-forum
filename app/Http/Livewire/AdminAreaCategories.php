@@ -16,6 +16,7 @@ class AdminAreaCategories extends TableComponent
     public $action;
     public $sortBy = 'created_at';
     public $sortDirection = 'desc';
+    public $showDeleteModal = false;
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -80,12 +81,18 @@ class AdminAreaCategories extends TableComponent
 
     public function selectCategory($categoryId, $action)
     {
+       
         $this->selectedCategory = $categoryId;
         $category = Category::withTrashed()->findOrFail($this->selectedCategory);
         $this->name = $category->name;
         $this->description = $category->description;
+        
+        if($action == 'delete') {
+            $this->showDeleteModal = true;
+        }
 
-        $this->dispatchBrowserEventByAction($action);
+        /* $this->dispatchBrowserEventByAction($action); */
+
     }
 
     public function update()

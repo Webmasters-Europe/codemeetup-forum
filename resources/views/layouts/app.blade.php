@@ -97,6 +97,12 @@
                 height: 80vh;
             }
 
+            [x-cloak] {
+                display: none;
+                visibility: hidden;
+                overflow: hidden
+            }
+
         </style>
         @stack('styles')
         @livewireStyles
