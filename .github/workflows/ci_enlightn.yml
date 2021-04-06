@@ -1,6 +1,6 @@
 name: Laravel Enlightn
 
-on:[workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
   laravel-tests:
