@@ -81,6 +81,7 @@
                 z-index: 999;
                 border: 1px solid;
                 box-shadow: 0 12px 12px rgba(0,0,0,0.15);
+                width: 90%;
             }
 
             #search-results ul {
@@ -94,7 +95,7 @@
             }
             #search-results .opensearch-inner {
                 overflow-y:scroll;
-                height: 80vh;
+                max-height: 80vh;
             }
 
         </style>
