@@ -77,22 +77,24 @@
                         <th></th>
                     </tr>
                     @foreach ($categories as $category)
-                        <tr>
-                            <td>{{ $category->name }}</td>
-                            <td>{{ $category->description }}</td>
-                            <td>
-                                @if (!$showDeletedCategories)
-                                    {{ $category->posts_count }}
-                                @else
-                                    {{ $category->posts_trashed_count }}
-                                @endif
-                            </td>
-                            <td>{{ $category->created_at->format('d.m.Y H:i:s') }}</td>
-                            <td>{{ $category->updated_at->format('d.m.Y H:i:s') }}</td>
-                            <td>
-                                @if (!$showDeletedCategories)
+                    <tr>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->description }}</td>
+                        <td>
+                            @if (!$showDeletedCategories)
+                            {{ $category->posts_count }}
+                            @else
+                            {{ $category->posts_trashed_count }}
+                            @endif
+                        </td>
+                        <td>{{ $category->created_at->format('d.m.Y H:i:s') }}</td>
+                        <td>{{ $category->updated_at->format('d.m.Y H:i:s') }}</td>
+                        <td>
+                            <div x-data="{showDeletedCategories: @entangle('showDeletedCategories')}">
+                                <div x-show="showDeletedCategories == false">
                                     {{-- Edit Category Modal --}}
-                                    <span x-data="{ showEditModal: @entangle('showEditModal') }">
+                                    <span x-data="{ showEditModal: @entangle('showEditModal') }"
+                                        x-init="showEditModal = false">
                                         <button x-on:click="$wire.selectCategory({{ $category->id }}, 'edit')"
                                             class="btn btn-primary btn-sm">
                                             <i class="fas fa-edit"></i>
@@ -125,7 +127,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </span> 
+                                    </span>
                                     {{-- Delete Category Modal --}}
                                     <span x-data="{ showDeleteModal: @entangle('showDeleteModal') }">
                                         <button x-on:click="$wire.selectCategory({{ $category->id }}, 'delete')"
@@ -164,8 +166,8 @@
                                             </div>
                                         </div>
                                     </span>
-                                @else
-                                    <!-- Restore Cagegory Modal -->
+                                </div>
+                                <div x-show="showDeletedCategories == true">
                                     <span x-data="{ showRestoreModal: @entangle('showRestoreModal') }">
                                         <button x-on:click="$wire.selectCategory({{ $category->id }}, 'restore')"
                                             class="btn btn-secondary btn-sm"><i class="fas fa-trash-restore"></i>
@@ -203,9 +205,10 @@
                                             </div>
                                         </div>
                                     </span>
-                                @endif
-                            </td>
-                        </tr>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
