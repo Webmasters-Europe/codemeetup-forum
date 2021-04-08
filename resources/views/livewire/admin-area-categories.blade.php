@@ -125,7 +125,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </span>
+                                    </span> 
                                     {{-- Delete Category Modal --}}
                                     <span x-data="{ showDeleteModal: @entangle('showDeleteModal') }">
                                         <button x-on:click="$wire.selectCategory({{ $category->id }}, 'delete')"

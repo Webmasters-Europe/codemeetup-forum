@@ -15,4 +15,3 @@
 
 @endsection
 
-<x-table-modal-event-listeners/>

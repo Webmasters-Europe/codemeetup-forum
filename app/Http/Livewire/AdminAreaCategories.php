@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use Livewire\WithPagination;
+
 class AdminAreaCategories extends TableComponent
 {
     public $search = '';
@@ -10,11 +12,12 @@ class AdminAreaCategories extends TableComponent
     public $searchDescription = '';
     public $name;
     public $description;
-    public $showDeletedCategories;
+    public $showDeletedCategories = false;
     public $selectedCategory;
     public $action;
     public $sortBy = 'created_at';
     public $sortDirection = 'desc';
+    // Modals
     public $showDeleteModal = false;
     public $showRestoreModal = false;
     public $showAddModal = false;
@@ -28,33 +31,29 @@ class AdminAreaCategories extends TableComponent
     public function render()
     {
         if ($this->showDeletedCategories) {
-            $categories = Category::onlyTrashed()
-            ->when($this->searchName, function ($query) {
-                $query->searchName(trim($this->searchName));
-            })
-            ->when($this->searchDescription, function ($query) {
-                $query->searchDescription(trim($this->searchDescription));
-            })
-            ->when($this->search, function ($query) {
-                $query->search(trim($this->search));
-            })
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate($this->paginate);
+            $categories = Category::onlyTrashed();
         } else {
-            $categories = Category::query()
-            ->when($this->searchName, function ($query) {
-                $query->searchName(trim($this->searchName));
-            })
-            ->when($this->searchDescription, function ($query) {
-                $query->searchDescription(trim($this->searchDescription));
-            })
-            ->when($this->search, function ($query) {
-                $query->search(trim($this->search));
-            })
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate($this->paginate);
+            $categories = Category::query();
         }
 
+        // Search filter:
+        $categories = $categories
+        ->when($this->searchName, function ($query) {
+            $query->searchName(trim($this->searchName));
+        })
+        ->when($this->searchDescription, function ($query) {
+            $query->searchDescription(trim($this->searchDescription));
+        })
+        ->when($this->search, function ($query) {
+            $query->search(trim($this->search));
+        });
+
+        // Ordering:
+        $categories = $categories->orderBy($this->sortBy, $this->sortDirection);
+
+        // Pagination:
+        $categories = $categories->paginate($this->paginate);
+        
         return view('livewire.admin-area-categories', compact('categories'));
     }
 
@@ -140,4 +139,6 @@ class AdminAreaCategories extends TableComponent
         $this->name = '';
         $this->description = '';
     }
+
+    
 }
