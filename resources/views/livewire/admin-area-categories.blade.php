@@ -90,120 +90,134 @@
                             <td>{{ $category->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>{{ $category->updated_at->format('d.m.Y H:i:s') }}</td>
                             <td>
-                                @if (!$showDeletedCategories)
-                                    {{-- Edit Category Modal --}}
-                                    <span x-data="{ showEditModal: @entangle('showEditModal') }">
+                                {{-- Edit Category Modal --}}
+                                <span x-data="{ showEditModal: @entangle('showEditModal') }">
+
+                                    @if(!$showDeletedCategories)
                                         <button x-on:click="$wire.selectCategory({{ $category->id }}, 'edit')"
-                                            class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i>
+                                                x-cloak
+                                                class="btn btn-primary btn-sm">
+                                        <i class="fas fa-edit"></i>
                                         </button>
-                                        <div x-show="showEditModal" x-cloak>
-                                            <div class="modal fade-in" style="display:block;" x-cloak>
-                                                <div class="modal-dialog">
-                                                    <form wire:submit.prevent="update">
-                                                        @csrf
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">
-                                                                    Edit Category
-                                                                </h5>
-                                                                <button type="button" class="close"
+                                    @endif
+
+                                    <div x-show="showEditModal" x-cloak>
+                                        <div class="modal fade-in" style="display:block;" x-cloak>
+                                            <div class="modal-dialog">
+                                                <form wire:submit.prevent="update">
+                                                    @csrf
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">
+                                                                Edit Category
+                                                            </h5>
+                                                            <button type="button" class="close"
                                                                     x-on:click="showEditModal = false">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            @include('components.categoryForm')
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        @include('components.categoryForm')
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
                                                                     x-on:click="showEditModal = false">Cancel</button>
-                                                                <button type="submit" class="btn btn-success">
-                                                                    Save
-                                                                </button>
-                                                            </div>
+                                                            <button type="submit" class="btn btn-success">
+                                                                Save
+                                                            </button>
                                                         </div>
-                                                    </form>
-                                                </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                    </span> 
-                                    {{-- Delete Category Modal --}}
-                                    <span x-data="{ showDeleteModal: @entangle('showDeleteModal') }">
+                                    </div>
+                                </span>
+
+                                {{-- Delete Category Modal --}}
+                                <span x-data="{ showDeleteModal: @entangle('showDeleteModal') }">
+
+                                    @if(!$showDeletedCategories)
                                         <button x-on:click="$wire.selectCategory({{ $category->id }}, 'delete')"
-                                            class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
+                                                x-cloak
+                                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
                                         </button>
-                                        <div x-show="showDeleteModal" @click.away="showDeleteModal = false" x-cloak>
-                                            <div class="modal fade-in" style="display:block;" x-cloak>
-                                                <div class="modal-dialog">
-                                                    <form wire:submit.prevent="delete">
-                                                        @csrf
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">
-                                                                    Delete this Category
-                                                                </h5>
-                                                                <button type="button" class="close"
+                                    @endif
+
+                                    <div x-show="showDeleteModal" @click.away="showDeleteModal = false" x-cloak>
+                                        <div class="modal fade-in" style="display:block;" x-cloak>
+                                            <div class="modal-dialog">
+                                                <form wire:submit.prevent="delete">
+                                                    @csrf
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">
+                                                                Delete this Category
+                                                            </h5>
+                                                            <button type="button" class="close"
                                                                     x-on:click="showDeleteModal = false">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Do you really want to delete this category:
-                                                                <h5>{{ $name }}</h5>
-                                                                <p>Description: <br> {{ $description }}</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Do you really want to delete this category:
+                                                            <h5>{{ $name }}</h5>
+                                                            <p>Description: <br> {{ $description }}</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
                                                                     x-on:click="showDeleteModal = false">Cancel</button>
-                                                                <button type="submit" class="btn btn-danger">
-                                                                    Yes, Delete
-                                                                </button>
-                                                            </div>
+                                                            <button type="submit" class="btn btn-danger">
+                                                                Yes, Delete
+                                                            </button>
                                                         </div>
-                                                    </form>
-                                                </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                    </span>
-                                @else
-                                    <!-- Restore Cagegory Modal -->
-                                    <span x-data="{ showRestoreModal: @entangle('showRestoreModal') }">
+                                    </div>
+                                </span>
+
+                                <!-- Restore Cagegory Modal -->
+                                <span x-data="{ showRestoreModal: @entangle('showRestoreModal') }">
+
+                                    @if($showDeletedCategories)
                                         <button x-on:click="$wire.selectCategory({{ $category->id }}, 'restore')"
-                                            class="btn btn-secondary btn-sm"><i class="fas fa-trash-restore"></i>
+                                                x-cloak
+                                                class="btn btn-secondary btn-sm"><i class="fas fa-trash-restore"></i>
                                         </button>
-                                        <div x-show="showRestoreModal" @click.away="showRestoreModal = false" x-cloak>
-                                            <div class="modal fade-in" style="display:block;" x-cloak>
-                                                <div class="modal-dialog">
-                                                    <form wire:submit.prevent="restore">
-                                                        @csrf
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">
-                                                                    Restore this Category
-                                                                </h5>
-                                                                <button type="button" class="close"
+                                    @endif
+
+                                    <div x-show="showRestoreModal" @click.away="showRestoreModal = false" x-cloak>
+                                        <div class="modal fade-in" style="display:block;" x-cloak>
+                                            <div class="modal-dialog">
+                                                <form wire:submit.prevent="restore">
+                                                    @csrf
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">
+                                                                Restore this Category
+                                                            </h5>
+                                                            <button type="button" class="close"
                                                                     x-on:click="showRestoreModal = false">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Do you really want to restore this category:
-                                                                <h5>{{ $name }}</h5>
-                                                                <p>Description: <br> {{ $description }}</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    x-on:click="showRestoreModal = false">Cancel</button>
-                                                                <button type="submit" class="btn btn-danger">
-                                                                    Yes, Restore
-                                                                </button>
-                                                            </div>
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
                                                         </div>
-                                                    </form>
-                                                </div>
+                                                        <div class="modal-body">
+                                                            Do you really want to restore this category:
+                                                            <h5>{{ $name }}</h5>
+                                                            <p>Description: <br> {{ $description }}</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    x-on:click="showRestoreModal = false">Cancel</button>
+                                                            <button type="submit" class="btn btn-danger">
+                                                                Yes, Restore
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                    </span>
-                                @endif
+                                    </div>
+                                </span>
                             </td>
                         </tr>
                     @endforeach
