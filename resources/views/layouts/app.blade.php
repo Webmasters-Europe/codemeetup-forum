@@ -97,7 +97,6 @@
                 overflow-y:scroll;
                 max-height: 80vh;
             }
-
         </style>
         @stack('styles')
         @livewireStyles
