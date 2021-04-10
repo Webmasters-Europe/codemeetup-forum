@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
-
 class AdminAreaCategories extends TableComponent
 {
     public $search = '';
