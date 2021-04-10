@@ -3,13 +3,13 @@
 namespace Tests\Feature\Feature\Http\Livewire;
 
 use App\Http\Livewire\AdminAreaCategories;
-use Tests\TestCase;
-use App\Models\User;
-use Livewire\Livewire;
 use App\Models\Category;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Tests\TestCase;
 
 class AdminAreaCategoriesTest extends TestCase
 {
@@ -29,9 +29,9 @@ class AdminAreaCategoriesTest extends TestCase
         $this->testCategory2 = Category::factory()->create();
 
         $this->testCategory->name = 'Michael';
-        $this->testCategory2->name = "Rhea";
+        $this->testCategory2->name = 'Rhea';
         $this->testCategory->description = 'Österreich';
-        $this->testCategory2->description = "Deutschland";
+        $this->testCategory2->description = 'Deutschland';
         $this->testCategory->save();
         $this->testCategory2->save();
 
@@ -42,7 +42,6 @@ class AdminAreaCategoriesTest extends TestCase
     /** @test */
     public function page_contains_categories_table_livewire_component()
     {
-
         $response = $this->get(route('admin-area.categories'));
 
         $response->assertSeeLivewire('admin-area-categories');
@@ -87,7 +86,6 @@ class AdminAreaCategoriesTest extends TestCase
             ->set('search', 'Rhea')
             ->assertSee($this->testCategory->description);
 
-
         // Search by name:
         Livewire::test(AdminAreaCategories::class)
             ->call('render')
@@ -118,7 +116,6 @@ class AdminAreaCategoriesTest extends TestCase
     /** @test */
     public function allows_to_sort_categories()
     {
-
         Livewire::test(AdminAreaCategories::class)
             ->call('render')
             ->set('sortBy', 'name')
@@ -144,7 +141,7 @@ class AdminAreaCategoriesTest extends TestCase
 
         $this->assertDatabaseHas('categories', [
             'name' => 'Michael',
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
 
         $this->testCategory->deleted_at = '2021-04-01 15:36:41';
@@ -152,7 +149,7 @@ class AdminAreaCategoriesTest extends TestCase
 
         $this->assertDatabaseHas('categories', [
             'name' => 'Michael',
-            'deleted_at' => '2021-04-01 15:36:41'
+            'deleted_at' => '2021-04-01 15:36:41',
         ]);
 
         Livewire::test(AdminAreaCategories::class)
@@ -165,13 +162,12 @@ class AdminAreaCategoriesTest extends TestCase
     /** @test */
     public function allows_to_delete_and_restore_categories()
     {
-
         $testCategoryId = $this->testCategory->id;
 
         // Delete category:
         Livewire::test(AdminAreaCategories::class)
             ->call('render')
-            ->call('selectCategory',  $testCategoryId, 'delete')
+            ->call('selectCategory', $testCategoryId, 'delete')
             ->assertDispatchedBrowserEvent('openDeleteModelInstanceModal')
             ->assertSee('Delete this Category')
             ->call('delete')
@@ -182,7 +178,7 @@ class AdminAreaCategoriesTest extends TestCase
 
         $this->assertDatabaseMissing('categories', [
             'name' => $this->testCategory->name,
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
 
         // Restore category:
@@ -190,7 +186,7 @@ class AdminAreaCategoriesTest extends TestCase
             ->set('showDeletedCategories', true)
             ->assertSee('Michael')
             ->assertSeeHtml('<i class="fas fa-trash-restore"></i>')
-            ->call('selectCategory',  $testCategoryId, 'restore')
+            ->call('selectCategory', $testCategoryId, 'restore')
             ->assertSee('Restore this Category')
             ->call('restore')
             ->assertDispatchedBrowserEvent('closeRestoreModelInstanceModal')
@@ -200,7 +196,7 @@ class AdminAreaCategoriesTest extends TestCase
 
         $this->assertDatabaseHas('categories', [
             'name' => 'Michael',
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
     }
 
@@ -229,7 +225,7 @@ class AdminAreaCategoriesTest extends TestCase
         Livewire::test(AdminAreaCategories::class)
             ->call('render')
             ->assertSeeHtml('<i class="fas fa-edit"></i>')
-            ->call('selectCategory',  $this->testCategory->id, 'update')
+            ->call('selectCategory', $this->testCategory->id, 'update')
             ->assertDispatchedBrowserEvent('openUpdateModelInstanceModal')
             ->assertSee('Update Category')
             ->set('name', 'Meine editierte Kategorie')

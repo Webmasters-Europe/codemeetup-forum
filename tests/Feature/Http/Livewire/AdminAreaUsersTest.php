@@ -48,7 +48,6 @@ class AdminAreaUsersTest extends TestCase
      */
     public function page_contains_user_table_livewire_component()
     {
-
         $response = $this->get(route('admin-area.users'));
 
         $response->assertSeeLivewire('admin-area-users');
