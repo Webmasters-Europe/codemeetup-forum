@@ -34,8 +34,11 @@ class UserController extends Controller
     public function show(User $user)
     {
         $this->authorize('view', User::class);
-
-        return view('profiles.show', compact('user'));
+        $posts = $user->posts()->orderBy('created_at', 'desc')->with('uploads')->paginate(5, ['*'], 'posts');
+        $replies = $user->postReplies()->orderBy('created_at', 'desc')->paginate(5, ['*'], 'replies');
+        
+        
+        return view('profiles.show', compact('user', 'posts', 'replies'));
     }
 
     /**

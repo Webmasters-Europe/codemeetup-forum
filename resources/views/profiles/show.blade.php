@@ -29,23 +29,46 @@
     </div>
     <div class="col-md-8">
         <div class="card">
-            <h5 class="card-header">Last posts of {{ $user->username }}</h5>
+            <h5 class="card-header">Posts of {{ $user->username }}</h5>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Viverra maecenas accumsan lacus vel. Placerat duis ultricies lacus sed turpis tincidunt id aliquet. </li>
-                    <li class="list-group-item">Condimentum lacinia quis vel eros donec ac odio tempor orci. Suscipit adipiscing bibendum est ultricies. Mattis pellentesque id nibh tortor. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing. Maecenas accumsan lacus vel facilisis volutpat est velit egestas dui. </li>
-                    <li class="list-group-item">Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Vitae tortor condimentum lacinia quis vel eros donec. Quisque sagittis purus sit amet volutpat consequat. Nulla malesuada pellentesque elit eget gravida cum. Egestas quis ipsum suspendisse ultrices. </li>
+                    @forelse ($posts as $post)
+                        <li class="list-group-item">
+                            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a> <br>
+                            <span class="small">created {{ $post->created_at }}</span> |
+                            <span class="small">{{ $post->uploads->count() }} uploaded files</span>
+                        </li>
+                    @empty
+                        <p>No Posts.</p>
+                    @endforelse
                 </ul>
+            </div>
+            <div class="card-footer">
+                @if ($posts->isNotEmpty())
+                    {{ $posts->firstItem()}} - {{ $posts->lastItem() }} from {{ $posts->total() }} results
+                    {{ $posts->links() }}
+                @endif
             </div>
         </div>
         <div class="card my-4">
-            <h5 class="card-header">Last replies of {{ $user->username }}</h5>
+            <h5 class="card-header">Replies of {{ $user->username }}</h5>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Pellentesque nec nam aliquam sem et tortor. Risus ultricies tristique nulla aliquet. Nisl suscipit adipiscing bibendum est ultricies integer.</li>
-                    <li class="list-group-item">Facilisis sed odio morbi quis commodo odio aenean sed adipiscing. Eu ultrices vitae auctor eu augue ut lectus arcu bibendum. Neque ornare aenean euismod elementum nisi quis eleifend quam. Neque vitae tempus quam pellentesque. Eget mi proin sed libero enim sed. Sagittis aliquam malesuada bibendum arcu vitae elementum. Euismod in pellentesque massa placerat duis ultricies.</li>
-                    <li class="list-group-item">Iaculis at erat pellentesque adipiscing. Massa vitae tortor condimentum lacinia quis. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Pharetra diam sit amet nisl. Egestas maecenas pharetra convallis posuere morbi leo urna molestie. Ut placerat orci nulla pellentesque dignissim enim sit.</li>
+                    @forelse ($replies as $reply)
+                        <li class="list-group-item">
+                            <a href="{{ route('posts.show', $reply->post_id) }}">{{ str_limit($reply->content, 100) }}</a> <br>
+                            <span class="small">created {{ $reply->created_at }}</span>
+                        </li>
+                    @empty 
+                        <p>No Replies.</p>
+                    @endforelse
                 </ul>
+            </div>
+            <div class="card-footer">
+                @if ($replies->isNotEmpty())
+                    {{ $replies->firstItem()}} - {{ $replies->lastItem() }} from {{ $replies->total() }} results
+                    {{ $replies->links() }}
+                @endif
             </div>
         </div>
     </div>    
