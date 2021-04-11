@@ -34,8 +34,9 @@
                 <ul class="list-group list-group-flush">
                     @forelse ($posts as $post)
                         <li class="list-group-item">
-                            {{ $post->title }} <br>
-                            <span class="small">{{ $post->created_at }}</span>
+                            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a> <br>
+                            <span class="small">created {{ $post->created_at }}</span> |
+                            <span class="small">{{ $post->uploads->count() }} uploaded files</span>
                         </li>
                     @empty
                         <p>No Posts.</p>
@@ -55,8 +56,8 @@
                 <ul class="list-group list-group-flush">
                     @forelse ($replies as $reply)
                         <li class="list-group-item">
-                            {{ $reply->content }} <br>
-                            <span class="small">{{ $reply->created_at }}</span>
+                            <a href="{{ route('posts.show', $reply->post_id) }}">{{ str_limit($reply->content, 100) }}</a> <br>
+                            <span class="small">created {{ $reply->created_at }}</span>
                         </li>
                     @empty 
                         <p>No Replies.</p>
