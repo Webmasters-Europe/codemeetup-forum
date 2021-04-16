@@ -28,6 +28,7 @@
         </div>
     </div>
     <div class="col-md-8">
+        @if(auth()->user()->id == $user->id)    
         <div class="card my-4">
             <h5 class="card-header">Notifications of {{ $user->username }}</h5>
             <div class="card-body">
@@ -50,6 +51,8 @@
                 @endif
             </div>
         </div>
+    @endif
+
 
         <div class="card">
             <h5 class="card-header">Posts of {{ $user->username }}</h5>

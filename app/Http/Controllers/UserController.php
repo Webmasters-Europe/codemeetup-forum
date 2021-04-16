@@ -42,7 +42,7 @@ class UserController extends Controller
             }
             $notifications = $user->notifications()->paginate(5, ['*'], 'notifications');
         } else {
-            $notifications = [];
+            $notifications = collect();
         }
 
         $posts = $user->posts()->orderBy('created_at', 'desc')->with('uploads')->paginate(5, ['*'], 'posts');
