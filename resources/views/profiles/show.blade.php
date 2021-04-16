@@ -28,6 +28,29 @@
         </div>
     </div>
     <div class="col-md-8">
+        <div class="card my-4">
+            <h5 class="card-header">Notifications of {{ $user->username }}</h5>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    @forelse ($notifications as $notification)
+                        <li class="list-group-item">
+                            {{ $notification->data['postReply']['content'] }}<br>
+                            <span class="small">created {{ $notification->created_at }}</span> <br>
+                            <a href="{{ route('posts.show', $notification->data['postReply']['post_id']) }}" class="btn btn-sm bg-info text-white">View</a>
+                        </li>
+                    @empty 
+                        <p>No Notification.</p>
+                    @endforelse
+                </ul>
+            </div>
+            <div class="card-footer">
+                @if ($notifications->isNotEmpty())
+                    {{ $notifications->firstItem()}} - {{ $notifications->lastItem() }} from {{ $notifications->total() }} results
+                    {{ $notifications->links() }}
+                @endif
+            </div>
+        </div>
+
         <div class="card">
             <h5 class="card-header">Posts of {{ $user->username }}</h5>
             <div class="card-body">

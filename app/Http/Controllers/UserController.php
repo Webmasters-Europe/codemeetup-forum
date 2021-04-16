@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -34,10 +35,20 @@ class UserController extends Controller
     public function show(User $user)
     {
         $this->authorize('view', User::class);
+
+        if($user->id === Auth::user()->id) {
+            if($user->has('unreadNotifications')) {
+                $user->unreadNotifications->markAsRead();
+            }   
+            $notifications = $user->notifications()->paginate(5, ['*'], 'notifications');
+        } else {
+            $notifications = [];
+        }
+
         $posts = $user->posts()->orderBy('created_at', 'desc')->with('uploads')->paginate(5, ['*'], 'posts');
         $replies = $user->postReplies()->orderBy('created_at', 'desc')->paginate(5, ['*'], 'replies');
 
-        return view('profiles.show', compact('user', 'posts', 'replies'));
+        return view('profiles.show', compact('user', 'posts', 'replies', 'notifications'));
     }
 
     /**

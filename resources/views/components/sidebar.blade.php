@@ -13,6 +13,7 @@
                 <div class="ml-4" id="user-profile-text">
                     <h5>Name: <strong>{{ auth()->user()->name }}</strong></h5>
                     <h5>Username: <strong>{{ auth()->user()->username }}</strong></h5>
+                    <h5>Unread Notifications: <a href="{{ route('users.show', auth()->user() ) }}" class="badge badge-danger text-white">{{ auth()->user()->unreadNotifications->count() }}</a></h5>
                 </div>
             </div>
 
