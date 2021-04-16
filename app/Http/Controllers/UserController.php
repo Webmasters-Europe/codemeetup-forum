@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -36,10 +36,10 @@ class UserController extends Controller
     {
         $this->authorize('view', User::class);
 
-        if($user->id === Auth::user()->id) {
-            if($user->has('unreadNotifications')) {
+        if ($user->id === Auth::user()->id) {
+            if ($user->has('unreadNotifications')) {
                 $user->unreadNotifications->markAsRead();
-            }   
+            }
             $notifications = $user->notifications()->paginate(5, ['*'], 'notifications');
         } else {
             $notifications = [];

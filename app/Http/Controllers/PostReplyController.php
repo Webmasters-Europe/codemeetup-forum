@@ -52,10 +52,10 @@ class PostReplyController extends Controller
             return redirect()->back()->withStatus('Comment successfully created.');
         }
         $newPostReply->save();
-        
+
         // Notifications
         $post->user->notify(new NotificationsReplyToPost($newPostReply));
-      
+
         return redirect()->back()->withStatus('Postreply successfully created.');
     }
 

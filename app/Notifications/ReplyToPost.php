@@ -5,9 +5,9 @@ namespace App\Notifications;
 use App\Models\Post;
 use App\Models\PostReply;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class ReplyToPost extends Notification
 {
@@ -34,9 +34,8 @@ class ReplyToPost extends Notification
     public function via($notifiable)
     {
         $post = Post::findOrFail($this->postReply->post_id);
-        if ($post->user->reply_email_notification)
-        {
-            return ['mail','database'];
+        if ($post->user->reply_email_notification) {
+            return ['mail', 'database'];
         } else {
             return ['database'];
         }
@@ -64,7 +63,7 @@ class ReplyToPost extends Notification
     public function toArray($notifiable)
     {
         return [
-            'postReply' => $this->postReply
+            'postReply' => $this->postReply,
         ];
     }
 }
