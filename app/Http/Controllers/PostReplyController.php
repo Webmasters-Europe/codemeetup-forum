@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostReplyRequest;
-use App\Mail\ReplyToPost;
 use App\Models\Post;
 use App\Models\PostReply;
-use App\Notifications\ReplyNotification;
-use Illuminate\Support\Facades\Mail;
+use App\Notifications\ReplyToPost as NotificationsReplyToPost;
 
 class PostReplyController extends Controller
 {
@@ -54,17 +52,10 @@ class PostReplyController extends Controller
             return redirect()->back()->withStatus('Comment successfully created.');
         }
         $newPostReply->save();
-
-        if ($post->user->reply_email_notification) {
-            Mail::to($post->user->email)->send(new ReplyToPost(
-                $this->replyContent = $newPostReply->content,
-                $this->replyUsername = $newPostReply->user->username,
-                $this->postUsername = $post->user->username,
-                $this->postTitle = $post->title,
-                $this->postContent = $post->content,
-            ));
-        }
-
+        
+        // Notifications
+        $post->user->notify(new NotificationsReplyToPost($newPostReply));
+      
         return redirect()->back()->withStatus('Postreply successfully created.');
     }
 
