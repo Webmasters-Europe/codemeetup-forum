@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="link to show profile page of the user">Name of the user</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit profile</li>
+    </ol>
+</nav>
+
 <form action="{{ route('users.update', $user) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
