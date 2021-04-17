@@ -2,9 +2,17 @@
 
 @section('content')
 
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="link to show profile page of the user">Name of the user</a></li>
+    </ol>
+</nav>
+
 <div class="row">
     <div class="col-md-4">
-        <div id="profile-card" class="card">
+        <div id="profile-card" class="card mb-4">
             @if ($user->avatar)
                 <img class="card-img-top pt-4 px-4 pb-0" src="{{ asset('storage/'.$user->avatar) }}" width="100px" alt="Avatar von  {{ $user->username }}">
             @else
@@ -29,7 +37,7 @@
     </div>
     <div class="col-md-8">
         @if(auth()->check() && auth()->user()->is($user))
-        <div class="card my-4">
+        <div class="card mb-4">
             <h5 class="card-header">Notifications of {{ $user->username }}</h5>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
