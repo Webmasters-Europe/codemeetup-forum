@@ -23,10 +23,10 @@ class AtLeastOneUserRoleRequired implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $chosenRoles)
+    public function passes($attribute, $value)
     {
-        foreach ($chosenRoles as $key => $value) {
-            if ($value) {
+        foreach ($value as $key => $isChosen) {
+            if ($isChosen) {
                 return true;
             }
         }

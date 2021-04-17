@@ -25,15 +25,15 @@ class OnlySuperUserMayAssignOrRevokeSuperAdminUserRole implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $chosenRoles)
+    public function passes($attribute, $value)
     {
         if (auth()->user()->hasRole('super-admin')) return true;
 
         $oldValueSuperAdminRole = $this->user->hasRole('super-admin');
 
-        foreach ($chosenRoles as $key => $value) {
+        foreach ($value as $key => $isChosen) {
             if ($key === 'super-admin') {
-                $newValueSuperAdminRole = $value;
+                $newValueSuperAdminRole = $isChosen;
                 break;
             }
         }
