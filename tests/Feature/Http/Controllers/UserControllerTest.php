@@ -5,23 +5,12 @@ namespace Tests\Feature\Http\Controllers;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Permission::create(['name' => 'edit own profile']);
-        $userRole = Role::create(['name' => 'user']);
-        $userRole->givePermissionTo('edit own profile');
-    }
 
     /**
      * @test
