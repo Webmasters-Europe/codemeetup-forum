@@ -8,7 +8,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -25,10 +24,6 @@ class AdminAreaUsersTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Permission::create(['name' => 'admin users']);
-        $this->moderatorRole = Role::create(['name' => 'moderator']);
-        $this->moderatorRole->givePermissionTo('admin users');
 
         $this->userRole = Role::create(['name' => 'test-role']);
 
@@ -58,7 +53,8 @@ class AdminAreaUsersTest extends TestCase
      */
     public function it_does_not_show_users_table_when_the_user_has_no_permission()
     {
-        $this->moderatorRole->revokePermissionTo('admin users');
+        $moderatorRole = Role::findByName('moderator');
+        $moderatorRole->revokePermissionTo('admin users');
         $response = $this->get(route('admin-area.users'));
         $response->assertForbidden()->assertDontSeeLivewire('admin-area-users');
     }

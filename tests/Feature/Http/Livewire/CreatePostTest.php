@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -18,15 +17,6 @@ class CreatePostTest extends TestCase
     use WithFaker;
 
     private $userRole;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Permission::create(['name' => 'create posts']);
-        $this->userRole = Role::create(['name' => 'user']);
-        $this->userRole->givePermissionTo('create posts');
-    }
 
     /**
      * @test
@@ -62,10 +52,10 @@ class CreatePostTest extends TestCase
             ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('posts', [
-                'title' => $title,
-                'content' => $content,
-                'category_id' => $category->id,
-            ]);
+            'title' => $title,
+            'content' => $content,
+            'category_id' => $category->id,
+        ]);
     }
 
     /**
@@ -115,7 +105,8 @@ class CreatePostTest extends TestCase
     public function it_does_not_store_a_post_when_the_user_has_no_permission()
     {
         $user = User::factory()->create()->assignRole('user');
-        $this->userRole->revokePermissionTo('create posts');
+        $userRole = Role::findByName('user');
+        $userRole->revokePermissionTo('create posts');
         $this->actingAs($user);
 
         $category = Category::factory()->create();

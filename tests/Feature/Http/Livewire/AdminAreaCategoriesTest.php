@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -20,10 +19,6 @@ class AdminAreaCategoriesTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Permission::create(['name' => 'admin categories']);
-        $this->moderatorRole = Role::create(['name' => 'moderator']);
-        $this->moderatorRole->givePermissionTo('admin categories');
 
         $this->testCategory = Category::factory()->create();
         $this->testCategory2 = Category::factory()->create();
@@ -50,7 +45,8 @@ class AdminAreaCategoriesTest extends TestCase
     /** @test */
     public function does_not_show_categories_table_when_the_user_has_no_permission()
     {
-        $this->moderatorRole->revokePermissionTo('admin categories');
+        $moderatorRole = Role::findByName('moderator');
+        $moderatorRole->revokePermissionTo('admin categories');
         $response = $this->get(route('admin-area.categories'));
         $response->assertForbidden()->assertDontSeeLivewire('admin-area-categories');
     }
