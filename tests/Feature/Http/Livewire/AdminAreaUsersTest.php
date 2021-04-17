@@ -290,8 +290,7 @@ class AdminAreaUsersTest extends TestCase
             ->assertSee('Edit user roles of Rolfi')
             ->assertSee('You are not allowed to assign or revoke this role')
             ->set('roles', ['super-admin' => true, 'user' => true])
-            ->call('updateRoles')
-            ->assertDispatchedBrowserEvent('closeUpdateModelInstanceModal');
+            ->call('updateRoles');
 
         $this->assertDatabaseHas('model_has_roles', [
             'role_id' => Role::all()->where('name', 'user')->first()->id,
