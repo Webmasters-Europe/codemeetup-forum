@@ -25,14 +25,12 @@ class AdminAreaUsersTest extends TestCase
     {
         parent::setUp();
 
-        $this->userRole = Role::create(['name' => 'test-role']);
-
         $this->testUser = User::create([
             'name' => 'Rolf Liebermann',
             'username' => 'Rolfi',
             'email' => 'rolf.liebermann@example.com',
             'password' => Hash::make('xjkvöljas23lsdfk'),
-        ])->assignRole('test-role');
+        ])->assignRole('user');
 
         $this->authUser = User::factory()->create()->assignRole('moderator');
         $this->actingAs($this->authUser);
@@ -71,7 +69,6 @@ class AdminAreaUsersTest extends TestCase
             ->assertSee('Rolf Liebermann')
             ->assertSee('Rolfi')
             ->assertSee('rolf.liebermann@example.com')
-            ->assertSee('test-role')
             ->assertSeeHtml('<i class="fas fa-trash"></i>');
     }
 
@@ -229,6 +226,81 @@ class AdminAreaUsersTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => 'Rolf Liebermann',
             'deleted_at' => null,
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_allows_to_edit_user_roles()
+    {
+        $testUserId = $this->testUser->id;
+
+        $this->assertDatabaseHas('model_has_roles', [
+            'role_id' => Role::all()->where('name', 'user')->first()->id,
+            'model_id' => $testUserId,
+        ]);
+
+        $this->assertDatabaseMissing('model_has_roles', [
+            'role_id' => Role::all()->where('name', 'moderator')->first()->id,
+            'model_id' => $testUserId,
+        ]);
+
+        Livewire::test(AdminAreaUsers::class)
+            ->call('render')
+            ->call('selectModelInstance', $testUserId, 'update')
+            ->assertDispatchedBrowserEvent('openUpdateModelInstanceModal')
+            ->assertSee('Edit user roles of Rolfi')
+            ->set('roles', ['moderator' => true, 'user' => false])
+            ->call('updateRoles')
+            ->assertDispatchedBrowserEvent('closeUpdateModelInstanceModal');
+
+        $this->assertDatabaseMissing('model_has_roles', [
+            'role_id' => Role::all()->where('name', 'user')->first()->id,
+            'model_id' => $testUserId,
+        ]);
+
+        $this->assertDatabaseHas('model_has_roles', [
+            'role_id' => Role::all()->where('name', 'moderator')->first()->id,
+            'model_id' => $testUserId,
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_disallows_to_assign_or_revoke_the_superadmin_user_role_for_users_not_in_role_superadmin()
+    {
+        $testUserId = $this->testUser->id;
+
+        $this->assertDatabaseHas('model_has_roles', [
+            'role_id' => Role::all()->where('name', 'user')->first()->id,
+            'model_id' => $testUserId,
+        ]);
+
+        $this->assertDatabaseMissing('model_has_roles', [
+            'role_id' => Role::all()->where('name', 'super-admin')->first()->id,
+            'model_id' => $testUserId,
+        ]);
+
+        Livewire::test(AdminAreaUsers::class)
+            ->call('render')
+            ->call('selectModelInstance', $testUserId, 'update')
+            ->assertDispatchedBrowserEvent('openUpdateModelInstanceModal')
+            ->assertSee('Edit user roles of Rolfi')
+            ->assertSee('You are not allowed to assign or revoke this role')
+            ->set('roles', ['super-admin' => true, 'user' => true])
+            ->call('updateRoles')
+            ->assertDispatchedBrowserEvent('closeUpdateModelInstanceModal');
+
+        $this->assertDatabaseHas('model_has_roles', [
+            'role_id' => Role::all()->where('name', 'user')->first()->id,
+            'model_id' => $testUserId
+        ]);
+
+        $this->assertDatabaseMissing('model_has_roles', [
+            'role_id' => Role::all()->where('name', 'super-admin')->first()->id,
+            'model_id' => $testUserId
         ]);
     }
 }
