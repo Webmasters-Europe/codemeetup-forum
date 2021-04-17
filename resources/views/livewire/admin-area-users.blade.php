@@ -63,7 +63,11 @@
                         {{ $user->email }}
                     </td>
                     <td>
-                        {{ $user->getRoleNames()->implode(', ') }}
+                        <ul>
+                            @foreach($user->getRoleNames() as $roleName)
+                                <li>{{ ucwords($roleName, '-') }}</li>
+                            @endforeach
+                        </ul>
                     </td>
                     <td>{{ $user->created_at->format('d.m.Y H:i:s') }}</td>
                     <td>
@@ -74,10 +78,10 @@
                     </td>
                     <td>
                         @if (!$showDeletedElements)
-{{--                            <button wire:click="selectModelInstance({{ $user->id }}, 'update')"--}}
-{{--                                    class="btn btn-primary btn-sm">--}}
-{{--                                <i class="fas fa-edit"></i>--}}
-{{--                            </button>--}}
+                            <button wire:click="selectModelInstance({{ $user->id }}, 'update')"
+                                    class="btn btn-primary btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </button>
                             @if ($user->id != auth()->user()->id )
                                 <button wire:click="selectModelInstance({{ $user->id }}, 'delete')"
                                         class="btn btn-danger btn-sm">
@@ -161,6 +165,52 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-success">Yes, Restore</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Edit User -->
+    <div class="modal fade" id="updateModelInstanceModal" tabindex="-1" aria-labelledby="updateModelInstanceModalLabel"
+         aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <form wire:submit.prevent="updateRoles">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModelInstanceModalLabel">Edit user roles of {{ $username }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            @foreach($roles as $key=>$option)
+                                <div>
+                                    <label class="inline-flex items-center">
+                                        <input wire:model.defer="roles.{{ $key }}" value="1" type="checkbox"
+                                              @if(!auth()->user()->can('assign super-admin role') && $key === 'super-admin') disabled @endif>
+                                        <span class="ml-2">{{ ucwords($key, '-') }}</span>
+                                        @if(!auth()->user()->can('assign super-admin role') && $key === 'super-admin')
+                                            <span class="small">[You are not allowed to assign or revoke this role.]</span>
+                                        @endif
+                                    </label>
+                                </div>
+                            @endforeach
+
+                            @if($errors->has('roles'))
+                            <div class="text-danger">
+                                {{ $errors->first('roles') }}
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Update</button>
                     </div>
                 </div>
             </form>
