@@ -36,7 +36,7 @@ class UserController extends Controller
     {
         $this->authorize('view', User::class);
 
-        if ($user->id === Auth::user()->id) {
+        if (auth()->check() && auth()->user()->is($user)) {
             if ($user->has('unreadNotifications')) {
                 $user->unreadNotifications->markAsRead();
             }
