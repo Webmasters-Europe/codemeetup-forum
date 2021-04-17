@@ -23,6 +23,18 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ])->assignRole('super-admin');
+            
+        }
+
+        if (! User::whereUsername('max')->exists()) {
+            User::create([
+                'name' => 'Max Mustermann',
+                'username' => 'max',
+                'email' => 'max@mustermann.de',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ])->assignRole('user');
+            
         }
 
         $users = User::factory(5)->create();
