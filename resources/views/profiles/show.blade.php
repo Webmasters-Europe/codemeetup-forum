@@ -15,7 +15,7 @@
                 <p class="card-text">E-mail: {{ $user->email }} </p>
                 <p class="card-text">Name: {{ $user->name }} </p>
                 @can('edit own profile')
-                    @if(auth()->user()->id == $user->id)
+                    @if(auth()->user()->is($user))
                     <div>
                         <a href="{{ route('users.reset_avatar', $user) }}" >Reset Avatar to Default Picture</a>
                     </div>
@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="col-md-8">
-        @if(auth()->user()->id == $user->id)    
+        @if(auth()->check() && auth()->user()->is($user))
         <div class="card my-4">
             <h5 class="card-header">Notifications of {{ $user->username }}</h5>
             <div class="card-body">
@@ -39,7 +39,7 @@
                             <span class="small">created {{ $notification->created_at }}</span> <br>
                             <a href="{{ route('posts.show', $notification->data['postReply']['post_id']) }}" class="btn btn-sm bg-info text-white">View</a>
                         </li>
-                    @empty 
+                    @empty
                         <p>No Notification.</p>
                     @endforelse
                 </ul>
@@ -85,7 +85,7 @@
                             <a href="{{ route('posts.show', $reply->post_id) }}">{{ str_limit($reply->content, 100) }}</a> <br>
                             <span class="small">created {{ $reply->created_at }}</span>
                         </li>
-                    @empty 
+                    @empty
                         <p>No Replies.</p>
                     @endforelse
                 </ul>
@@ -97,7 +97,7 @@
                 @endif
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 
 @endsection
