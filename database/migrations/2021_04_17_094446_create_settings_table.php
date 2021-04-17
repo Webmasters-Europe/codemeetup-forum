@@ -19,9 +19,6 @@ class CreateSettingsTable extends Migration
             $table->string('primary_color');
             $table->timestamps();
         });
-
-        $seeder = new SettingsSeeder();
-        $seeder->run();
     }
 
     /**
