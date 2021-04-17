@@ -115,7 +115,7 @@ class AdminAreaUsers extends TableComponent
         )->validate();
 
         $user->roles()->detach();
-        foreach ($this->roles as $key => $value){
+        foreach ($this->roles as $key => $value) {
             if ($value) {
                 $user->assignRole($key);
             }
@@ -124,7 +124,8 @@ class AdminAreaUsers extends TableComponent
         $this->dispatchBrowserEvent('closeUpdateModelInstanceModal');
         $this->resetFormFields();
 
-        session()->flash('status', 'Roles of ' . $user->username . ' successfully updated.');
+        session()->flash('status', 'Roles of '.$user->username.' successfully updated.');
+
         return redirect()->route('admin-area.users');
     }
 
@@ -134,7 +135,7 @@ class AdminAreaUsers extends TableComponent
         $availableRoles = Role::all();
         $userRoles = $user->roles()->pluck('id')->toArray();
 
-        foreach($availableRoles as $availableRole) {
+        foreach ($availableRoles as $availableRole) {
             $userHasRole = in_array($availableRole->id, $userRoles);
             $this->roles[$availableRole->name] = $userHasRole;
         }

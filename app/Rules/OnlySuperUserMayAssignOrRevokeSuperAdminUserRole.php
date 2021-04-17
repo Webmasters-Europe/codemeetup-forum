@@ -27,7 +27,9 @@ class OnlySuperUserMayAssignOrRevokeSuperAdminUserRole implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (auth()->user()->hasRole('super-admin')) return true;
+        if (auth()->user()->hasRole('super-admin')) {
+            return true;
+        }
 
         $oldValueSuperAdminRole = $this->user->hasRole('super-admin');
 

@@ -294,12 +294,12 @@ class AdminAreaUsersTest extends TestCase
 
         $this->assertDatabaseHas('model_has_roles', [
             'role_id' => Role::all()->where('name', 'user')->first()->id,
-            'model_id' => $testUserId
+            'model_id' => $testUserId,
         ]);
 
         $this->assertDatabaseMissing('model_has_roles', [
             'role_id' => Role::all()->where('name', 'super-admin')->first()->id,
-            'model_id' => $testUserId
+            'model_id' => $testUserId,
         ]);
     }
 }

@@ -30,6 +30,7 @@ class AtLeastOneUserRoleRequired implements Rule
                 return true;
             }
         }
+
         return false;
     }
 
