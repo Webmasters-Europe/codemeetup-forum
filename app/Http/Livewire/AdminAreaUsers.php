@@ -3,6 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use App\Rules\AtLeastOneUserRoleRequired;
+use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class AdminAreaUsers extends TableComponent
 {
@@ -20,6 +23,7 @@ class AdminAreaUsers extends TableComponent
     public $name;
     public $username;
     public $email;
+    public $roles = [];
 
     // Actions:
     public $action;
@@ -67,6 +71,8 @@ class AdminAreaUsers extends TableComponent
         $this->username = $user->username;
         $this->email = $user->email;
 
+        $this->setRolesByUser($user);
+
         $this->dispatchBrowserEventByAction($action);
     }
 
@@ -95,5 +101,40 @@ class AdminAreaUsers extends TableComponent
         $this->name = '';
         $this->username = '';
         $this->email = '';
+        $this->roles = [];
+    }
+
+    public function updateRoles()
+    {
+        Validator::make(
+            ['roles' => $this->roles],
+            ['roles' => new AtLeastOneUserRoleRequired()
+        ])->validate();
+
+        $user = User::findOrFail($this->selectedModelInstance);
+        $user->roles()->detach();
+        foreach ($this->roles as $key => $value){
+            if ($value) {
+                $user->assignRole($key);
+            }
+        }
+
+        $this->dispatchBrowserEvent('closeUpdateModelInstanceModal');
+        $this->resetFormFields();
+
+        session()->flash('status', 'Roles of ' . $user->username . ' successfully updated.');
+        return redirect()->route('admin-area.users');
+    }
+
+    private function setRolesByUser($user)
+    {
+        $this->roles = [];
+        $availableRoles = Role::all();
+        $userRoles = $user->roles()->pluck('id')->toArray();
+
+        foreach($availableRoles as $availableRole) {
+            $userHasRole = in_array($availableRole->id, $userRoles);
+            $this->roles[$availableRole->name] = $userHasRole;
+        }
     }
 }
