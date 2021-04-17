@@ -190,8 +190,12 @@
                             @foreach($roles as $key=>$option)
                                 <div>
                                     <label class="inline-flex items-center">
-                                        <input wire:model.defer="roles.{{ $key }}" value="1" type="checkbox">
+                                        <input wire:model.defer="roles.{{ $key }}" value="1" type="checkbox"
+                                              @if(!auth()->user()->can('assign super-admin role') && $key === 'super-admin') disabled @endif>
                                         <span class="ml-2">{{ ucwords($key, '-') }}</span>
+                                        @if(!auth()->user()->can('assign super-admin role') && $key === 'super-admin')
+                                            <span class="small">[You are not allowed to assign or revoke this role.]</span>
+                                        @endif
                                     </label>
                                 </div>
                             @endforeach
