@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Rules\AtLeastOneUserRoleRequired;
+use App\Rules\OnlySuperUserMayAssignOrRevokeSuperAdminUserRole;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
@@ -106,12 +107,13 @@ class AdminAreaUsers extends TableComponent
 
     public function updateRoles()
     {
+        $user = User::findOrFail($this->selectedModelInstance);
+
         Validator::make(
             ['roles' => $this->roles],
-            ['roles' => new AtLeastOneUserRoleRequired()
-        ])->validate();
+            ['roles' => new AtLeastOneUserRoleRequired(), 'roles' => new OnlySuperUserMayAssignOrRevokeSuperAdminUserRole($user)]
+        )->validate();
 
-        $user = User::findOrFail($this->selectedModelInstance);
         $user->roles()->detach();
         foreach ($this->roles as $key => $value){
             if ($value) {
