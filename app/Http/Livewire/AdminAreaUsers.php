@@ -111,7 +111,7 @@ class AdminAreaUsers extends TableComponent
 
         Validator::make(
             ['roles' => $this->roles],
-            ['roles' => new AtLeastOneUserRoleRequired(), 'roles' => new OnlySuperUserMayAssignOrRevokeSuperAdminUserRole($user)]
+            ['roles' => [new AtLeastOneUserRoleRequired(), new OnlySuperUserMayAssignOrRevokeSuperAdminUserRole($user)]]
         )->validate();
 
         $user->roles()->detach();
