@@ -75,6 +75,6 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return abort(404);
+        return view('components.register');
     }
 }

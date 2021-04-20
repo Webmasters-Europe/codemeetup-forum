@@ -49,7 +49,7 @@ class PostController extends Controller
     {
         $this->authorize('view', Post::class);
 
-        $replies = $post->reply()->paginate(3);
+        $replies = $post->reply()->paginate(5);
 
         $uploads = $post->uploads()->get();
 

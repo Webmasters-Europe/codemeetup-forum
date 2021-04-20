@@ -1,40 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-
-        <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Home</li>
-        </ol>
-        </nav>
-
-        @if (count($categories) === 0)
-            <div class="row border my-2 p-2 no-gutters">
-                No categories found.
+            {{-- left container --}}
+            <div class="lg:w-3/4 mb-2 md:w-3/4">
+              @include('components.categoriesList')
             </div>
-        @endif
 
-        @foreach($categories as $category)
-            <div class="row border my-2 p-2 no-gutters">
-                <div class="col-3 col-lg-2">
-                    <img src="https://picsum.photos/40" alt="image">
-                </div>
-                <div class="col-6 col-lg-4">
-                    <a href="{{route('category.show', $category)}}">
-                        <h1>{{$category->name}}</h1>
-                    </a>
-                </div>
-                <div class="col-3 col-lg-2">
-                    {{$category->posts_count}}
-                </div>
-                <div class="col-12 col-lg-4">
-                    <p>
-                        {{$category->description}}
-                    </p>
-                </div>
+            {{-- right container --}}
+            <div class="lg:w-1/4 md:w-1/4 md:pl-6 left:0">  
+                <livewire:last-posts/>
             </div>
-        @endforeach
-        {{ $categories->firstItem()}} - {{ $categories->lastItem() }} from {{ $categories->total() }} results
-        {{ $categories->links() }}
-
 @endsection

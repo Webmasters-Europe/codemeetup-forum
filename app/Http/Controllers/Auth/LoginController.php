@@ -120,6 +120,6 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return abort(404);
+        return view('components.login');
     }
 }

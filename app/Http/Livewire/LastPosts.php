@@ -10,7 +10,7 @@ class LastPosts extends Component
     public function render()
     {
         return view('livewire.last-posts', [
-            'posts' => Post::orderBy('created_at', 'desc')->limit(3)->get(),
+            'posts' => Post::orderBy('created_at', 'desc')->limit(5)->get(),
         ]);
     }
 }

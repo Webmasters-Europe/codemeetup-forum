@@ -1,21 +1,28 @@
-<div class="d-flex my-2">
-    <div class="w-100" @click.away="opensearch = false" x-data="{ opensearch: false }">
+<div class="relative mt-3 md:mt-0">
+    <div @click.away="opensearch = false" x-data="{ opensearch: false }">
         <div @click="opensearch= true">
-            <input class="form-control me-2 w-100" type="search" aria-label="Search" id="search" wire:model="search"
-                placeholder="Search Posts ..." autocomplete="off" />
+            <input wire:model="search" type="text" autocomplete="off"
+                class="bg-gray-50 rounded-full w-80 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline text-gray-600"
+                placeholder="Search ...">
+        </div>
+        <div class="absolute top-0">
+            <i class="fas fa-search absolute top-0 text-gray-500 fill-current mt-2 ml-2"></i>
         </div>
         @isset($posts)
-        <div class="pb-2 pt-0 pl-4 mr-4"  id="search-results" x-show="opensearch">
-            <div class="opensearch-inner pr-4">
+            <div class="absolute bg-gray-400 rounded w-80 mt-4 text-sm">
                 <ul>
                     @forelse($posts as $post)
-                        <li class="text-justify"><a href="{{ route('posts.show', $post) }}"><h5>{{$post->title}}</h5> <article>{{$post->content}}</article></a></li>
+                        <li class="border-gray-800 border-b m-2 pb-2">
+                            <a href="{{ route('posts.show', $post) }}" class="block hover:bg-gray-600.px-3.py-3">
+                                <div class="text-gray-900">{{ $post->title }}</div>
+                                <div>{{ Str::limit($post->content,30) }}</div>
+                            </a>
+                        </li>
                     @empty
-                        <li>No Post found</li>
+                        <li class="border-gray-800 border-b m-2">No Post found</li>
                     @endforelse
                 </ul>
             </div>
+            @endisset
         </div>
-        @endisset
-    </div>
 </div>
