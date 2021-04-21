@@ -30,8 +30,8 @@
     </head>
     <body id="app" class="bg-gray-600">
         <x-header></x-header>
-        <section class="text-gray-600 body-font">
-            <div class="container px-5 py-24 mx-auto flex flex-wrap">
+        <section class="text-gray-600 body-font min-h-screen">
+            <div class="container px-5 py-12 mx-auto flex flex-wrap">
                 <x-status></x-status>
                 <x-errors></x-errors>
                 @yield('content')    

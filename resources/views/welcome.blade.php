@@ -2,12 +2,12 @@
 
 @section('content')
             {{-- left container --}}
-            <div class="lg:w-3/4 mb-2 md:w-3/4">
+            <div class="xl:w-3/4 sm:w-full mb-2">
               @include('components.categoriesList')
             </div>
 
             {{-- right container --}}
-            <div class="lg:w-1/4 md:w-1/4 md:pl-6 left:0">  
+            <div class="w-1/4 pl-6 hidden xl:block">  
                 <livewire:last-posts/>
             </div>
 @endsection
