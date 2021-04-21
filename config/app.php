@@ -229,4 +229,5 @@ return [
 
     ],
 
+    'settings' => App\Models\Setting::class,
 ];

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostReplyController;
 use App\Http\Controllers\UserController;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,14 @@ Route::get('/posts/create/{category}', [PostController::class, 'create'])->name(
 Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
 Route::resource('/users', UserController::class);
 Route::get('/users/reset_avatar/{users}', [UserController::class, 'reset_avatar'])->name('users.reset_avatar');
+
+Route::get('config', function () {
+    $setting = app()->make(Setting::class);
+    $setting->primary_color = '#eff';
+    $setting->save();
+
+    return config('app.settings.primary_color');
+});
 
 /* Routes for admin area */
 require __DIR__.'/admin.php';
