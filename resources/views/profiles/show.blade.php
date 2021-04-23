@@ -2,11 +2,10 @@
 
 @section('content')
 
-
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><a href="link to show profile page of the user">Name of the user</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $user->username }}</li>
     </ol>
 </nav>
 
@@ -24,9 +23,6 @@
                 <p class="card-text">Name: {{ $user->name }} </p>
                 @can('edit own profile')
                     @if(auth()->user()->is($user))
-                    <div>
-                        <a href="{{ route('users.reset_avatar', $user) }}" >Reset Avatar to Default Picture</a>
-                    </div>
                         <div>
                             <a href="{{ route('users.edit', $user) }}" type="button" class="btn btn-dark btn-block m-0 mt-4">Edit Your Profile</a>
                         </div>
