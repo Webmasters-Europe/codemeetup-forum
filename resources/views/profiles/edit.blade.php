@@ -5,7 +5,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="link to show profile page of the user">Name of the user</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users.show', $user->id) }}">{{ $user->username }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">Edit profile</li>
     </ol>
 </nav>
@@ -71,6 +71,11 @@
                             <p class="text-danger mt-1">{{ $message}}</p>
                             @enderror
                         </div>
+
+                        <div class="form-group p-2">
+                            <a href="{{ route('users.reset_avatar', $user) }}" class="text-danger">Reset profile picture?</a>
+                        </div>
+
                     </div>
                 </div>
                 <div class="card mb-4">
