@@ -36,7 +36,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, 'store'])->name('replies.store');
 Route::resource('/posts', PostController::class)->except('create');
 Route::get('/posts/create/{category}', [PostController::class, 'create'])->name('posts.create');
-Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('/category/{category}', CategoryController::class)->name('category.show');
 Route::resource('/users', UserController::class);
 Route::get('/users/reset_avatar/{users}', [UserController::class, 'reset_avatar'])->name('users.reset_avatar');
 
