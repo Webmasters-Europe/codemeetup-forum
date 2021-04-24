@@ -34,7 +34,7 @@ class PostReplyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function store(PostReplyRequest $request, Post $post, PostReply $postReply = null)
     {
