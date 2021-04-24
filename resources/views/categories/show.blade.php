@@ -19,7 +19,7 @@
         <div class="row border my-2 p-2 no-gutters">
             <div class="col-3 col-lg-4">
                 <a href="{{route('posts.show', $post)}}">
-                    <h1>{{$post->title}}</h1>
+                    <h3>{{$post->title}}</h3>
                 </a>
             </div>
             <div class="col-3 col-lg-4">
@@ -32,7 +32,11 @@
                 at {{ $post->created_at->format('d.m.Y H:i:s') }}
             </div>
             <div class="col-3 col-lg-2">
-                {{$post->reply_count}} Replies
+                @if ($post->reply_count === 1)
+                1 reply
+                @else 
+                {{$post->reply_count}} replies
+                @endif
             </div>
         </div>
     @empty
