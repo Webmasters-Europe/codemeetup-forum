@@ -68,9 +68,14 @@
                 padding-bottom: 50px;
             }
 
-            .icon {
+            /* Main */
+
+            #main .icon,
+            #main .posts-count {
                 text-align: center;
             }
+
+            
 
             /* Footer */
 
