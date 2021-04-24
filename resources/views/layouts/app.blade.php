@@ -96,6 +96,11 @@
                 overflow-y:scroll;
                 max-height: 80vh;
             }
+
+            .disabled-reply {
+                min-height: 150px;
+            }
+
         </style>
         @stack('styles')
         @livewireStyles
