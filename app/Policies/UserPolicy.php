@@ -53,7 +53,7 @@ class UserPolicy
     public function delete(User $authUser, User $user)
     {
         if ($authUser->can('delete own user')) {
-            return $user->id == $authUser->id;
+            return $user->id === $authUser->id;
         }
 
         if ($authUser->can('delete any user')) {

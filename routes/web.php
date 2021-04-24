@@ -21,23 +21,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Routes for authentication and email verification */
-
 Auth::routes(['verify' => true]);
 
-/* Routes for guests */
 Route::group(['middleware' => 'guest'], function () {
-    /* Routes for oAuth */
     Route::get('auth/{provider}', [LoginController::class, 'redirectToProvider'])->name('oauth');
     Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderCallback']);
 });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', HomeController::class)->name('home');
 Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, 'store'])->name('replies.store');
-Route::resource('/posts', PostController::class)->except('create');
+Route::resource('/posts', PostController::class)->only(['index', 'show']);
 Route::get('/posts/create/{category}', [PostController::class, 'create'])->name('posts.create');
-Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
-Route::resource('/users', UserController::class);
+Route::get('/category/{category}', CategoryController::class)->name('category.show');
+Route::resource('/users', UserController::class)->only(['show', 'edit', 'update']);
 Route::get('/users/reset_avatar/{users}', [UserController::class, 'reset_avatar'])->name('users.reset_avatar');
 
 Route::get('config', function () {
@@ -48,5 +44,4 @@ Route::get('config', function () {
     return config('app.settings.primary_color');
 });
 
-/* Routes for admin area */
-require __DIR__.'/admin.php';
+Route::prefix('admin-area')->middleware(['auth'])->group(__DIR__.'/admin.php');
