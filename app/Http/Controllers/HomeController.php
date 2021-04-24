@@ -11,7 +11,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function __invoke()
     {
         $categories = Category::orderBy('name')->paginate(10);
 
