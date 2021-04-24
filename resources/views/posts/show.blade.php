@@ -43,21 +43,6 @@
         </div>
         {{-- end show all uploads to this post --}}
 
-        @can('create post replies')
-        <div>
-            <form action="{{ route('replies.store', $post) }}" method="POST" class="w-50">
-                @csrf
-                <div class="form-group p-2">
-                    <label for="postContent">Reply:</label>
-                    <x-easy-mde name="content" :options="['hideIcons' => ['image']]"/>
-                </div>
-                <button type="submit" class="btn btn-dark btn-lg ml-2">Create Reply</button>
-            </form>
-        </div>
-        @else
-            <div class="alert-danger">{{__('Login to leave a reply') }}</div>
-        @endcan
-
         <hr>
         <!-- begin show PostReplies -->
 
@@ -120,5 +105,22 @@
                 {{ $replies->links() }}
 
            </div> <!-- end show PostReplies -->
+
+        @can('create post replies')
+        <div>
+            <form action="{{ route('replies.store', $post) }}" method="POST" class="w-50">
+                @csrf
+                <div class="form-group p-2">
+                    <label for="postContent">Reply:</label>
+                    <x-easy-mde name="content" :options="['hideIcons' => ['image']]"/>
+                </div>
+                <button type="submit" class="btn btn-dark btn-lg ml-2">Create Reply</button>
+            </form>
+        </div>
+        @else
+            <div class="alert-danger">{{__('Login to leave a reply') }}</div>
+        @endcan
+
+       
 
 @endsection

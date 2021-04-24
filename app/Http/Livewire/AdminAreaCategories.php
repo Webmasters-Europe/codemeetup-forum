@@ -26,30 +26,30 @@ class AdminAreaCategories extends TableComponent
     {
         if ($this->showDeletedCategories) {
             $categories = Category::onlyTrashed()
-            ->when($this->searchName, function ($query) {
-                $query->searchName(trim($this->searchName));
-            })
-            ->when($this->searchDescription, function ($query) {
-                $query->searchDescription(trim($this->searchDescription));
-            })
-            ->when($this->search, function ($query) {
-                $query->search(trim($this->search));
-            })
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate($this->paginate);
+                ->when($this->searchName, function ($query) {
+                    $query->searchName(trim($this->searchName));
+                })
+                ->when($this->searchDescription, function ($query) {
+                    $query->searchDescription(trim($this->searchDescription));
+                })
+                ->when($this->search, function ($query) {
+                    $query->search(trim($this->search));
+                })
+                ->orderBy($this->sortBy, $this->sortDirection)
+                ->paginate($this->paginate);
         } else {
             $categories = Category::query()
-            ->when($this->searchName, function ($query) {
-                $query->searchName(trim($this->searchName));
-            })
-            ->when($this->searchDescription, function ($query) {
-                $query->searchDescription(trim($this->searchDescription));
-            })
-            ->when($this->search, function ($query) {
-                $query->search(trim($this->search));
-            })
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate($this->paginate);
+                ->when($this->searchName, function ($query) {
+                    $query->searchName(trim($this->searchName));
+                })
+                ->when($this->searchDescription, function ($query) {
+                    $query->searchDescription(trim($this->searchDescription));
+                })
+                ->when($this->search, function ($query) {
+                    $query->search(trim($this->search));
+                })
+                ->orderBy($this->sortBy, $this->sortDirection)
+                ->paginate($this->paginate);
         }
 
         return view('livewire.admin-area-categories', compact('categories'));

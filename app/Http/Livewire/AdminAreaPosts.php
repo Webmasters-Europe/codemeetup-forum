@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\Post;
+
+class AdminAreaPosts extends TableComponent
+{
+
+    //public $pots;
+    public $title;
+    public $userName;
+    public $replyCount;
+
+    // Actions:
+    public $action;
+    public $showDeletedPosts;
+    public $selectedPost;
+
+    // Ordering:
+    public $sortBy = 'category_id';
+    public $sortDirection = 'asc';
+
+    // Search fields:
+    public $globalSearch = '';
+    public $searchName = '';
+    public $searchUsername = '';
+    public $searchEmail = '';
+
+
+    public function render()
+    {
+        if ($this->showDeletedPosts) {
+            $posts = Post::onlyTrashed();
+        } else {
+            $posts = Post::with('reply');
+            //dd($posts);
+        }
+
+        /* Search filter:
+        $posts = $posts
+            ->when($this->globalSearch, function ($query) {
+                $query->globalSearch(trim($this->globalSearch));
+            })
+            ->when($this->searchName, function ($query) {
+                $query->singleFieldSearch(trim($this->searchName), 'name');
+            })
+            ->when($this->searchUsername, function ($query) {
+                $query->singleFieldSearch(trim($this->searchUsername), 'username');
+            })
+            ->when($this->searchEmail, function ($query) {
+                $query->singleFieldSearch(trim($this->searchEmail), 'email');
+            });
+            */
+        // Ordering:
+        $posts = $posts->orderBy($this->sortBy, $this->sortDirection);
+
+        // Pagination:
+        $posts = $posts->paginate($this->paginate);
+        //dd($posts);
+        return view('livewire.admin-area-posts', compact('posts'));
+    }
+
+    public function selectPost($id, $action)
+    {
+        $this->selectedPost = $id;
+        $post = Post::withTrashed()->with('reply')->findOrFail($this->selectedPost);
+
+        $this->title = $post->title;
+        $this->userName = $post->user->name;
+        $this->replyCount = count($post->reply);
+
+        $this->dispatchBrowserEventByAction($action);
+    }
+
+    public function delete()
+    {
+        Post::findOrFail($this->selectedPost)->delete();
+        $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
+        $this->resetInputFields();
+        session()->flash('status', 'Post and all replies and comments in this post successfully deleted.');
+
+        return redirect()->route('admin-area.posts');
+    }
+
+    public function restore()
+    {
+        Post::onlyTrashed()->findOrFail($this->selectedPost)->restore();
+        $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
+
+        $this->resetInputFields();
+        session()->flash('status', 'Post successfully restored.');
+
+        return redirect()->route('admin-area.posts');
+    }
+
+    private function resetInputFields()
+    {
+        $this->title = '';
+        $this->userName = '';
+        $this->replyCount = '';
+    }
+}
