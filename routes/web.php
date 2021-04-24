@@ -48,5 +48,4 @@ Route::get('config', function () {
     return config('app.settings.primary_color');
 });
 
-/* Routes for admin area */
-require __DIR__.'/admin.php';
+Route::prefix('admin-area')->middleware(['auth'])->group(__DIR__.'/admin.php');
