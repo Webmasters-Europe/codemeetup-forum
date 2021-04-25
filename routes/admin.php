@@ -27,3 +27,10 @@ Route::get('/admin-area/posts', function () {
     }
     abort('403');
 })->name('admin-area.posts');
+
+Route::get('/admin-area/permissions', function () {
+    if (auth()->user()->can('admin permisssions')) {
+        return view('admin-area.permissions');
+    }
+    abort('403');
+})->name('admin-area.permissions');
