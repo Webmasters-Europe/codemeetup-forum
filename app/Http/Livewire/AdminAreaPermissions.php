@@ -22,11 +22,12 @@ class AdminAreaPermissions extends Component
     public function render()
     {
         $actionRole = Role::find($this->selectedRoleId);
+
         return view('livewire.admin-area-permissions', [
             'roles' => $this->roles,
             'permissions' => $this->permissions,
             'selectedRoleId' => $this->selectedRoleId,
-            'actionRole' => $actionRole]);
+            'actionRole' => $actionRole, ]);
     }
 
     public function updateAllowedPermissions($allowedPermissions)
@@ -35,6 +36,6 @@ class AdminAreaPermissions extends Component
 
         $selectedRole->permissions()->sync($allowedPermissions);
 
-        session()->flash('success', 'Permissions for role ' . ucwords($selectedRole->name, '- ') . ' successfully updated.');
+        session()->flash('success', 'Permissions for role '.ucwords($selectedRole->name, '- ').' successfully updated.');
     }
 }
