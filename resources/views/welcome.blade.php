@@ -26,18 +26,22 @@
                     @endif
                 </div>
                 <div class="col-12 col-lg-4">
-                    <a href="{{ route('posts.show', $category->latestPost->id)}}"><h6 class="my-0">{{ $category->latestPost->title }}</h6></a>
-                    <div>
-                        <small class="text-muted">
-                            by
-                            @if ($category->latestPost->user->trashed())
-                                a deleted user
-                            @else
-                                <a href=" {{ route('users.show', $category->latestPost->user) }}">{{$category->latestPost->user->username}}</a>
-                            @endif
-                        </small>
-                        <small class="text-muted">{{ $category->latestPost->created_at->diffForHumans() }}</small>
-                    </div>
+                    @if ($category->latestPost)
+                        <a href="{{ route('posts.show', $category->latestPost->id)}}"><h6 class="my-0">{{ $category->latestPost->title }}</h6></a>
+                        <div>
+                            <small class="text-muted">
+                                by
+                                @if ($category->latestPost->user->trashed())
+                                    a deleted user
+                                @else
+                                    <a href=" {{ route('users.show', $category->latestPost->user) }}">{{$category->latestPost->user->username}}</a>
+                                @endif
+                            </small>
+                            <small class="text-muted">{{ $category->latestPost->created_at->diffForHumans() }}</small>
+                        </div>
+                    @else
+                        <p>No posts yet...</p>
+                    @endif
                 </div>
             </div>
         @endforeach
