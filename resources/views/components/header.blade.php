@@ -3,7 +3,7 @@
         <div class="container-fluid m-0 p-0">
             <div class="row w-100 mx-0">
                 <div class="col-lg-9 px-4 d-flex">
-                    <a class="navbar-brand mr-auto" href="{{ url('/') }}"><img class=" mr-4 my-2" src="https://picsum.photos/50" alt="logo image">FORUM</a>
+                    <a class="navbar-brand mr-auto" href="{{ url('/') }}"><img class=" mr-4 my-2" src="https://picsum.photos/50" alt="logo image">{{ config('app.settings.forum_name') }}</a>
                     <button id="collapse-search-button" class="btn d-lg-none" type="button" data-toggle="collapse" data-target="#searchbar" aria-expanded="false" aria-controls="searchbar">
                         <img src="{{ asset('icons/search.png') }}">
                     </button>
@@ -18,3 +18,4 @@
         </div>
     </nav>
 </div>
+

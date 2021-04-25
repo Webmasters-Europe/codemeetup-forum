@@ -27,6 +27,10 @@
         <a class="btn btn-dark my-2" href="{{ route('admin-area.permissions') }}">Administrate Permissions</a>
     @endcan
 
+    @can('admin settings')
+        <a class="btn btn-dark my-2" href="{{ route('admin-area.settings') }}">Settings</a>
+    @endcan
+
     <div class="row border my-2 p-2 no-gutters">
         <div class="col-12">
             Show something interesting here... Maybe how many users joined the forum the last x days, how many posts were created and stuff like that.
