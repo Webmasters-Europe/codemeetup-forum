@@ -15,3 +15,7 @@ Route::get('users', function () {
 Route::get('posts', function () {
     return view('admin-area.posts');
 })->middleware('can:admin posts')->name('admin-area.posts');
+
+Route::get('permissions', function () {
+    return view('admin-area.permissions');
+})->middleware('can:admin permissions')->name('admin-area.permissions');
