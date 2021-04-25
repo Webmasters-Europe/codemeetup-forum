@@ -30,11 +30,15 @@ class PostReplyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param \App\Http\Requests\PostReplyRequest $request
+     * @param \App\Models\Post $post
+     * @param \App\Models\PostReply|null $postReply
+     * @return mixed
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Illuminate\Database\Eloquent\InvalidCastException
+     * @throws \LogicException
+     * @throws \Illuminate\Database\Eloquent\JsonEncodingException
      */
     public function store(PostReplyRequest $request, Post $post, PostReply $postReply = null)
     {

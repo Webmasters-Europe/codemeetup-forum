@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -70,47 +69,9 @@ class PostController extends Controller
     {
         $info = pathinfo($file);
 
-        return in_array(strtolower($info['extension']),
-                        ['jpg', 'jpeg', 'gif', 'png', 'bmp']);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        $this->authorize('update', Post::class);
-
-        // Show the form...
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Post $post)
-    {
-        $this->authorize('update', Post::class);
-
-        // Update the post...
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Post $post)
-    {
-        $this->authorize('delete', Post::class);
-
-        // Delete the post...
+        return in_array(
+            strtolower($info['extension']),
+            ['jpg', 'jpeg', 'gif', 'png', 'bmp']
+        );
     }
 }
