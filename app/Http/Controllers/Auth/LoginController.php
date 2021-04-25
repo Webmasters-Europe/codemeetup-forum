@@ -116,8 +116,8 @@ class LoginController extends Controller
         return abort(404);
     }
 
-    protected function redirectTo(){
+    protected function redirectTo()
+    {
         return url()->previous();
     }
-    
 }
