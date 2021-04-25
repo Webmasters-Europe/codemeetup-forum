@@ -26,13 +26,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
      * Save username in variable.
      *
      * @var string
@@ -122,4 +115,9 @@ class LoginController extends Controller
     {
         return abort(404);
     }
+
+    protected function redirectTo(){
+        return url()->previous();
+    }
+    
 }
