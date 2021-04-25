@@ -37,33 +37,27 @@
                 color: #212529;
             }
 
-            footer a {
-                color: white;
-            }
-
-            footer a:hover {
-                color: gray;
-            }
-
             h1 {
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: #212529
+            }
+
+            h2 {
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: #212529
+            }
+
+            h3 {
                 font-size: 1.2rem;
                 font-weight: 700;
+                color: #212529
             }
 
             .navbar-brand {
                 font-size: 2rem;
                 font-weight: 700;
-            }
-
-            footer {
-                position: absolute;
-                height: 50px;
-                bottom: 0;
-                width: 100%;
-                font-style: bold;
-                font-size: 16px;
-                display:flex;
-                align-items:center;
             }
 
             #app {
@@ -74,6 +68,38 @@
             .content-wrap {
                 padding-bottom: 50px;
             }
+
+            /* Main */
+
+            #main .icon,
+            #main .posts-count {
+                text-align: center;
+            }
+
+            
+
+            /* Footer */
+
+            #footer {
+                position: absolute;
+                height: 50px;
+                bottom: 0;
+                width: 100%;
+                font-style: bold;
+                font-size: 16px;
+                display:flex;
+                align-items:center;
+            }
+
+            #footer a {
+                color: white;
+            }
+
+            #footer a:hover {
+                color: gray;
+            }
+
+            /* Search */
 
             #search-results {
                 position: absolute;
