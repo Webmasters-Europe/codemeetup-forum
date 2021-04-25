@@ -82,7 +82,7 @@ class LoginController extends Controller
         $oauthUser = $this->findOrCreateUser($oauthUser, $provider);
         auth()->login($oauthUser, true);
 
-        return redirect($this->redirectTo);
+        return redirect($this->redirectTo());
     }
 
     public function findOrCreateUser($oauthuser, $provider)
