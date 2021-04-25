@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $categories = Category::orderBy('name')->paginate(10);
 
-        foreach($categories as $category) {
+        foreach ($categories as $category) {
             $category->latestPost = $category->latestPost();
         }
 
