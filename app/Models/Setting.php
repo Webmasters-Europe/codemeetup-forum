@@ -13,13 +13,13 @@ class Setting extends Model
         'primary_color',
         'button_text_color',
         'category_icons_color',
-        'forum_name', 
-        'forum_image', 
-        'number_categories_startpage', 
-        'number_last_entries_startpage', 
+        'forum_name',
+        'forum_image',
+        'number_categories_startpage',
+        'number_last_entries_startpage',
         'number_posts',
         'contact_page',
         'imprint_page',
-        'copyright_page'
+        'copyright_page',
     ];
 }

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SettingRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
-use App\Http\Requests\SettingRequest;
 
 class SettingController extends Controller
 {
     public function index()
     {
         $settings = Setting::first();
-        
+
         return view('admin-area.settings', compact('settings'));
     }
 
@@ -19,7 +19,7 @@ class SettingController extends Controller
     {
         $setting = app()->make(Setting::class);
         $setting->fill($request->all());
-        $setting->save(); 
+        $setting->save();
         if ($request->forum_image) {
             $setting->forum_image = $request->file('forum_image')->store('uploads', 'public');
             $setting->save();
@@ -27,5 +27,4 @@ class SettingController extends Controller
 
         return redirect()->route('home')->withStatus('Settings successfully updated.');
     }
-
 }
