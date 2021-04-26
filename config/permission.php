@@ -166,6 +166,7 @@ return [
         'admin categories' => ['moderator'],
         'admin posts' => ['moderator'],
         'admin permissions' => [],
+        'admin settings' => [],
         'assign super-admin userrole' => [],
     ],
 

@@ -36,12 +36,12 @@ Route::get('/category/{category}', CategoryController::class)->name('category.sh
 Route::resource('/users', UserController::class)->only(['show', 'edit', 'update']);
 Route::get('/users/reset_avatar/{users}', [UserController::class, 'reset_avatar'])->name('users.reset_avatar');
 
-Route::get('config', function () {
+/* Route::get('config', function () {
     $setting = app()->make(Setting::class);
     $setting->primary_color = '#eff';
     $setting->save();
 
     return config('app.settings.primary_color');
-});
+}); */
 
 Route::prefix('admin-area')->middleware(['auth'])->group(__DIR__.'/admin.php');

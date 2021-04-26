@@ -14,9 +14,11 @@ class CategoryController extends Controller
      */
     public function __invoke(Category $category)
     {
+        $numberPosts = config('app.settings.number_posts');
+
         $this->authorize('view', Category::class);
 
-        $posts = $category->posts()->orderBy('created_at', 'desc')->with('user')->paginate(10);
+        $posts = $category->posts()->orderBy('created_at', 'desc')->with('user')->paginate($numberPosts);
 
         return view('categories.show', compact('category', 'posts'));
     }

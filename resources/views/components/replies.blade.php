@@ -11,7 +11,7 @@
             created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
 
             @can('create post replies')
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
+                <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#replyModal_{{$reply->id}}" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">
                     {{__('Comment') }}
                 </button>
             @endcan

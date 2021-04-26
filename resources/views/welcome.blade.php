@@ -11,7 +11,7 @@
 
         @foreach($categories as $category)
             <div class="row border my-2 p-2 no-gutters d-flex align-items-center">
-                <div class="col-2 col-lg-1 icon"><i class="fas fa-folder-open fa-3x"></i></div>
+                <div class="col-2 col-lg-1 icon"><i class="fas fa-folder-open fa-3x" style="color: {{ config('app.settings.category_icons_color') }}"";></i></div>
                 <div class="col-8 col-lg-6">
                     <a href="{{route('category.show', $category)}}">
                     <h3 class="m-1">{{$category->name}}</h3>

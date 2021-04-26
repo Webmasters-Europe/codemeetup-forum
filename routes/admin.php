@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SettingController;
+
 Route::get('/', function () {
     return view('admin-area.dashboard');
 })->middleware('can:access admin area')->name('admin-area.dashboard');
@@ -19,3 +21,6 @@ Route::get('posts', function () {
 Route::get('permissions', function () {
     return view('admin-area.permissions');
 })->middleware('can:admin permissions')->name('admin-area.permissions');
+
+Route::get('settings', [SettingController::class, 'index'])->middleware('can:admin settings')->name('admin-area.settings');
+Route::put('settings', [SettingController::class, 'update'])->middleware('can:admin settings')->name('admin-area.settings.update');

@@ -59,7 +59,7 @@
                                         <label for="postContent">Write your reply:</label>
                                         <x-easy-mde class="w-100" name="content" :options="['hideIcons' => ['image'], 'minHeight' => '150px']"/>
                                     </div>
-                                    <button type="submit" class="btn btn-dark ml-2">Create Reply</button>
+                                    <button type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Reply</button>
                                 </form>
                             </div>
                             @else
@@ -70,7 +70,7 @@
                                         <label for="postContent">Write your reply:</label><br>
                                         <textarea class="w-100 disabled-reply" disabled placeholder="Login to leave a reply"></textarea>
                                     </div>
-                                    <button disabled type="submit" class="btn btn-dark ml-2">Create Reply</button>
+                                    <button disabled type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Reply</button>
                                 </form>
                             </div>
                             @endcan
@@ -90,7 +90,7 @@
                                         created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
 
                                         @can('create post replies')
-                                        <button type="button" class="btn btn-sm btn-dark" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
+                                        <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#replyModal_{{$reply->id}}" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">
                                             {{__('Comment') }}
                                         </button>
                                         @endcan
