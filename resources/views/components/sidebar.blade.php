@@ -18,17 +18,17 @@
             </div>
 
             <a href="{{ route('users.show', auth()->user() ) }}" type="button"
-               class="btn btn-dark btn-block m-0 mb-4 py-2">Profile</a>
+               class="btn btn-block m-0 mb-4 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Profile</a>
 
             @can('access admin area')
                 <a href="{{ route('admin-area.dashboard') }}" type="button"
-                   class="btn btn-dark btn-block m-0 mb-4 py-2">Admin Area</a>
+                   class="btn btn-block m-0 mb-4 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Admin Area</a>
             @endcan
 
             <form action="{{ route('logout') }}" method="POST" class="w-100">
                 @csrf
 
-                <button type="submit" class="btn btn-dark btn-lg btn-block">Logout</button>
+                <button type="submit" class="btn btn-block" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Logout</button>
 
             </form>
 

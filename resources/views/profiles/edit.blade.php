@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-dark btn-lg mb-4">Save Profile</button>
+                <button type="submit" class="btn btn-lg mb-4" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};" >Save Profile</button>
             </div>
         </div>
     </form>

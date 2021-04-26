@@ -23,3 +23,4 @@ Route::get('permissions', function () {
 })->middleware('can:admin permissions')->name('admin-area.permissions');
 
 Route::get('settings', [SettingController::class, 'index'])->middleware('can:admin settings')->name('admin-area.settings');
+Route::put('settings', [SettingController::class, 'update'])->middleware('can:admin settings')->name('admin-area.settings.update');

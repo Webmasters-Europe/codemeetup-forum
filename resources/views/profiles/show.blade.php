@@ -24,7 +24,7 @@
                 @can('edit own profile')
                     @if(auth()->user()->is($user))
                         <div>
-                            <a href="{{ route('users.edit', $user) }}" type="button" class="btn btn-dark btn-block m-0 mt-4">Edit Your Profile</a>
+                            <a href="{{ route('users.edit', $user) }}" type="button" class="btn btn-block m-0 mt-4" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Edit Your Profile</a>
                         </div>
                     @endif
                 @endcan

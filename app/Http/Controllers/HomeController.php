@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Config;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,9 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
-        $categories = Category::orderBy('name')->paginate(10);
+        $numberCategories = config('app.settings.number_categories_startpage');
+
+        $categories = Category::orderBy('name')->paginate($numberCategories);
 
         foreach ($categories as $category) {
             $category->latestPost = $category->latestPost();

@@ -28,8 +28,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Artisan::call('migrate', ['--force' => true, '--path' => '/database/migrations/2021_04_17_094446_create_settings_table.php']);
-        $seeder = new SettingsSeeder();
-        $seeder->run();
+        if (Setting::exists() == false) {
+            $seeder = new SettingsSeeder();
+            $seeder->run();
+        }
         $this->app->singleton(Setting::class, function () {
             return Setting::first();
         });

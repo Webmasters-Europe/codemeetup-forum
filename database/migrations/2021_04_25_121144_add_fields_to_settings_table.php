@@ -14,12 +14,15 @@ class AddFieldsToSettingsTable extends Migration
     public function up()
     {
         Schema::table('settings', function (Blueprint $table) {
+            $table->string('button_text_color');
+            $table->string('category_icons_color');
             $table->string('forum_name'); 
-            $table->string('forum_image'); 
+            $table->string('forum_image')->nullable(); 
             $table->unsignedInteger('number_categories_startpage'); 
             $table->unsignedInteger('number_last_entries_startpage'); 
-            $table->string('contact_page');
-            $table->string('imprint_page');
+            $table->unsignedInteger('number_posts');
+            $table->text('contact_page');
+            $table->text('imprint_page');
             $table->string('copyright_page');
         });
     }

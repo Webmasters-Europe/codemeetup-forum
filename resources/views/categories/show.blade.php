@@ -12,7 +12,7 @@
     <h1>{{$category->name}}</h1>
 
     @can('create posts')
-        <a class="btn btn-dark my-2" href="{{ route('posts.create', $category) }}">Create Post</a>
+        <a class="btn my-2" href="{{ route('posts.create', $category) }}" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Post</a>
     @endcan
 
     @forelse($posts as $post)
