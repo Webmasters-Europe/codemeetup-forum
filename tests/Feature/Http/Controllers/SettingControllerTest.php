@@ -2,17 +2,16 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Setting;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class SettingControllerTest extends TestCase
 {
-
     use RefreshDatabase;
     use WithFaker;
     private $testAdmin;
@@ -41,7 +40,7 @@ class SettingControllerTest extends TestCase
         $response->assertForbidden();
     }
 
-     /**
+    /**
      * @test
      */
     public function it_checks_if_only_the_first_instance_of_settings_is_used()
@@ -59,10 +58,9 @@ class SettingControllerTest extends TestCase
             'copyright_page' => 'test',
         ]);
         $this->assertDatabaseHas('settings', ['id' => 2]);
-        
+
         $testPrimaryColor = config('app.settings.primary_color');
         $this->assertStringNotContainsString('test', $testPrimaryColor);
-
     }
 
     /**
@@ -85,9 +83,9 @@ class SettingControllerTest extends TestCase
             'contact_page' => 'test contact page',
             'imprint_page' => 'test impring page',
             'copyright_page' => 'test copyright page',
-            'forum_image' => $testImage
+            'forum_image' => $testImage,
             ]);
-            
+
         $this->assertDatabaseHas('settings', [
             'primary_color' => '#000000',
             'button_text_color' => '#ffffff',
@@ -99,15 +97,13 @@ class SettingControllerTest extends TestCase
             'contact_page' => 'test contact page',
             'imprint_page' => 'test impring page',
             'copyright_page' => 'test copyright page',
-            'forum_image' => 'uploads/'.$testImage->hashName()
+            'forum_image' => 'uploads/'.$testImage->hashName(),
         ]);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('home'));
         $response->assertSessionHas('status', 'Settings successfully updated.');
     }
-
-
 
     /**
      * @test
@@ -130,5 +126,4 @@ class SettingControllerTest extends TestCase
             ]);
         $response->assertSessionHasErrors();
     }
-    
 }
