@@ -5,7 +5,7 @@
                 <div class="col-lg-9 px-4 d-flex">
                     <a class="navbar-brand mr-auto" href="{{ url('/') }}">
                         @if (config('app.settings.forum_image'))
-                            <img src="{{ asset('storage/'.$settings->forum_image) }}" height="50px">
+                            <img src="{{ asset('storage/'.config('app.settings.forum_image')) }}" height="50px">
                         @else
                             <img src="{{ asset('icons/codemeetup.png') }}" height="50px">
                         @endif
