@@ -32,9 +32,9 @@ class SettingRequest extends FormRequest
                 'number_categories_startpage' => 'required|numeric',
                 'number_last_entries_startpage' => 'required|numeric',
                 'number_posts' => 'required|numeric',
-                'contact_page' => 'required|max:5000',
+                'email_contact_page' => 'sometimes|string|email|max:255|',
                 'imprint_page' => 'required|max:5000',
-                'copyright_page' => 'required|string',
+                'copyright' => 'required|string',
             ];
     }
 }

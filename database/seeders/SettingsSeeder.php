@@ -22,9 +22,8 @@ class SettingsSeeder extends Seeder
             'number_categories_startpage' => 10,
             'number_last_entries_startpage' => 3,
             'number_posts' => 10,
-            'contact_page' => 'This is the Contact Page.',
-            'imprint_page' => 'This is the Imprint Page.',
-            'copyright_page' => 'Copyright 2021 by Alena, Anette, Christian, Michael, Niclas, Rhea, Thomas',
+            'imprint_page' => 'This is the Imprint Page. Please go to Settings to write your own text.',
+            'copyright' => 'Alena, Anette, Christian, Michael, Niclas, Rhea, Thomas',
         ]);
     }
 }
