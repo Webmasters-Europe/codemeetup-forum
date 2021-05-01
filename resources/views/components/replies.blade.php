@@ -10,11 +10,8 @@
             @endif
             created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
 
-            @can('create post replies')
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
-                    {{__('Comment') }}
-                </button>
-            @endcan
+            
+            
 
             <x-replies :reply="$reply" :post="$post" />
 

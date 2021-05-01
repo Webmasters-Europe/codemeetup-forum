@@ -18,6 +18,7 @@
                 <input wire:model="search" type="search" class="form-control" placeholder="Search in name and description">
             </div>
         </div>
+        
         <div class="card-body table-responsive p-0">
             <table class="table table-hover">
                 <tbody>
@@ -41,19 +42,24 @@
                             <td>{{ $post->updated_at->format('d.m.Y H:i:s') }}</td>
                             <td>
                                 @if (!$showDeletedPosts)
-                                    <button wire:click="selectPost({{ $post->id }}, 'update')"
+                                    <a href="{{ route('posts.show',$post)}}"
                                         class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit"></i>
-                                    </button>
+                                    </a>
+                                    
                                     <button wire:click="selectPost({{ $post->id }}, 'delete')"
                                         class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 @else
-                                    <button wire:click="selectPost({{ $post->id }}, 'restore')"
+                               
+                                    <button  @if (!$post->category) disabled title="{{ __('you cant restore this post because its category has been deleted') }}" @endif wire:click="selectPost({{ $post->id }}, 'restore')"
                                         class="btn btn-secondary btn-sm">
+                                        
                                         <i class="fas fa-trash-restore"></i>
+                                        
                                     </button>
+                                    
                                 @endif
                             </td>
                         </tr>
@@ -61,6 +67,7 @@
                 </tbody>
             </table>
         </div>
+
         <div class="row mt-4">
             <div class="col-sm-6 offset-5">
                 {{ $posts->firstItem()}} - {{ $posts->lastItem() }} from {{ $posts->total() }} results
@@ -71,8 +78,7 @@
 
 
 <!-- Modal for Delete Post -->
-<div class="modal fade" id="deleteModelInstanceModal" tabindex="-1" aria-labelledby="deleteModelInstanceModalLabel"
-aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="deleteModelInstanceModal" tabindex="-1" aria-labelledby="deleteModelInstanceModalLabel" aria-hidden="true" wire:ignore.self>
 <div class="modal-dialog">
     <form wire:submit.prevent="delete">
         @csrf
@@ -98,8 +104,7 @@ aria-hidden="true" wire:ignore.self>
 </div>
 
 <!-- Modal for Restore Post-->
-<div class="modal fade" id="restoreModelInstanceModal" tabindex="-1" aria-labelledby="restoreModelInstanceModalLabel"
-aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="restoreModelInstanceModal" tabindex="-1" aria-labelledby="restoreModelInstanceModalLabel" aria-hidden="true" wire:ignore.self>
 <div class="modal-dialog">
     <form wire:submit.prevent="restore">
         @csrf
@@ -112,8 +117,8 @@ aria-hidden="true" wire:ignore.self>
             </div>
             <div class="modal-body">
                 Do you really want to restore this Post:
-                <h5>{{ $post->title }}</h5>
-                <p>by User: <br> {{ $post->user->name }}</p>
+                <h5>{{ $title }}</h5>
+                <p>by User: <br> {{ $userName }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -123,28 +128,7 @@ aria-hidden="true" wire:ignore.self>
     </form>
 </div>
 </div>
-    <!-- Modal for Add new Category-->
-    <div class="modal fade" id="addModelInstanceModal" tabindex="-1" aria-labelledby="addModelInstanceModalLabel"
-        aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog">
-            <form wire:submit.prevent="addNewCategory">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addModelInstanceModalLabel">Add new Category</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    @include('components.categoryForm')
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    
 
     
 

@@ -25,12 +25,12 @@ class UserSeeder extends Seeder
             ])->assignRole('super-admin');
         }
 
-        $users = User::factory(5)->create();
+        $users = User::factory(1)->create();
         foreach ($users as $user) {
             $user->assignRole('moderator');
         }
 
-        $users = User::factory(5)->create();
+        $users = User::factory(1)->create();
         foreach ($users as $user) {
             $user->assignRole('user');
         }

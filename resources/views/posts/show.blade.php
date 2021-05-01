@@ -11,8 +11,18 @@
         </nav>
 
         <h1>{{ $post->title }}</h1>
+        <div>
+            @can ('update post') 
+                <a href="" class="btn btn-sm btn-primary">Edit</a>
+            @endcan
+
+            @can ('delete post')
+                <a href="" class="btn btn-sm btn-primary">Delete</a>
+            @endcan
+        </div>
 
         @markdown($post->content)
+       
 
         <div>
             by
@@ -22,6 +32,7 @@
                 <a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a>
             @endif
         </div>
+        
         <div>created at {{ $post->created_at->format('d.m.Y H:i:s') }}</div>
 
         {{-- begin show all uploads to this post --}}

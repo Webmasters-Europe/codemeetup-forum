@@ -8,7 +8,8 @@ use App\Models\Post;
 class AdminAreaPosts extends TableComponent
 {
 
-    //public $pots;
+    //public ;
+    public $post;
     public $title;
     public $userName;
     public $replyCount;
@@ -17,6 +18,7 @@ class AdminAreaPosts extends TableComponent
     public $action;
     public $showDeletedPosts;
     public $selectedPost;
+    public $showPost;
 
     // Ordering:
     public $sortBy = 'category_id';
@@ -35,7 +37,6 @@ class AdminAreaPosts extends TableComponent
             $posts = Post::onlyTrashed();
         } else {
             $posts = Post::with('reply');
-            //dd($posts);
         }
 
         /* Search filter:
@@ -58,13 +59,14 @@ class AdminAreaPosts extends TableComponent
 
         // Pagination:
         $posts = $posts->paginate($this->paginate);
-        //dd($posts);
+
         return view('livewire.admin-area-posts', compact('posts'));
     }
 
     public function selectPost($id, $action)
     {
         $this->selectedPost = $id;
+
         $post = Post::withTrashed()->with('reply')->findOrFail($this->selectedPost);
 
         $this->title = $post->title;
@@ -91,6 +93,21 @@ class AdminAreaPosts extends TableComponent
 
         $this->resetInputFields();
         session()->flash('status', 'Post successfully restored.');
+
+        return redirect()->route('admin-area.posts');
+    }
+
+    public function update()
+    {
+        $this->validate();
+        $post = Post::findOrFail($this->selectedPost);
+        $post->update([
+            'name' => $this->name,
+            'description' => $this->description,
+        ]);
+        $this->dispatchBrowserEvent('closeUpdateModelInstanceModal');
+        $this->resetInputFields();
+        session()->flash('status', 'post successfully updated.');
 
         return redirect()->route('admin-area.posts');
     }

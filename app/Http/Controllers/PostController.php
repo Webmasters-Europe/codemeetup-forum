@@ -70,8 +70,10 @@ class PostController extends Controller
     {
         $info = pathinfo($file);
 
-        return in_array(strtolower($info['extension']),
-                        ['jpg', 'jpeg', 'gif', 'png', 'bmp']);
+        return in_array(
+            strtolower($info['extension']),
+            ['jpg', 'jpeg', 'gif', 'png', 'bmp']
+        );
     }
 
     /**
