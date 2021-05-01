@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         $this->authorize('update', [User::class, $user]);
 
-        if($request->password != null ) {
+        if ($request->password != null) {
             $password = bcrypt($request->password);
         } else {
             $password = $user->password;
@@ -74,7 +74,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'reply_email_notification' => $request->reply_email_notification,
-            'password' => $password
+            'password' => $password,
         ]);
 
         if ($request->avatar) {
