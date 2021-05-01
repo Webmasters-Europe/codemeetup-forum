@@ -43,7 +43,7 @@ class SendContactForm extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Contact from '. config('app.settings.forum_name'))
+                    ->subject('Contact from '.config('app.settings.forum_name'))
                     ->line('This is the Message from the Contact-Form:')
                     ->line('################################')
                     ->line('Name: '.$this->contactFormData['name'])

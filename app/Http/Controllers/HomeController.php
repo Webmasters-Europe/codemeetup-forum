@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Category;
+use App\Notifications\SendContactForm as NotificationsSendContactForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\SendContactForm as NotificationsSendContactForm;
 
 class HomeController extends Controller
 {
@@ -44,9 +43,8 @@ class HomeController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'message' => 'required|max:2000'
+            'message' => 'required|max:2000',
         ]);
-
 
         $receiver = config('app.settings.email_contact_page');
 
