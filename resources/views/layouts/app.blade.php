@@ -20,115 +20,13 @@
         <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            body {
-                font-family: 'Nunito Sans', sans-serif;
-                color: #212529;
-            }
-
-            a {
-                cursor: pointer;
-                color: #212529;
-            }
-
-            h1 {
-                font-size: 1.6rem;
-                font-weight: 700;
-                color: #212529
-            }
-
-            h2 {
-                font-size: 1.4rem;
-                font-weight: 700;
-                color: #212529
-            }
-
-            h3 {
-                font-size: 1.2rem;
-                font-weight: 700;
-                color: #212529
-            }
-
-            .navbar-brand {
-                font-size: 2rem;
-                font-weight: 700;
-            }
-
-            #app {
-                position: relative;
-                min-height: 100vh;
-            }
-
-            .content-wrap {
-                padding-bottom: 50px;
-            }
-
-            /* Main */
-
-            #main .icon,
-            #main .posts-count {
-                text-align: center;
-            }
-
-            
-
-            /* Footer */
-
-            #footer {
-                position: absolute;
-                height: 50px;
-                bottom: 0;
-                width: 100%;
-                font-style: bold;
-                font-size: 16px;
-                display:flex;
-                align-items:center;
-            }
-
-            #footer a {
-                color: white;
-            }
-
-            #footer a:hover {
-                color: gray;
-            }
-
-            /* Search */
-
-            #search-results {
-                position: absolute;
-                background-color: white;
-                z-index: 999;
-                border: 1px solid;
-                box-shadow: 0 12px 12px rgba(0,0,0,0.15);
-                width: 90%;
-            }
-
-            #search-results ul {
-                list-style-type: none;
-                margin:0;
-                padding:0;
-            }
-
-            #search-results ul h5 {
-                margin-top:1rem;
-            }
-            #search-results .opensearch-inner {
-                overflow-y:scroll;
-                max-height: 80vh;
-            }
-
-            .disabled-reply {
-                min-height: 150px;
-            }
-
-        </style>
         @stack('styles')
         @livewireStyles
         @bukStyles(true)
