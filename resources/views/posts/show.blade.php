@@ -14,7 +14,7 @@
             <div class="card-body">
                 <h1 class="card-title">{{ $post->title }}</h1>
                 <div class="card-subtitle mb-2 text-muted">
-                    <span>
+                    <span class="text-muted">
                         by
                         @if ($post->user->trashed())
                             a deleted user
@@ -79,15 +79,16 @@
                                 @forelse ($replies as $reply)
                                 <ul class="row border my-2 p-2 no-gutters">
                                     <li class="list-unstyled">
-                                        @markdown($reply->content)
+                                       <span class="reply"> @markdown($reply->content)</span>
 
-                                        by
+                                       <small class="reply-info text-muted"> by
                                         @if ($reply->user->trashed())
                                             a deleted user,
                                         @else
                                             <a href=" {{ route('users.show', $reply->user) }}">{{$reply->user->username}}</a>,
                                         @endif
                                         created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
+                                        </small>
 
                                         @can('create post replies')
                                         <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#replyModal_{{$reply->id}}" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">

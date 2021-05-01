@@ -1,14 +1,15 @@
 <ul >
     @foreach ($reply->reply as $reply)
         <li>
-            @markdown($reply->content)
-            by
+        <hr>
+        <span class="reply"> @markdown($reply->content)</span>
+        <small class="reply-info text-muted"> by
             @if ($reply->user->trashed())
                 a deleted user,
             @else
                 <a href=" {{ route('users.show', $reply->user) }}">{{$reply->user->username}}</a>,
             @endif
-            created at {{ $reply->created_at->format('d.m.Y H:i:s') }}
+            created at {{ $reply->created_at->format('d.m.Y H:i:s') }}</small>
 
             @can('create post replies')
                 <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#replyModal_{{$reply->id}}" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">

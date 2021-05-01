@@ -17,13 +17,13 @@ h1 {
 h2 {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #212529
+    color: #212529;
 }
 
 h3 {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #212529
+    color: #212529;
 }
 
 .navbar-brand {
@@ -47,8 +47,6 @@ h3 {
     text-align: center;
 }
 
-
-
 /* Footer */
 
 #footer {
@@ -58,8 +56,8 @@ h3 {
     width: 100%;
     font-style: bold;
     font-size: 16px;
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
 }
 
 #footer a {
@@ -77,21 +75,21 @@ h3 {
     background-color: white;
     z-index: 999;
     border: 1px solid;
-    box-shadow: 0 12px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.15);
     width: 90%;
 }
 
 #search-results ul {
     list-style-type: none;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
 #search-results ul h5 {
-    margin-top:1rem;
+    margin-top: 1rem;
 }
 #search-results .opensearch-inner {
-    overflow-y:scroll;
+    overflow-y: scroll;
     max-height: 80vh;
 }
 
@@ -99,3 +97,12 @@ h3 {
     min-height: 150px;
 }
 
+/* Replies */
+
+.reply {
+    
+}
+
+.reply-info {
+
+}
