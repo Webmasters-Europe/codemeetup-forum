@@ -107,39 +107,38 @@
       </div>
 
       <div class="border rounded-lg mt-3 p-3" style="background-color: #f7dcc3;">
-        <h5 class="mt-3">Text for Copyright</h5>
+        <h5 class="mt-3">Copyright</h5>
         <div class="form-row">
           <div class="col">
-            <input type="text" class="form-control" name="copyright_page" value="{{ $settings->copyright_page }}">
+            <input type="text" class="form-control" name="copyright" value="{{ $settings->copyright }}">
           </div>
           <div class="col">
-            <input type="text" class="form-control" value="{{ $settings->copyright_page }}" disabled>
-          </div>
-        </div>
-
-        <h5 class="mt-3">Text for Imprint Page</h5>
-        <div class="form-row">
-          <div class="col">
-            <textarea name="imprint_page" id="" cols="80" rows="10">{{ $settings->imprint_page }}</textarea>
-          </div>
-          <div class="col">
-            <textarea name="imprint_page" id="" cols="80" rows="10" disabled>{{ $settings->imprint_page }}</textarea>
-          </div>
-        </div>
-
-        <h5 class="mt-3">Text for Contact Page</h5>
-        <div class="form-row">
-          <div class="col">
-            <textarea name="contact_page" id="" cols="80" rows="10">{{ $settings->contact_page }}</textarea>
-          </div>
-          <div class="col">
-            <textarea name="contact_page" id="" cols="80" rows="10" disabled>{{ $settings->contact_page }}</textarea>
+            <input type="text" class="form-control" value="{{ $settings->copyright }}" disabled>
           </div>
         </div>
       </div>
 
-        <button type="submit" class="btn btn-lg mb-4 mt-3" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Save Settings</button>
+      <div class="border rounded-lg mt-3 p-3" style="background-color: #f7dcc3;">
+        <h5 class="mt-3">Imprint Page</h5>
+        <div class="form-row">
+          <div class="col">
+            <x-easy-mde name="imprint_page" :options="['hideIcons' => ['image']]">{{ old('imprint_page', $settings->imprint_page) }}</x-easy-mde>
+          </div>
+        </div>
+      </div>
 
+      <div class="border rounded-lg mt-3 p-3" style="background-color: #f7dcc3;">
+        <h5 class="mt-3">E-Mail for Contact Page</h5>
+        <div class="form-row">
+          <div class="col">
+            <input type="email" class="form-control" name="email_contact_page" value="{{ $settings->email_contact_page }}">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" value="{{ $settings->email_contact_page }}" disabled>
+        </div>
+      </div>
+      </div>
+        <button type="submit" class="btn btn-lg mb-4 mt-3" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Save Settings</button>
       </form>
 
 @endsection
