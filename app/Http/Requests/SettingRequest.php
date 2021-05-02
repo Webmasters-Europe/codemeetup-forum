@@ -32,7 +32,7 @@ class SettingRequest extends FormRequest
                 'number_categories_startpage' => 'required|numeric',
                 'number_last_entries_startpage' => 'required|numeric',
                 'number_posts' => 'required|numeric',
-                'email_contact_page' => 'sometimes|string|email|max:255|',
+                'email_contact_page' => 'nullable|string|email|max:255|',
                 'imprint_page' => 'required|max:5000',
                 'copyright' => 'required|string',
             ];
