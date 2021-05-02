@@ -5,12 +5,13 @@ body {
 }
 
 a {
-    cursor: pointer;
     color: #212529;
 }
 
 a:hover {
     text-decoration: none;
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 h1 {
@@ -31,7 +32,34 @@ h3 {
     color: #212529;
 }
 
-.navbar-brand {
+label {
+    font-size: 1rem;
+}
+
+input.form-control,
+textarea {
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 1rem;
+}
+
+.btn:focus,
+input:focus, 
+input.form-control:focus, 
+textarea:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.btn {
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+#navbar .navbar-brand {
     font-size: 2rem;
     font-weight: 700;
 }
@@ -66,12 +94,12 @@ h3 {
     min-height: 50px;
     bottom: 0;
     width: 100%;
-   
+
 }
 
 #footer a:hover {
     background: rgba(255,255,255,0.2);
-    
+
 }
 
 /* Search */

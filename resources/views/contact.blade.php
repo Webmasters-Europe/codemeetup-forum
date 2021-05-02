@@ -14,25 +14,24 @@
                 <div class="card-body">
                     <h1 class="card-title">Contact</h1>
                     <div class="card-text">
-                        <div class="form-group p-2">
-                            <label>Name</label>
-                            <input type="text" value="{{ old('name') }}" class="form-control" name="name"
-                                placeholder="Name"/>
+                        <div class="form-group d-flex flex-column">
+                            <label for="name">Name</label>
+                            <input id="name" type="text" value="{{ old('name') }}" class="form-control border" name="name"
+                                placeholder="Your name"/>
                         </div>
-                        <div class="form-group p-2">
-                            <label>E-Mail</label>
-                            <input type="email" value="{{ old('email') }}" class="form-control" name="email"
-                                placeholder="E-Mail"/>
+                        <div class="form-group d-flex flex-column">
+                            <label for="email">E-Mail</label>
+                            <input id="email" type="email" value="{{ old('email') }}" class="form-control border" name="email"
+                                placeholder="Your e-mail"/>
                         </div>
-                        <div class="form-group p-2">
-                            <h6>Message</h6>
-       
-                            <textarea name="message" id="message" cols="100" rows="10">{{ old('message') }}</textarea>
+                        <div class="form-group d-flex flex-column">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" cols="100" rows="10" class="border" placeholder="Your message">{{ old('message') }}</textarea>
                         </div>
+                        <button type="submit" class="btn btn-lg m-0 mb-2 py-2" >Send Message</button>
                     </div>
                 </div>
-            </div>
-                <button type="submit" class="btn btn-lg mb-2 mt-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};" >Send Message</button>
+            </div>        
         </form>
 
 @endsection
