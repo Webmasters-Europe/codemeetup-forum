@@ -1,8 +1,15 @@
-<footer id="footer" class="footer mt-auto py-3" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">
-<div class="container text-center">
-    @php
-      $email_contact = config('app.settings.email_contact_page');
-    @endphp
-    <span class="text-muted">&copy @php echo date("Y"); @endphp by {{ config('app.settings.copyright') }} <a class="mx-2" href="{{ route('imprint')}}">Impressum</a> @if($email_contact)<a class="mx-4" href="{{ route('contact') }}">Kontakt</a>@endif</span>
+<footer id="footer" class="footer mt-auto m-0 p-0">
+  <div class="h-100 d-flex flex-md-row flex-column flex-nowrap justify-content-center align-items-center p-0 m-0">
+      @php
+        $email_contact = config('app.settings.email_contact_page');
+      @endphp
+
+      <a class="px-5 py-3" href="{{ route('imprint')}}">Impressum</a> 
+      <span class="px-5 py-3">&copy @php echo date("Y"); @endphp by {{ config('app.settings.copyright') }}</span>
+      
+      @if($email_contact)
+        <a class="px-5 py-3" href="{{ route('contact') }}">Kontakt</a>
+      @endif
+      
   </div>
 </footer>

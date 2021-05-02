@@ -27,6 +27,31 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
 
+        <!-- Styles -->
+        <style>
+            .icon {
+                color: {{ config('app.settings.category_icons_color') }};
+            }
+
+            a:hover {
+                color: {{ config('app.settings.primary_color') }}; 
+            }
+
+            #footer {
+                background-color: {{ config('app.settings.primary_color') }}; 
+                color: {{ config('app.settings.button_text_color') }};
+            }
+
+            #footer a {
+                color: {{ config('app.settings.button_text_color') }};
+            }
+
+            #footer a:hover {
+                color: {{ config('app.settings.button_text_color') }};
+            }
+        </style>
+        
+
         @stack('styles')
         @livewireStyles
         @bukStyles(true)
