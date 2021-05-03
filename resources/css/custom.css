@@ -44,10 +44,10 @@ textarea {
 }
 
 .btn:focus,
-input:focus, 
-input.form-control:focus, 
+input:focus,
+input.form-control:focus,
 textarea:focus {
-    outline:none !important;
+    outline: none !important;
     outline-width: 0 !important;
     box-shadow: none;
     -moz-box-shadow: none;
@@ -94,12 +94,10 @@ textarea:focus {
     min-height: 50px;
     bottom: 0;
     width: 100%;
-
 }
 
 #footer a:hover {
-    background: rgba(255,255,255,0.2);
-
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Search */
