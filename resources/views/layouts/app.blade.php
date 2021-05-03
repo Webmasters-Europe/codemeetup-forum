@@ -27,6 +27,70 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
 
+        <!-- Styles -->
+        <style>
+            .icon {
+                color: {{ config('app.settings.category_icons_color') }};
+            }
+
+            a:hover {
+                color: {{ config('app.settings.primary_color') }}; 
+            }
+
+            input:focus, 
+            input.form-control:focus, 
+            textarea:focus {
+                border: {{ config('app.settings.primary_color') }} 2px solid;
+            }
+
+            .btn {
+                background-color: {{ config('app.settings.primary_color') }}; 
+                color: {{ config('app.settings.button_text_color') }};
+                border: {{ config('app.settings.primary_color') }} 1px solid;
+            }
+
+            .btn:hover,
+            .btn:focus {
+                background-color: {{ config('app.settings.primary_color') }}; 
+                color: {{ config('app.settings.button_text_color') }};
+                opacity: 0.8;
+                border: {{ config('app.settings.primary_color') }} 1px solid;
+            }
+
+            .outline-primary {
+                background-color: transparent;
+                color: {{ config('app.settings.primary_color') }};
+                border: {{ config('app.settings.primary_color') }} solid 1px;
+            }
+
+            .outline-primary:hover {
+                background-color: {{ config('app.settings.primary_color') }}; 
+                color: {{ config('app.settings.button_text_color') }};
+            }
+
+            #navbar.navbar {
+                background-color: {{ config('app.settings.primary_color') }}; 
+            }
+
+            #navbar .navbar-brand {
+                color: {{ config('app.settings.button_text_color') }};
+            }
+
+            #footer {
+                background-color: {{ config('app.settings.primary_color') }}; 
+                color: {{ config('app.settings.button_text_color') }};
+            }
+
+            #footer a {
+                color: {{ config('app.settings.button_text_color') }};
+            }
+
+            #footer a:hover {
+                color: {{ config('app.settings.button_text_color') }};
+            }
+        </style>
+        
+
         @stack('styles')
         @livewireStyles
         @bukStyles(true)
