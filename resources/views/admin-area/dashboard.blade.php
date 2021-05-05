@@ -33,7 +33,7 @@
 
     <div class="row border my-2 p-2 no-gutters">
         <div class="col-12">
-            Show something interesting here... Maybe how many users joined the forum the last x days, how many posts were created and stuff like that.
+            @livewire('admin-area-dashboard')
         </div>
     </div>
 
