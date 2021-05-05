@@ -2,31 +2,47 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
+use Carbon\Carbon;
 use App\Models\Post;
-use App\Models\PostReply;
 use App\Models\User;
-use Asantibanez\LivewireCharts\Models\ColumnChartModel;
-use Asantibanez\LivewireCharts\Models\LineChartModel;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use App\Models\Category;
+use App\Models\PostReply;
+use function Ramsey\Uuid\v1;
+use Illuminate\Support\Facades\DB;
+use Asantibanez\LivewireCharts\Models\PieChartModel;
+
+use Asantibanez\LivewireCharts\Models\LineChartModel;
+use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 
 class AdminAreaDashboard extends Component
 {
     private $numberOfEntitiesChart;
     private $postsCreatedByDateChart;
+    private $topFiveUsersPostsChart;
+    private $topFiveUsersRepliesChart;
+    private $lastSixMonthChart;
+    private $monthChart;
 
     public function mount()
     {
         $this->prepareNumberOfEntitiesChart();
         $this->preparePostsGroupedByCreationDateChart();
+        $this->prepareTopFiveUsersPostsChart();
+        $this->prepareTopFiveUsersRepliesChart();
+        $this->prepareLastSixMonthChart();
+        $this->prepareMonthChart();
     }
 
     public function render()
     {
         return view('livewire.admin-area-dashboard', [
             'numberOfEntitiesChart' => $this->numberOfEntitiesChart,
-            'postsCreatedByDateChart' => $this->postsCreatedByDateChart
+            'postsCreatedByDateChart' => $this->postsCreatedByDateChart,
+            'topFiveUsersPostsChart' => $this->topFiveUsersPostsChart,
+            'topFiveUsersRepliesChart' => $this->topFiveUsersRepliesChart,
+            'lastSixMonthChart' => $this->lastSixMonthChart,
+            'monthChart' => $this->monthChart,
         ]);
     }
 
@@ -42,6 +58,7 @@ class AdminAreaDashboard extends Component
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
     }
+
 
     private function preparePostsGroupedByCreationDateChart()
     {
@@ -63,4 +80,99 @@ class AdminAreaDashboard extends Component
             $this->postsCreatedByDateChart->addPoint($date, $numberOfPosts);
         }
     }
+
+
+    private function prepareTopFiveUsersPostsChart() 
+    {
+
+        $users = User::with('posts')->withCount('posts')
+                    ->has('posts')
+                    ->orderByDesc('posts_count')
+                    ->limit(5)
+                    ->get();
+        $users->toArray();
+                   
+        $this->topFiveUsersPostsChart =
+            (new PieChartModel())
+                ->setTitle('Top 5 Users - Most Posts')
+                ->addSlice($users[0]->name, $users[0]->posts_count, '#90cdf4')
+                ->addSlice($users[1]->name, $users[1]->posts_count, '#f6ad55')
+                ->addSlice($users[2]->name, $users[2]->posts_count, '#fc8181')
+                ->addSlice($users[3]->name, $users[3]->posts_count, '#62de76')
+                ->addSlice($users[4]->name, $users[4]->posts_count, '#f1f2de')
+                ->withoutLegend()
+                ->setDataLabelsEnabled(true);
+    }
+
+
+    private function prepareTopFiveUsersRepliesChart()
+    {
+        $replies = DB::table('post_replies')
+            ->selectRaw('user_id, COUNT(*) AS number_replies')
+            ->groupBy('user_id')
+            ->orderBy('number_replies', 'DESC')
+            ->get()
+            ->toArray();
+                   
+        $this->topFiveUsersRepliesChart =
+            (new PieChartModel())
+                ->setTitle('Top 5 Users - Most Replies')
+                ->addSlice(User::find($replies[0]->user_id)->name, $replies[0]->number_replies, '#90cdf4')
+                ->addSlice(User::find($replies[1]->user_id)->name, $replies[1]->number_replies, '#f6ad55')
+                ->addSlice(User::find($replies[2]->user_id)->name, $replies[2]->number_replies, '#fc8181')
+                ->addSlice(User::find($replies[3]->user_id)->name, $replies[3]->number_replies, '#62de76')
+                ->addSlice(User::find($replies[4]->user_id)->name, $replies[4]->number_replies, '#f1f2de')
+                ->withoutLegend()
+                ->setDataLabelsEnabled(true);
+    }
+
+
+    private function prepareLastSixMonthChart()
+    {
+        // get last six month in array
+        for ($i = 1; $i <= 6; $i++) {
+            $month[] = date("m", strtotime(date('Y-m-01')." -$i months"));
+        }
+
+        $this->lastSixMonthChart =
+            (new LineChartModel())
+                ->setTitle('Last Six Month')
+                ->multiLine()
+                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[5])), Post::whereMonth('created_at', '=', $month[5])->count())
+                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[4])), Post::whereMonth('created_at', '=', $month[4])->count())
+                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[1])), Post::whereMonth('created_at', '=', $month[1])->count())
+                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[3])), Post::whereMonth('created_at', '=', $month[3])->count())
+                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[2])), Post::whereMonth('created_at', '=', $month[2])->count())
+                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[0])), Post::whereMonth('created_at', '=', $month[0])->count())
+                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[5])), PostReply::whereMonth('created_at', '=', $month[5])->count())
+                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[4])), PostReply::whereMonth('created_at', '=', $month[4])->count())
+                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[1])), PostReply::whereMonth('created_at', '=', $month[1])->count())
+                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[3])), PostReply::whereMonth('created_at', '=', $month[3])->count())
+                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[2])), PostReply::whereMonth('created_at', '=', $month[2])->count())
+                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[0])), PostReply::whereMonth('created_at', '=', $month[0])->count())
+                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[5])), User::whereMonth('created_at', '=', $month[5])->count())
+                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[4])), User::whereMonth('created_at', '=', $month[4])->count())
+                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[1])), User::whereMonth('created_at', '=', $month[1])->count())
+                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[3])), User::whereMonth('created_at', '=', $month[3])->count())
+                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[2])), User::whereMonth('created_at', '=', $month[2])->count())
+                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[0])), User::whereMonth('created_at', '=', $month[0])->count())
+                ->withoutLegend()
+                ->setDataLabelsEnabled(true);
+    }
+
+    private function prepareMonthChart()
+    {
+        $this->monthChart =
+            (new ColumnChartModel())
+                ->setTitle('This month')
+                ->addColumn('User', User::whereMonth('created_at', '=', now()->month)->count(), '#90cdf4')
+                ->addColumn('Categories', Category::whereMonth('created_at', '=', now()->month)->count(), '#f6ad55')
+                ->addColumn('Posts', Post::whereMonth('created_at', '=', now()->month)->count(), '#fc8181')
+                ->addColumn('Replies', PostReply::whereMonth('created_at', '=', now()->month)->count(), '#62de76')
+                ->withoutLegend()
+                ->setDataLabelsEnabled(true);
+    }
+
+
+
 }
