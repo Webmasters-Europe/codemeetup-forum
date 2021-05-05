@@ -2,18 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use Carbon\Carbon;
-use App\Models\Post;
-use App\Models\User;
-use Livewire\Component;
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\PostReply;
-use function Ramsey\Uuid\v1;
-use Illuminate\Support\Facades\DB;
-use Asantibanez\LivewireCharts\Models\PieChartModel;
-
-use Asantibanez\LivewireCharts\Models\LineChartModel;
+use App\Models\User;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
+use Asantibanez\LivewireCharts\Models\LineChartModel;
+use Asantibanez\LivewireCharts\Models\PieChartModel;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
+use function Ramsey\Uuid\v1;
 
 class AdminAreaDashboard extends Component
 {
@@ -59,7 +58,6 @@ class AdminAreaDashboard extends Component
                 ->setDataLabelsEnabled(true);
     }
 
-
     private function preparePostsGroupedByCreationDateChart()
     {
         $postsGroupedByCreationDate = DB::table('posts')
@@ -81,17 +79,15 @@ class AdminAreaDashboard extends Component
         }
     }
 
-
-    private function prepareTopFiveUsersPostsChart() 
+    private function prepareTopFiveUsersPostsChart()
     {
-
         $users = User::with('posts')->withCount('posts')
                     ->has('posts')
                     ->orderByDesc('posts_count')
                     ->limit(5)
                     ->get();
         $users->toArray();
-                   
+
         $this->topFiveUsersPostsChart =
             (new PieChartModel())
                 ->setTitle('Top 5 Users - Most Posts')
@@ -102,9 +98,7 @@ class AdminAreaDashboard extends Component
                 ->addSlice($users[4]->name, $users[4]->posts_count, '#f1f2de')
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
-
     }
-
 
     private function prepareTopFiveUsersRepliesChart()
     {
@@ -114,7 +108,7 @@ class AdminAreaDashboard extends Component
             ->orderBy('number_replies', 'DESC')
             ->get()
             ->toArray();
-                   
+
         $this->topFiveUsersRepliesChart =
             (new PieChartModel())
                 ->setTitle('Top 5 Users - Most Replies')
@@ -127,7 +121,6 @@ class AdminAreaDashboard extends Component
                 ->setDataLabelsEnabled(true);
     }
 
-
     private function prepareLastSixMonthChart()
     {
         $this->lastSixMonthChart =
@@ -136,13 +129,12 @@ class AdminAreaDashboard extends Component
                 ->multiLine()
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
-       
+
         for ($i = 0; $i <= 5; $i++) {
             $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), Post::whereMonth('created_at', '=', $i)->count());
             $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), PostReply::whereMonth('created_at', '=', $i)->count());
-            $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=',$i)->count());
+            $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=', $i)->count());
         }
-      
     }
 
     private function prepareMonthChart()
@@ -157,7 +149,4 @@ class AdminAreaDashboard extends Component
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
     }
-
-
-
 }
