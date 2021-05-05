@@ -102,6 +102,7 @@ class AdminAreaDashboard extends Component
                 ->addSlice($users[4]->name, $users[4]->posts_count, '#f1f2de')
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
+
     }
 
 
@@ -129,35 +130,19 @@ class AdminAreaDashboard extends Component
 
     private function prepareLastSixMonthChart()
     {
-        // get last six month in array
-        for ($i = 1; $i <= 6; $i++) {
-            $month[] = date("m", strtotime(date('Y-m-01')." -$i months"));
-        }
-
         $this->lastSixMonthChart =
             (new LineChartModel())
                 ->setTitle('Last Six Month')
                 ->multiLine()
-                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[5])), Post::whereMonth('created_at', '=', $month[5])->count())
-                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[4])), Post::whereMonth('created_at', '=', $month[4])->count())
-                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[1])), Post::whereMonth('created_at', '=', $month[1])->count())
-                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[3])), Post::whereMonth('created_at', '=', $month[3])->count())
-                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[2])), Post::whereMonth('created_at', '=', $month[2])->count())
-                ->addSeriesPoint('Posts', date('M', mktime(null, null, null, $month[0])), Post::whereMonth('created_at', '=', $month[0])->count())
-                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[5])), PostReply::whereMonth('created_at', '=', $month[5])->count())
-                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[4])), PostReply::whereMonth('created_at', '=', $month[4])->count())
-                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[1])), PostReply::whereMonth('created_at', '=', $month[1])->count())
-                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[3])), PostReply::whereMonth('created_at', '=', $month[3])->count())
-                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[2])), PostReply::whereMonth('created_at', '=', $month[2])->count())
-                ->addSeriesPoint('Replies', date('M', mktime(null, null, null, $month[0])), PostReply::whereMonth('created_at', '=', $month[0])->count())
-                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[5])), User::whereMonth('created_at', '=', $month[5])->count())
-                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[4])), User::whereMonth('created_at', '=', $month[4])->count())
-                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[1])), User::whereMonth('created_at', '=', $month[1])->count())
-                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[3])), User::whereMonth('created_at', '=', $month[3])->count())
-                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[2])), User::whereMonth('created_at', '=', $month[2])->count())
-                ->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $month[0])), User::whereMonth('created_at', '=', $month[0])->count())
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
+       
+        for ($i = 0; $i <= 5; $i++) {
+            $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), Post::whereMonth('created_at', '=', $i)->count());
+            $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), PostReply::whereMonth('created_at', '=', $i)->count());
+            $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=',$i)->count());
+        }
+      
     }
 
     private function prepareMonthChart()
