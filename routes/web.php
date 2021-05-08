@@ -27,6 +27,12 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderCallback']);
 });
 
+Route::get('custom.css', function () {
+    return response()
+        ->view('css')
+        ->header('Content-Type', 'text/css');
+})->name('css');
+
 Route::get('/', HomeController::class)->name('home');
 Route::get('/imprint', [HomeController::class, 'imprint'])->name('imprint');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
