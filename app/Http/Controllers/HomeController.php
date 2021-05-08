@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
-        phpinfo();
+        //phpinfo();
         $numberCategories = config('app.settings.number_categories_startpage');
         $category = Category::first();
         dd($category);

@@ -28,12 +28,11 @@ Auth::routes(['verify' => true]);
 Route::group(['middleware' => 'guest'], function () {
     Route::get('auth/{provider}', [LoginController::class, 'redirectToProvider'])->name('oauth');
     Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderCallback']);
-    Route::get('/test', function () {
-        dd("hallo");
-    });
 });
-
-Route::get('/', HomeController::class)->name('home');
+Route::get('/test', function () {
+    dd("hallo");
+});
+//Route::get('/', HomeController::class)->name('home');
 
 Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, 'store'])->name('replies.store');
 Route::delete('/replies/{postReply}', [PostReplyController::class, 'destroy'])->name('replies.destroy');
