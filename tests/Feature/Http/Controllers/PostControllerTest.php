@@ -6,23 +6,12 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Permission::create(['name' => 'create posts']);
-        $userRole = Role::create(['name' => 'user']);
-        $userRole->givePermissionTo('create posts');
-    }
 
     /**
      * @test

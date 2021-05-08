@@ -57,5 +57,5 @@
               <input wire:model="files" type="files" x-ref="input" multiple>
         </div>
 
-        <button type="submit" class="btn btn-dark btn-lg ml-2 mb-4">Create post</button>
+        <button type="submit" class="btn btn-lg ml-2 mb-4" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create post</button>
       </form>

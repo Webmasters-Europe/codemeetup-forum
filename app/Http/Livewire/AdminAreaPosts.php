@@ -59,20 +59,16 @@ class AdminAreaPosts extends TableComponent
 
         // Pagination:
         $posts = $posts->paginate($this->paginate);
-
         return view('livewire.admin-area-posts', compact('posts'));
     }
 
     public function selectPost($id, $action)
     {
         $this->selectedPost = $id;
-
         $post = Post::withTrashed()->with('reply')->findOrFail($this->selectedPost);
-
         $this->title = $post->title;
         $this->userName = $post->user->name;
         $this->replyCount = count($post->reply);
-
         $this->dispatchBrowserEventByAction($action);
     }
 
@@ -82,7 +78,6 @@ class AdminAreaPosts extends TableComponent
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
         $this->resetInputFields();
         session()->flash('status', 'Post and all replies and comments in this post successfully deleted.');
-
         return redirect()->route('admin-area.posts');
     }
 

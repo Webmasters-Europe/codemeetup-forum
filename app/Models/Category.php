@@ -53,4 +53,9 @@ class Category extends Model
             $query->where('description', 'like', $term);
         });
     }
+
+    public function latestPost()
+    {
+        return $this->posts()->latest()->first();
+    }
 }

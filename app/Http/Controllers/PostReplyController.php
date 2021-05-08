@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostReplyRequest;
-use App\Mail\ReplyToPost;
 use App\Models\Post;
 use App\Models\PostReply;
-use App\Notifications\ReplyNotification;
-use Illuminate\Support\Facades\Mail;
+use App\Notifications\ReplyToPost as NotificationsReplyToPost;
 
 class PostReplyController extends Controller
 {
@@ -32,11 +30,15 @@ class PostReplyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param \App\Http\Requests\PostReplyRequest $request
+     * @param \App\Models\Post $post
+     * @param \App\Models\PostReply|null $postReply
+     * @return mixed
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Illuminate\Database\Eloquent\InvalidCastException
+     * @throws \LogicException
+     * @throws \Illuminate\Database\Eloquent\JsonEncodingException
      */
     public function store(PostReplyRequest $request, Post $post, PostReply $postReply = null)
     {
@@ -55,15 +57,8 @@ class PostReplyController extends Controller
         }
         $newPostReply->save();
 
-        if ($post->user->reply_email_notification) {
-            Mail::to($post->user->email)->send(new ReplyToPost(
-                $this->replyContent = $newPostReply->content,
-                $this->replyUsername = $newPostReply->user->username,
-                $this->postUsername = $post->user->username,
-                $this->postTitle = $post->title,
-                $this->postContent = $post->content,
-            ));
-        }
+        // Notifications
+        $post->user->notify(new NotificationsReplyToPost($newPostReply));
 
         return redirect()->back()->withStatus('Postreply successfully created.');
     }
@@ -90,10 +85,12 @@ class PostReplyController extends Controller
      * @param  \App\Models\PostReply  $postReply
      * @return \Illuminate\Http\Response
      */
-    public function update(PostReplyRequest $request, Post $post, PostReply $postReply)
+    public function update(PostReplyRequest $request, PostReply $postReply)
     {
         $this->authorize('update', PostReply::class);
-
+        $postReply->content = $request->content;
+        $postReply->save();
+        return redirect()->route('posts.show', $postReply->post_id)->withStatus('Reply has been updated');
         // Update the post reply...
     }
 
@@ -104,10 +101,11 @@ class PostReplyController extends Controller
      * @param  \App\Models\PostReply  $postReply
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post, PostReply $postReply)
+    public function destroy(PostReply $postReply)
     {
         $this->authorize('delete', PostReply::class);
-
-        // Delete the post reply...
+        $post = $postReply->post_id;
+        $postReply->delete();
+        return redirect()->route('posts.show', $post)->withStatus('Reply has been deleted.');
     }
 }

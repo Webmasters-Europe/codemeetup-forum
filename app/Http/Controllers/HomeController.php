@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Config;
 
 class HomeController extends Controller
 {
@@ -11,10 +12,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function __invoke()
     {
-        $categories = Category::orderBy('name')->paginate(10);
+        phpinfo();
+        $numberCategories = config('app.settings.number_categories_startpage');
+        $category = Category::first();
+        dd($category);
+        $categories = Category::orderBy('name')->paginate($numberCategories);
+        dd($categories);
+        foreach ($categories as $category) {
+            $category->latestPost = $category->latestPost();
+        }
 
-        return view('welcome', compact('categories'));
+        //return view('welcome', compact('categories'));
     }
 }

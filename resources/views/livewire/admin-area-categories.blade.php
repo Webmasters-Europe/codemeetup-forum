@@ -10,7 +10,7 @@
                 <label class="custom-control-label" for="showDeletedCategories">Show deleted Categories</label>
             </div>
             <div>
-                <button wire:click.prevent="showCategoryForm" class="btn btn-sm btn-success"><i
+                <button wire:click.prevent="showCategoryForm" class="btn btn-sm" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};><i
                         class="fas fa-plus-circle mr-2"></i>Add new Category</button>
             </div>
             <div class=" col-md-4">

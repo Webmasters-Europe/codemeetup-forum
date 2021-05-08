@@ -26,13 +26,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
      * Save username in variable.
      *
      * @var string
@@ -89,7 +82,7 @@ class LoginController extends Controller
         $oauthUser = $this->findOrCreateUser($oauthUser, $provider);
         auth()->login($oauthUser, true);
 
-        return redirect($this->redirectTo);
+        return redirect($this->redirectTo());
     }
 
     public function findOrCreateUser($oauthuser, $provider)
@@ -121,5 +114,10 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return abort(404);
+    }
+
+    protected function redirectTo()
+    {
+        return url()->previous();
     }
 }

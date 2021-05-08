@@ -12,14 +12,14 @@
     <h1>{{$category->name}}</h1>
 
     @can('create posts')
-        <a class="btn btn-dark my-2" href="{{ route('posts.create', $category) }}">Create Post</a>
+        <a class="btn my-2" href="{{ route('posts.create', $category) }}" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Post</a>
     @endcan
 
     @forelse($posts as $post)
         <div class="row border my-2 p-2 no-gutters">
             <div class="col-3 col-lg-4">
                 <a href="{{route('posts.show', $post)}}">
-                    <h1>{{$post->title}}</h1>
+                    <h3>{{$post->title}}</h3>
                 </a>
             </div>
             <div class="col-3 col-lg-4">
@@ -32,7 +32,11 @@
                 at {{ $post->created_at->format('d.m.Y H:i:s') }}
             </div>
             <div class="col-3 col-lg-2">
-                {{$post->reply_count}} Replies
+                @if ($post->reply_count === 1)
+                1 reply
+                @else 
+                {{$post->reply_count}} replies
+                @endif
             </div>
         </div>
     @empty

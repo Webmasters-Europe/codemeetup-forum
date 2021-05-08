@@ -21,6 +21,8 @@ class Post extends Model
 
     protected $softCascade = ['reply', 'uploads'];
 
+    protected $withCount = ['reply', 'repliesTrashed'];
+
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();
