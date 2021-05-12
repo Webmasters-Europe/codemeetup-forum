@@ -1,7 +1,7 @@
 <div>
     <div class="last-entries mt-5">
         <h2 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Last posts</span>
+            <span class="text-muted">{{ __('Last posts') }}</span>
         </h2>
         <ul class="list-group mb-3">
             @foreach ($posts as $post)
@@ -11,9 +11,9 @@
                         <small class="text-muted">{{ $post->category->name }}</small>
                         <div>
                             <small class="text-muted">
-                                by
+                                {{ __('by') }}
                                 @if ($post->user->trashed())
-                                    a deleted user
+                                    {{ __('a deleted user') }}
                                 @else
                                     <a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a>
                                 @endif

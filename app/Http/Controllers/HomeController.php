@@ -51,6 +51,6 @@ class HomeController extends Controller
         // Notifications
         Notification::route('mail', $receiver)->notify(new NotificationsSendContactForm($validated));
 
-        return redirect()->route('home')->withStatus('Contact-Form successfully sended.');
+        return redirect()->route('home')->withStatus(__('Contact-Form successfully sended.'));
     }
 }

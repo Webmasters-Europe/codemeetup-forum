@@ -49,11 +49,11 @@ class AdminAreaDashboard extends Component
     {
         $this->numberOfEntitiesChart =
             (new ColumnChartModel())
-                ->setTitle('Number of entities')
-                ->addColumn('User', User::all()->count(), '#90cdf4')
-                ->addColumn('Categories', Category::all()->count(), '#f6ad55')
-                ->addColumn('Posts', Post::all()->count(), '#fc8181')
-                ->addColumn('Replies', PostReply::all()->count(), '#62de76')
+                ->setTitle(__('Number of entities'))
+                ->addColumn(__('User'), User::all()->count(), '#90cdf4')
+                ->addColumn(__('Categories'), Category::all()->count(), '#f6ad55')
+                ->addColumn(__('Posts'), Post::all()->count(), '#fc8181')
+                ->addColumn(__('Replies'), PostReply::all()->count(), '#62de76')
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
     }
@@ -70,7 +70,7 @@ class AdminAreaDashboard extends Component
 
         $this->postsCreatedByDateChart =
             (new LineChartModel())
-                ->setTitle('Number of created Posts (last three months)')
+                ->setTitle(__('Number of created Posts (last three months)'))
                 ->setGridVisible(true)
                 ->setSmoothCurve();
 
@@ -90,7 +90,7 @@ class AdminAreaDashboard extends Component
 
         $this->topFiveUsersPostsChart =
             (new PieChartModel())
-                ->setTitle('Top 5 Users - Most Posts')
+                ->setTitle(__('Top 5 Users - Most Posts'))
                 ->addSlice($users[0]->name, $users[0]->posts_count, '#90cdf4')
                 ->addSlice($users[1]->name, $users[1]->posts_count, '#f6ad55')
                 ->addSlice($users[2]->name, $users[2]->posts_count, '#fc8181')
@@ -111,7 +111,7 @@ class AdminAreaDashboard extends Component
 
         $this->topFiveUsersRepliesChart =
             (new PieChartModel())
-                ->setTitle('Top 5 Users - Most Replies')
+                ->setTitle(__('Top 5 Users - Most Replies'))
                 ->addSlice(User::find($replies[0]->user_id)->name, $replies[0]->number_replies, '#90cdf4')
                 ->addSlice(User::find($replies[1]->user_id)->name, $replies[1]->number_replies, '#f6ad55')
                 ->addSlice(User::find($replies[2]->user_id)->name, $replies[2]->number_replies, '#fc8181')
@@ -125,15 +125,15 @@ class AdminAreaDashboard extends Component
     {
         $this->lastSixMonthChart =
             (new LineChartModel())
-                ->setTitle('Last Six Month')
+                ->setTitle(__('Last Six Month'))
                 ->multiLine()
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
 
         for ($i = 0; $i <= 5; $i++) {
-            $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), Post::whereMonth('created_at', '=', $i)->count());
-            $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), PostReply::whereMonth('created_at', '=', $i)->count());
-            $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=', $i)->count());
+            $this->lastSixMonthChart->addSeriesPoint(__('Posts'), date('M', mktime(null, null, null, $i)), Post::whereMonth('created_at', '=', $i)->count());
+            $this->lastSixMonthChart->addSeriesPoint(__('Replies'), date('M', mktime(null, null, null, $i)), PostReply::whereMonth('created_at', '=', $i)->count());
+            $this->lastSixMonthChart->addSeriesPoint(__('User Registrations'), date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=', $i)->count());
         }
     }
 
@@ -141,11 +141,11 @@ class AdminAreaDashboard extends Component
     {
         $this->monthChart =
             (new ColumnChartModel())
-                ->setTitle('This month')
-                ->addColumn('User', User::whereMonth('created_at', '=', now()->month)->count(), '#90cdf4')
-                ->addColumn('Categories', Category::whereMonth('created_at', '=', now()->month)->count(), '#f6ad55')
-                ->addColumn('Posts', Post::whereMonth('created_at', '=', now()->month)->count(), '#fc8181')
-                ->addColumn('Replies', PostReply::whereMonth('created_at', '=', now()->month)->count(), '#62de76')
+                ->setTitle(__('This month'))
+                ->addColumn(__('User'), User::whereMonth('created_at', '=', now()->month)->count(), '#90cdf4')
+                ->addColumn(__('Categories'), Category::whereMonth('created_at', '=', now()->month)->count(), '#f6ad55')
+                ->addColumn(__('Posts'), Post::whereMonth('created_at', '=', now()->month)->count(), '#fc8181')
+                ->addColumn(__('Replies'), PostReply::whereMonth('created_at', '=', now()->month)->count(), '#62de76')
                 ->withoutLegend()
                 ->setDataLabelsEnabled(true);
     }

@@ -73,7 +73,7 @@ class AdminAreaCategories extends TableComponent
         $this->dispatchBrowserEvent('closeAddModelInstanceModal');
         $this->resetInputFields();
 
-        session()->flash('status', 'Category successfully created.');
+        session()->flash('status', __('Category successfully created.'));
 
         return redirect()->route('admin-area.categories');
     }
@@ -98,7 +98,7 @@ class AdminAreaCategories extends TableComponent
         ]);
         $this->dispatchBrowserEvent('closeUpdateModelInstanceModal');
         $this->resetInputFields();
-        session()->flash('status', 'Category successfully updated.');
+        session()->flash('status', __('Category successfully updated.'));
 
         return redirect()->route('admin-area.categories');
     }
@@ -108,7 +108,7 @@ class AdminAreaCategories extends TableComponent
         Category::findOrFail($this->selectedCategory)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
         $this->resetInputFields();
-        session()->flash('status', 'Category and all posts and replies in this category successfully deleted.');
+        session()->flash('status', __('Category and all posts and replies in this category successfully deleted.'));
 
         return redirect()->route('admin-area.categories');
     }
@@ -118,7 +118,7 @@ class AdminAreaCategories extends TableComponent
         Category::onlyTrashed()->findOrFail($this->selectedCategory)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
         $this->resetInputFields();
-        session()->flash('status', 'Category successfully restored.');
+        session()->flash('status', __('Category successfully restored.'));
 
         return redirect()->route('admin-area.categories');
     }

@@ -7,14 +7,14 @@
             <div class="custom-control custom-switch">
                 <input wire:model="showDeletedCategories" wire:click="resetPaginatorPage" type="checkbox" class="custom-control-input"
                     id="showDeletedCategories" name="showDeletedCategories" />
-                <label class="custom-control-label" for="showDeletedCategories">Show deleted Categories</label>
+                <label class="custom-control-label" for="showDeletedCategories">{{ __('Show deleted Categories') }}</label>
             </div>
             <div>
                 <button wire:click.prevent="showCategoryForm" class="btn btn-sm" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};><i
-                        class="fas fa-plus-circle mr-2"></i>Add new Category</button>
+                        class="fas fa-plus-circle mr-2"></i>{{ __('Add new Category') }}</button>
             </div>
             <div class=" col-md-4">
-                <input wire:model="search" type="search" class="form-control" placeholder="Search in name and description">
+                <input wire:model="search" type="search" class="form-control" placeholder="{{ __('Search in name and description') }}">
             </div>
         </div>
         <div class="card-body table-responsive p-0">
@@ -22,20 +22,20 @@
                 <tbody>
                     <tr>
                         <th wire:click="sortBy('name')" style="cursor: pointer;">
-                            Name @include('components.sort_icon',['field' => 'name'])
+                            {{ __('Name') }} @include('components.sort_icon',['field' => 'name'])
 
                         </th>
                         <th wire:click="sortBy('description')" style="cursor: pointer;">
-                            Description @include('components.sort_icon',['field' => 'description'])
+                            {{ __('Description') }} @include('components.sort_icon',['field' => 'description'])
                         </th>
-                        <th wire:click="sortBy('posts_count')" style="cursor: pointer;">Posts @include('components.sort_icon',['field' => 'posts_count'])</th>
-                        <th wire:click="sortBy('created_at')" style="cursor: pointer;">created @include('components.sort_icon',['field' => 'created_at'])</th>
-                        <th wire:click="sortBy('updated_at')" style="cursor: pointer;">updated @include('components.sort_icon',['field' => 'updated_at'])</th>
-                        <th>Action</th>
+                        <th wire:click="sortBy('posts_count')" style="cursor: pointer;">{{ __('Posts') }} @include('components.sort_icon',['field' => 'posts_count'])</th>
+                        <th wire:click="sortBy('created_at')" style="cursor: pointer;">{{ __('created') }} @include('components.sort_icon',['field' => 'created_at'])</th>
+                        <th wire:click="sortBy('updated_at')" style="cursor: pointer;">{{ __('updated') }} @include('components.sort_icon',['field' => 'updated_at'])</th>
+                        <th>{{ __('Action') }}</th>
                     </tr>
                     <tr>
-                        <th> <input wire:model="searchName" type="search" class="form-control" placeholder="Search Name"></th>
-                        <th> <input wire:model="searchDescription" type="search" class="form-control" placeholder="Search Description"></th>
+                        <th> <input wire:model="searchName" type="search" class="form-control" placeholder="{{ __('Search Name') }}"></th>
+                        <th> <input wire:model="searchDescription" type="search" class="form-control" placeholder="{{ __('Search Description') }}"></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -77,7 +77,7 @@
         </div>
         <div class="row mt-4">
             <div class="col-sm-6 offset-5">
-                {{ $categories->firstItem()}} - {{ $categories->lastItem() }} from {{ $categories->total() }} results
+                {{ $categories->firstItem()}} - {{ $categories->lastItem() }} {{ _('from') }} {{ $categories->total() }}
                 {{ $categories->links() }}
             </div>
         </div>
@@ -91,15 +91,15 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addModelInstanceModalLabel">Add new Category</h5>
+                        <h5 class="modal-title" id="addModelInstanceModalLabel">{{ __('Add new Category') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     @include('components.categoryForm')
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-success">{{ __('Save') }}</button>
                     </div>
                 </div>
             </form>
@@ -114,15 +114,15 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="updateModelInstanceModalLabel">Update Category</h5>
+                        <h5 class="modal-title" id="updateModelInstanceModalLabel">{{ __('Update Category') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     @include('components.categoryForm')
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-success">{{ __('Update') }}</button>
                     </div>
                 </div>
             </form>
@@ -137,19 +137,19 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModelInstanceModalLabel">Delete this Category</h5>
+                        <h5 class="modal-title" id="deleteModelInstanceModalLabel">{{ __('Delete this Category') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        Do you really want to delete this category:
+                        {{ __('Do you really want to delete this category') }}
                         <h5>{{ $name }}</h5>
-                        <p>Description: <br> {{ $description }}</p>
+                        <p>{{ __('Description') }}: <br> {{ $description }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Yes, Delete') }}</button>
                     </div>
                 </div>
             </form>
@@ -164,19 +164,19 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="restoreModelInstanceModalLabel">Restore this Category</h5>
+                        <h5 class="modal-title" id="restoreModelInstanceModalLabel">{{ __('Restore this Category') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        Do you really want to restore this category:
+                        {{ __('Do you really want to restore this category') }}
                         <h5>{{ $name }}</h5>
-                        <p>Description: <br> {{ $description }}</p>
+                        <p>{{ __('Description') }}: <br> {{ $description }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Yes, Restore</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-success">{{ __('Yes, Restore') }}</button>
                     </div>
                 </div>
             </form>

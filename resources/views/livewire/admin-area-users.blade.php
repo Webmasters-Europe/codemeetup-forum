@@ -6,11 +6,11 @@
         <div class="custom-control custom-switch">
             <input wire:model="showDeletedElements" wire:click="resetPaginatorPage" type="checkbox" class="custom-control-input"
                    id="showDeletedElements" name="showDeletedElements"/>
-            <label class="custom-control-label" for="showDeletedElements">Show deleted Users</label>
+            <label class="custom-control-label" for="showDeletedElements">{{ __('Show deleted Users') }}</label>
         </div>
         <div class=" col-md-4">
             <input wire:model="globalSearch" type="search" class="form-control"
-                   placeholder="Search in name, username and email">
+                   placeholder="{{ __('Search in name, username, email') }}">
         </div>
     </div>
     <div class="card-body table-responsive p-0">
@@ -18,37 +18,37 @@
             <tbody>
             <tr>
                 <th wire:click="sortBy('name')" style="cursor: pointer;">
-                    Name @include('components.sort_icon',['field' => 'name'])
+                    {{ __('Name') }} @include('components.sort_icon',['field' => 'name'])
                 </th>
                 <th wire:click="sortBy('username')" style="cursor: pointer;">
-                    Username @include('components.sort_icon',['field' => 'username'])
+                    {{ __('Username') }} @include('components.sort_icon',['field' => 'username'])
                 </th>
                 <th wire:click="sortBy('email')" style="cursor: pointer;">
-                    Email @include('components.sort_icon',['field' => 'email'])
+                    {{ __('Email') }} @include('components.sort_icon',['field' => 'email'])
                 </th>
                 <th>
-                    Roles
+                    {{ __('Roles') }}
                 </th>
                 <th wire:click="sortBy('created_at')" style="cursor: pointer;">
-                    User since @include('components.sort_icon',['field' => 'created_at'])
+                    {{ __('User since') }} @include('components.sort_icon',['field' => 'created_at'])
                 </th>
                 <th wire:click="sortBy('posts_count')" style="cursor: pointer;">
-                    # Posts @include('components.sort_icon',['field' => 'posts_written_count'])
+                    # {{ __('Posts') }} @include('components.sort_icon',['field' => 'posts_written_count'])
                 </th>
                 <th wire:click="sortBy('post_replies_count')" style="cursor: pointer;">
-                    # Replies @include('components.sort_icon',['field' => 'replies_written_count'])
+                    # {{ __('Replies') }} @include('components.sort_icon',['field' => 'replies_written_count'])
                 </th>
-                <th>Action</th>
+                <th>{{ __('Action') }}</th>
             </tr>
             <tr>
                 <th>
-                    <input wire:model="searchName" type="search" class="form-control" placeholder="Search Name">
+                    <input wire:model="searchName" type="search" class="form-control" placeholder="{{ __('Search Name') }}">
                 </th>
                 <th>
-                    <input wire:model="searchUsername" type="search" class="form-control" placeholder="Search Username">
+                    <input wire:model="searchUsername" type="search" class="form-control" placeholder="{{ __('Search Username') }}">
                 </th>
                 <th>
-                    <input wire:model="searchEmail" type="search" class="form-control" placeholder="Search Email">
+                    <input wire:model="searchEmail" type="search" class="form-control" placeholder="{{ __('Search Email') }}">
                 </th>
                 <th></th>
                 <th></th>
@@ -102,7 +102,7 @@
     </div>
     <div class="row mt-4">
         <div class="col-sm-6 offset-5">
-            {{ $users->firstItem()}} - {{ $users->lastItem() }} from {{ $users->total() }} results
+            {{ $users->firstItem()}} - {{ $users->lastItem() }} {{ __('from') }} {{ $users->total() }}
             {{ $users->links() }}
         </div>
     </div>
@@ -115,24 +115,23 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModelInstanceLabel">Delete this User</h5>
+                        <h5 class="modal-title" id="deleteModelInstanceLabel">{{ __('Delete this User') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you really want to delete this User?</h4>
-                        <p>Name: {{ $name }}</p>
-                        <p>Username: {{ $username }}</p>
-                        <p>Email: {{ $email }}</p>
+                        <h4>{{ __('Do you really want to delete this User?') }}</h4>
+                        <p>{{ __('Name') }}: {{ $name }}</p>
+                        <p>{{ __('Username') }}: {{ $username }}</p>
+                        <p>{{ __('Email') }}: {{ $email }}</p>
                         <p>
-                            The posts and replies of this user will not be deleted but they will be shown in an anonymous way.
-                            The user will not be able to login any more.
+                            {{ __('The posts and replies of this user will not be deleted but they will be shown in an anonymous way. The user will not be able to login any more.') }}
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Yes, Delete') }}</button>
                     </div>
                 </div>
             </form>
@@ -147,24 +146,23 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="restoreModelInstanceModalLabel">Restore this User</h5>
+                        <h5 class="modal-title" id="restoreModelInstanceModalLabel">{{ __('Restore this User') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you really want to restore this User?</h4>
-                        <p>Name: {{ $name }}</p>
-                        <p>Username: {{ $username }}</p>
-                        <p>Email: {{ $email }}</p>
+                        <h4>{{ __('Do you really want to restore this User?') }}</h4>
+                        <p>{{ __('Name') }}: {{ $name }}</p>
+                        <p>{{ __('Username') }}: {{ $username }}</p>
+                        <p>{{ __('Email') }}: {{ $email }}</p>
                         <p>
-                            The posts and replies of this user will not be anonymized any longer
-                            and the user will be able to login again.
+                            {{ __('The posts and replies of this user will not be anonymized any longer and the user will be able to login again.') }}
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Yes, Restore</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-success">{{ __('Yes, Restore') }}</button>
                     </div>
                 </div>
             </form>
@@ -179,7 +177,7 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="updateModelInstanceModalLabel">Edit user roles of {{ $username }}</h5>
+                        <h5 class="modal-title" id="updateModelInstanceModalLabel">{{ __('Edit user roles of') }} {{ $username }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -209,8 +207,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-success">{{ __('Update') }}</button>
                     </div>
                 </div>
             </form>

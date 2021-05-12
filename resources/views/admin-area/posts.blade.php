@@ -4,11 +4,11 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('admin-area.dashboard') }}">Admin Area</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Posts</li>
+            <li class="breadcrumb-item"><a href="{{ route('admin-area.dashboard') }}">{{ __('Admin Area') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('Posts') }}</li>
         </ol>
     </nav>
 
-    <h1>Administrate Posts</h1>
+    <h1>{{ __('Administrate Posts') }}</h1>
 
 @endsection

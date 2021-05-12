@@ -47,7 +47,7 @@ class CreatePost extends Component
             $upload->post()->associate($post->id);
             $upload->save();
         }
-        session()->flash('status', 'Post successfully created.');
+        session()->flash('status', __('Post successfully created.'));
 
         return redirect()->route('category.show', $post->category->id);
     }

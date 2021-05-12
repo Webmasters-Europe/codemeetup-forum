@@ -24,17 +24,17 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-                'primary_color' => 'required|string|max:7',
-                'button_text_color' => 'required|string|max:7',
-                'category_icons_color' => 'required|string|max:7',
-                'forum_name' => 'required|string',
-                'forum_image' => 'sometimes|image|max:5000',
-                'number_categories_startpage' => 'required|numeric',
-                'number_last_entries_startpage' => 'required|numeric',
-                'number_posts' => 'required|numeric',
-                'email_contact_page' => 'nullable|string|email|max:255|',
-                'imprint_page' => 'required|max:5000',
-                'copyright' => 'required|string',
+                __('primary_color') => 'required|string|max:7',
+                __('button_text_color') => 'required|string|max:7',
+                __('category_icons_color') => 'required|string|max:7',
+                __('forum_name') => 'required|string',
+                __('forum_image') => 'sometimes|image|max:5000',
+                __('number_categories_startpage') => 'required|numeric',
+                __('number_last_entries_startpage') => 'required|numeric',
+                __('number_posts') => 'required|numeric',
+                __('email_contact_page') => 'nullable|string|email|max:255|',
+                __('imprint_page') => 'required|max:5000',
+                __('copyright') => 'required|string',
             ];
     }
 }
