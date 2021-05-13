@@ -24,7 +24,7 @@ class PostReplyRequest extends FormRequest
     public function rules()
     {
         return [
-            __('content') => 'required',
+            'content' => 'required',
         ];
     }
 }
