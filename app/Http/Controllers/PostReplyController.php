@@ -90,6 +90,7 @@ class PostReplyController extends Controller
         $this->authorize('update', PostReply::class);
         $postReply->content = $request->content;
         $postReply->save();
+
         return redirect()->route('posts.show', $postReply->post_id)->withStatus('Reply has been updated');
         // Update the post reply...
     }
@@ -106,6 +107,7 @@ class PostReplyController extends Controller
         $this->authorize('delete', PostReply::class);
         $post = $postReply->post_id;
         $postReply->delete();
+
         return redirect()->route('posts.show', $post)->withStatus('Reply has been deleted.');
     }
 }

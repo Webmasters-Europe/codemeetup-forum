@@ -2,12 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Post;
+use Livewire\Component;
 
 class AdminAreaPosts extends TableComponent
 {
-
     //public ;
     public $post;
     public $title;
@@ -30,7 +29,6 @@ class AdminAreaPosts extends TableComponent
     public $searchUsername = '';
     public $searchEmail = '';
 
-
     public function render()
     {
         if ($this->showDeletedPosts) {
@@ -44,6 +42,7 @@ class AdminAreaPosts extends TableComponent
 
         // Pagination:
         $posts = $posts->paginate($this->paginate);
+
         return view('livewire.admin-area-posts', compact('posts'));
     }
 
@@ -63,6 +62,7 @@ class AdminAreaPosts extends TableComponent
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
         $this->resetInputFields();
         session()->flash('status', 'Post and all replies and comments in this post successfully deleted.');
+
         return redirect()->route('admin-area.posts');
     }
 
@@ -72,6 +72,7 @@ class AdminAreaPosts extends TableComponent
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
         $this->resetInputFields();
         session()->flash('status', 'Post successfully restored.');
+
         return redirect()->route('admin-area.posts');
     }
 
