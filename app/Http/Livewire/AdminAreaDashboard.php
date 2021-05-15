@@ -49,20 +49,11 @@ class AdminAreaDashboard extends Component
     {
         $this->numberOfEntitiesOverallChart =
             (new ColumnChartModel())
-<<<<<<< HEAD
-                ->setTitle(__('Number of entities'))
-                ->addColumn(__('User'), User::all()->count(), '#90cdf4')
-                ->addColumn(__('Categories'), Category::all()->count(), '#f6ad55')
-                ->addColumn(__('Posts'), Post::all()->count(), '#fc8181')
-                ->addColumn(__('Replies'), PostReply::all()->count(), '#62de76')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
-=======
-            ->setTitle('Number of entities overall')
-            ->addColumn('Users', User::count(), '#90cdf4')
-            ->addColumn('Categories', Category::count(), '#f6ad55')
-            ->addColumn('Posts', Post::count(), '#fc8181')
-            ->addColumn('Replies', PostReply::count(), '#62de76')
+            ->setTitle(__('Number of entities'))
+            ->addColumn(__('Users'), User::count(), '#90cdf4')
+            ->addColumn(__('Categories'), Category::count(), '#f6ad55')
+            ->addColumn(__('Posts'), Post::count(), '#fc8181')
+            ->addColumn(__('Replies'), PostReply::count(), '#62de76')
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
     }
@@ -86,7 +77,6 @@ class AdminAreaDashboard extends Component
             ->addColumn('Replies', $postRepliesCreatedInCurrentMonth, '#62de76')
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
     }
 
     private function preparePostsGroupedByCreationDateChart()
@@ -117,15 +107,9 @@ class AdminAreaDashboard extends Component
 
         $this->postsCreatedByDateChart =
             (new LineChartModel())
-<<<<<<< HEAD
-                ->setTitle(__('Number of created Posts (last three months)'))
-                ->setGridVisible(true)
-                ->setSmoothCurve();
-=======
-            ->setTitle('Number of created Posts (last three months)')
+            ->setTitle(__('Number of created Posts (last three months)'))
             ->setGridVisible(true)
             ->setSmoothCurve();
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
 
         foreach ($resultData as $date => $numberOfPosts) {
             $this->postsCreatedByDateChart->addPoint($date, $numberOfPosts);
@@ -134,28 +118,9 @@ class AdminAreaDashboard extends Component
 
     private function prepareTopFiveUsersPostsChart()
     {
-<<<<<<< HEAD
-        $users = User::with('posts')->withCount('posts')
-                    ->has('posts')
-                    ->orderByDesc('posts_count')
-                    ->limit(5)
-                    ->get();
-        $users->toArray();
-
-        $this->topFiveUsersPostsChart =
-            (new PieChartModel())
-                ->setTitle(__('Top 5 Users - Most Posts'))
-                ->addSlice($users[0]->name, $users[0]->posts_count, '#90cdf4')
-                ->addSlice($users[1]->name, $users[1]->posts_count, '#f6ad55')
-                ->addSlice($users[2]->name, $users[2]->posts_count, '#fc8181')
-                ->addSlice($users[3]->name, $users[3]->posts_count, '#62de76')
-                ->addSlice($users[4]->name, $users[4]->posts_count, '#f1f2de')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
-=======
         $users = User::withCount('posts')->orderBy('posts_count', 'DESC')->limit(5)->get();
 
-        $macro = (new PieChartModel())->setTitle('Top 5 Users - Most Posts')->withoutLegend()
+        $macro = (new PieChartModel())->setTitle(__('Top 5 Users - Most Posts'))->withoutLegend()
             ->setDataLabelsEnabled(true);
 
         $colors = ['#90cdf4', '#f6ad55', '#fc8181', '#62de76', '#f1f2de'];
@@ -165,33 +130,13 @@ class AdminAreaDashboard extends Component
         }
 
         $this->topFiveUsersPostsChart = $macro;
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
     }
 
     private function prepareTopFiveUsersRepliesChart()
     {
-<<<<<<< HEAD
-        $replies = DB::table('post_replies')
-            ->selectRaw('user_id, COUNT(*) AS number_replies')
-            ->groupBy('user_id')
-            ->orderBy('number_replies', 'DESC')
-            ->get()
-            ->toArray();
-
-        $this->topFiveUsersRepliesChart =
-            (new PieChartModel())
-                ->setTitle(__('Top 5 Users - Most Replies'))
-                ->addSlice(User::find($replies[0]->user_id)->name, $replies[0]->number_replies, '#90cdf4')
-                ->addSlice(User::find($replies[1]->user_id)->name, $replies[1]->number_replies, '#f6ad55')
-                ->addSlice(User::find($replies[2]->user_id)->name, $replies[2]->number_replies, '#fc8181')
-                ->addSlice(User::find($replies[3]->user_id)->name, $replies[3]->number_replies, '#62de76')
-                ->addSlice(User::find($replies[4]->user_id)->name, $replies[4]->number_replies, '#f1f2de')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
-=======
         $users = User::withCount('postReplies')->orderBy('post_replies_count', 'DESC')->limit(5)->get();
 
-        $macro = (new PieChartModel())->setTitle('Top 5 Users - Most Replies')->withoutLegend()
+        $macro = (new PieChartModel())->setTitle(__('Top 5 Users - Most Replies'))->withoutLegend()
             ->setDataLabelsEnabled(true);
 
         $colors = ['#90cdf4', '#f6ad55', '#fc8181', '#62de76', '#f1f2de'];
@@ -201,46 +146,19 @@ class AdminAreaDashboard extends Component
         }
 
         $this->topFiveUsersRepliesChart = $macro;
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
     }
 
     private function prepareLastSixMonthChart()
     {
         $this->lastSixMonthChart =
             (new LineChartModel())
-<<<<<<< HEAD
-                ->setTitle(__('Last Six Month'))
-                ->multiLine()
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
-=======
-            ->setTitle('Last Six Month')
+            ->setTitle(__('śast Six Month'))
             ->multiLine()
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
 
         $j = 5;
         for ($i = 0; $i <= 5; $i++) {
-<<<<<<< HEAD
-            $this->lastSixMonthChart->addSeriesPoint(__('Posts'), date('M', mktime(null, null, null, $i)), Post::whereMonth('created_at', '=', $i)->count());
-            $this->lastSixMonthChart->addSeriesPoint(__('Replies'), date('M', mktime(null, null, null, $i)), PostReply::whereMonth('created_at', '=', $i)->count());
-            $this->lastSixMonthChart->addSeriesPoint(__('User Registrations'), date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=', $i)->count());
-        }
-    }
-
-    private function prepareMonthChart()
-    {
-        $this->monthChart =
-            (new ColumnChartModel())
-                ->setTitle(__('This month'))
-                ->addColumn(__('User'), User::whereMonth('created_at', '=', now()->month)->count(), '#90cdf4')
-                ->addColumn(__('Categories'), Category::whereMonth('created_at', '=', now()->month)->count(), '#f6ad55')
-                ->addColumn(__('Posts'), Post::whereMonth('created_at', '=', now()->month)->count(), '#fc8181')
-                ->addColumn(__('Replies'), PostReply::whereMonth('created_at', '=', now()->month)->count(), '#62de76')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
-=======
             $month = Carbon::now()->subMonths($j);
 
             $postsInMonth = Post::whereDate('created_at', '>=', $month)->count();
@@ -249,12 +167,11 @@ class AdminAreaDashboard extends Component
 
             $usersInMonth = User::whereDate('created_at', '>=', $month)->count();
 
-            $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), $postsInMonth);
-            $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), $postRepliesInMonth);
-            $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), $usersInMonth);
+            $this->lastSixMonthChart->addSeriesPoint(__('Posts'), date('M', mktime(null, null, null, $i)), $postsInMonth);
+            $this->lastSixMonthChart->addSeriesPoint(__('Replies'), date('M', mktime(null, null, null, $i)), $postRepliesInMonth);
+            $this->lastSixMonthChart->addSeriesPoint(__('User Registrations'), date('M', mktime(null, null, null, $i)), $usersInMonth);
 
             $j--;
         }
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
     }
 }

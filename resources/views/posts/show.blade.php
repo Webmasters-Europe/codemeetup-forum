@@ -15,18 +15,8 @@
                 <h1 class="card-title">{{ $post->title }}</h1>
                 <div class="card-subtitle mb-2 text-muted">
                     <span class="text-muted">
-<<<<<<< HEAD
-                        {{ __('by') }}
-                        @if ($post->user->trashed())
-                            {{ __('a deleted user') }}
-                        @else
-                            <a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a>
-                        @endif
-                    </span>
-                    <span>{{ __('created at') }} {{ $post->created_at->format('d.m.Y H:i:s') }}</span>
-=======
-                        by
-                        @if ($post->user->trashed()) <i>deleted user:</i>
+                        __('by')
+                        @if ($post->user->trashed()) <i>__('a deleted user'):</i>
                         @else <strong><a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a></strong>
                         @endif
                     </span>
@@ -46,7 +36,6 @@
                             </button>
                         @endcan
                     </div>
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
                 </div>
 
                 <div class="card-text">
@@ -59,21 +48,12 @@
                         @empty
                             {{ __('No uploded images for this post.') }}
                         @endforelse
-<<<<<<< HEAD
-                        <p>{{ __('Files') }}:</p>
-                        <ul>
-=======
                         </p>
-                        <ul>Files:
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
+                        <ul>__('Files'):
                             @forelse ($otherFiles as $otherFile)
                                 <li class="list-unstyled"><a href="{{ asset('storage/'.$otherFile->filename) }}">{{ basename($otherFile->filename) }}</a></li>
                             @empty
-<<<<<<< HEAD
-                                {{ __('No uploded Files for this post.') }}
-=======
-                                <li class="list-unstyled">No uploded Files for this post.</li>
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
+                                <li class="list-unstyled">__('No uploded Files for this post.')</li>
                             @endforelse
                         </ul>
 
@@ -85,55 +65,12 @@
                 <hr>
                 <!-- begin show PostReplies -->
 
-<<<<<<< HEAD
-                                <h1>{{ __('Replies') }}:</h1>
-                            </div>
-
-                            @can('create post replies')
-                            <div>
-                                <form action="{{ route('replies.store', $post) }}" method="POST">
-                                    @csrf
-                                    <div class="form-group p-2">
-                                        <label for="postContent">{{ __('Write your reply:') }}</label>
-                                        <x-easy-mde class="w-100" name="content" :options="['hideIcons' => ['image'], 'minHeight' => '150px']"/>
-                                    </div>
-                                    <button type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Create Reply') }}</button>
-                                </form>
-                            </div>
-                            @else
-                            <div>
-                                <form action="{{ route('replies.store', $post) }}" method="POST">
-                                    @csrf
-                                    <div class="form-group p-2">
-                                        <label for="postContent">{{ __('Write your reply:') }}</label><br>
-                                        <textarea class="w-100 disabled-reply" disabled placeholder="Login to leave a reply"></textarea>
-                                    </div>
-                                    <button disabled type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Create Reply') }}</button>
-                                </form>
-                            </div>
-                            @endcan
-
-                            <div class="card-text">
-                                @forelse ($replies as $reply)
-                                <ul class="row border my-2 p-2 no-gutters">
-                                    <li class="list-unstyled">
-                                       <span class="reply"> @markdown($reply->content)</span>
-
-                                       <small class="reply-info text-muted"> by
-                                        @if ($reply->user->trashed())
-                                            {{ __('a deleted user') }},
-                                        @else
-                                            <a href=" {{ route('users.show', $reply->user) }}">{{$reply->user->username}}</a>,
-                                        @endif
-                                        {{ __('created at') }} {{ $reply->created_at->format('d.m.Y H:i:s') }}
-                                        </small>
-=======
                 @can('create post replies')
                 <div>
                     <form action="{{ route('replies.store', $post) }}" method="POST">
                         @csrf
                         <div class="form-group p-2">
-                            <label for="postContent">Write your reply:</label>
+                            <label for="postContent">__('Write your reply:')</label>
                             <x-easy-mde class="w-100" name="content" :options="['hideIcons' => ['image'], 'minHeight' => '150px']"/>
                         </div>
                         <button type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Reply</button>
@@ -144,7 +81,7 @@
                     <form action="{{ route('replies.store', $post) }}" method="POST">
                         @csrf
                         <div class="form-group p-2">
-                            <label for="postContent">Write your reply:</label><br>
+                            <label for="postContent">__('Write your reply:'):</label><br>
                             <textarea class="w-100 disabled-reply" disabled placeholder="Login to leave a reply"></textarea>
                         </div>
                         <button disabled type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Reply</button>
@@ -155,11 +92,10 @@
                 <div class="card-text">
                     <ul class="row my-2 p-2 no-gutters">
                         @forelse ($replies as $reply)
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
 
                             <li class="list-unstyled border-bottom w-100">
                                 @if ($reply->user->trashed())
-                                    <i>deleted user:</i>
+                                    <i>__('deleted user'):</i>
                                 @else
                                     <strong><a href=" {{ route('users.show', $reply->user) }}">{{$reply->user->username}}</a></strong>:
                                 @endif
@@ -180,27 +116,6 @@
                                         </button>
                                         @endcan
 
-<<<<<<< HEAD
-                                        <!-- Begin Modal -->
-                                        @can('create post replies')
-                                        <div class="modal fade" id="replyModal_{{$reply->id}}" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="replyModalLabel">{{ __('Leave a comment') }}</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="{{ route('replies.store', [$post, $reply]) }}" method="POST">
-                                                            @csrf
-                                                            <x-easy-mde name="content" :options="['hideIcons' => ['image']]">{{ old('content') }}</x-easy-mde>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close') }}</button>
-                                                        <button type="submit" class="btn btn-success">{{__('Save') }}</button>
-                                                    </div>
-                                                        </form>
-=======
                                         @can ('delete reply')
                                         <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteReplyModal_{{$reply->id}}">
                                             {{__('Delete') }}
@@ -232,7 +147,6 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close') }}</button>
                                                     <button type="submit" class="btn btn-success">{{__('Update') }}</button>
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
                                                 </div>
                                             </form>
                                         </div>
@@ -264,22 +178,10 @@
 
                                             </div>
                                         </div>
-<<<<<<< HEAD
-                                        <!-- End Modal -->
-                                        @endcan
-                                    </li>
-                        </ul>
-                    @empty
-                        <li class="row border my-2 p-2 no-gutters">
-                            {{ __('No replies found for this post.') }}
-                        </li>
-                    @endforelse
-=======
                                     </div>
                                 </div>
                                 @endcan
                                 <!-- end delete reply modaL -->
->>>>>>> 5441d8625062419c62cfb8ef79618dcec417fd3c
 
                                 {{-- show reply to reply --}}
                                 <br>
