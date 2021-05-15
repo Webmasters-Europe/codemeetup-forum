@@ -305,3 +305,25 @@ textarea:focus {
 
     ;
 }
+
+.page-link {
+    color: {
+        {
+            config('app.settings.primary_color')
+        } 
+    }
+    background-color: {
+            {
+            config('app.settings.primary_color')
+        }
+    }
+    border-color: {
+            {
+            config('app.settings.primary_color')
+        }
+    }
+}
+
+.page-link:hover {
+    opacity: 0.8;
+}
