@@ -297,13 +297,9 @@ textarea:focus {
 }
 
 #footer a:hover {
-    color: {
-            {
-            config('app.settings.button_text_color')
-        }
-    }
+    color: #212529;
 
-    ;
+
 }
 
 .page-link {
