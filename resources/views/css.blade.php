@@ -307,12 +307,12 @@ textarea:focus {
         {
             config('app.settings.primary_color')
         } 
-    }
+    };
     background-color: {
             {
             config('app.settings.primary_color')
         }
-    }
+    };
     border-color: {
             {
             config('app.settings.primary_color')
@@ -325,6 +325,19 @@ textarea:focus {
 }
 
 .badge {
+    background-color: {
+            {
+            config('app.settings.primary_color')
+        }
+    }
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: {
+            {
+            config('app.settings.primary_color')
+        }
+    };
     background-color: {
             {
             config('app.settings.primary_color')
