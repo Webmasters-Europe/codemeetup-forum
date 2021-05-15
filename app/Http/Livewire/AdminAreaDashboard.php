@@ -158,21 +158,29 @@ class AdminAreaDashboard extends Component
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
 
-        $j = 5;
-        for ($i = 0; $i <= 5; $i++) {
-            $month = Carbon::now()->subMonths($j);
+            /* mein alter Code */
+            for ($i = 0; $i <= 5; $i++) {
+                $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), Post::whereMonth('created_at', '=', $i)->count());
+                $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), PostReply::whereMonth('created_at', '=', $i)->count());
+                $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=',$i)->count());
+            }
+            
+            /* aktueller Code - falsche Ergebnisse */
+            /* $j = 5;
+            for ($i = 0; $i <= 5; $i++) {
+                $month = Carbon::now()->subMonths($j);
 
-            $postsInMonth = Post::whereDate('created_at', '>=', $month)->count();
+                $postsInMonth = Post::whereDate('created_at', '>=', $month)->count();
 
-            $postRepliesInMonth = PostReply::whereDate('created_at', '>=', $month)->count();
+                $postRepliesInMonth = PostReply::whereDate('created_at', '>=', $month)->count();
 
-            $usersInMonth = User::whereDate('created_at', '>=', $month)->count();
+                $usersInMonth = User::whereDate('created_at', '>=', $month)->count();
 
-            $this->lastSixMonthChart->addSeriesPoint(__('Posts'), date('M', mktime(null, null, null, $i)), $postsInMonth);
-            $this->lastSixMonthChart->addSeriesPoint(__('Replies'), date('M', mktime(null, null, null, $i)), $postRepliesInMonth);
-            $this->lastSixMonthChart->addSeriesPoint(__('User Registrations'), date('M', mktime(null, null, null, $i)), $usersInMonth);
+                $this->lastSixMonthChart->addSeriesPoint(__('Posts'), date('M', mktime(null, null, null, $i)), $postsInMonth);
+                $this->lastSixMonthChart->addSeriesPoint(__('Replies'), date('M', mktime(null, null, null, $i)), $postRepliesInMonth);
+                $this->lastSixMonthChart->addSeriesPoint(__('User Registrations'), date('M', mktime(null, null, null, $i)), $usersInMonth);
 
-            $j--;
-        }
+                $j--;
+            } */
     }
 }
