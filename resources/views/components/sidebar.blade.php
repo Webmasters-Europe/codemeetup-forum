@@ -13,12 +13,13 @@
                 <div class="ml-4" id="user-profile-text">
                     <h5>{{ __('Name') }}: <strong>{{ auth()->user()->name }}</strong></h5>
                     <h5>{{ __('Username') }}: <strong>{{ auth()->user()->username }}</strong></h5>
-                    <h5>{{ __('Unread Notifications') }}: <a href="{{ route('users.show', auth()->user() ) }}" class="badge text-white">{{ auth()->user()->unreadNotifications->count() }}</a></h5>
+                    <h5>{{ __('Unread Notifications') }}: <a href="{{ route('users.show', auth()->user() ) }}"
+                                                             class="badge badge-danger text-white">{{ auth()->user()->unreadNotifications->count() }}</a></h5>
                 </div>
             </div>
 
             <a href="{{ route('users.show', auth()->user() ) }}" type="button"
-               class="btn btn-block m-0 mb-2 py-2">{{ __('Profile') }}</a>
+               class="btn btn-block m-0 mb-2 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Profile') }}</a>
 
             @can('access admin area')
                 <a href="{{ route('admin-area.dashboard') }}" type="button"
