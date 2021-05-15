@@ -22,9 +22,9 @@ class CreateSettingsTable extends Migration
             $table->unsignedInteger('number_categories_startpage');
             $table->unsignedInteger('number_last_entries_startpage');
             $table->unsignedInteger('number_posts');
-            $table->text('contact_page');
+            $table->text('email_contact_page')->nullable();
             $table->text('imprint_page');
-            $table->string('copyright_page');
+            $table->string('copyright');
             $table->string('primary_color');
             $table->timestamps();
         });

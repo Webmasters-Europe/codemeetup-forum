@@ -17,8 +17,6 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['replyCount'];
-
     protected $softCascade = ['reply', 'uploads'];
 
     protected $withCount = ['reply', 'repliesTrashed'];
@@ -41,13 +39,6 @@ class Post extends Model
     public function reply()
     {
         return $this->hasMany(PostReply::class)->whereNull('parent_id');
-    }
-
-    public function getReplyCountAttribute()
-    {
-        $replies = $this->reply()->where('parent_id', null);
-
-        return $replies->count();
     }
 
     public function uploads()

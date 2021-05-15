@@ -61,15 +61,21 @@ class UserController extends Controller
     {
         $this->authorize('update', [User::class, $user]);
 
-        if ($request->password) {
-            $request->merge([
-                'password' => bcrypt($request->password),
-            ]);
+        if ($request->password != null) {
+            $password = bcrypt($request->password);
+        } else {
+            $password = $user->password;
         }
 
         $request['reply_email_notification'] = (int) $request->has('reply_email_notification');
 
-        $user->update($request->all());
+        $user->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'reply_email_notification' => $request->reply_email_notification,
+            'password' => $password,
+        ]);
 
         if ($request->avatar) {
             $user->avatar = $request->file('avatar')->store('avatars', 'public');

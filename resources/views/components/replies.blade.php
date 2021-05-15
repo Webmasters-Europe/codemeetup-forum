@@ -6,14 +6,14 @@
             @else <strong><a href=" {{ route('users.show', $reply->user) }}">{{$reply->user->username}}</a></strong>
             @endif
             <small>{{ $reply->created_at->diffForHumans()}}</small>
-            @markdown($reply->content)                      
+            @markdown($reply->content)
             <div class="text-right">
                 @can('create post replies')
                     <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#replyModal_{{$reply->id}}" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">
                         {{__('Comment') }}
                     </button>
                 @endcan
-                
+
                 @can ('edit reply')
                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#editReplyModal_{{$reply->id}}">
                     {{__('Edit') }}
@@ -24,8 +24,8 @@
                 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteReplyModal_{{$reply->id}}">
                     {{__('Delete') }}
                 </button>
-                @endcan         
-            </div>    
+                @endcan
+            </div>
 
             <!-- Begin reply Modal -->
             @can('create post replies')
@@ -38,7 +38,7 @@
                         </div>
                         <form action="{{ route('replies.store', [$post, $reply]) }}" method="POST">
                             @csrf
-                            <div class="modal-body">                               
+                            <div class="modal-body">
                                 <textarea rows="10" cols="64" name="content" class="tinymce">{{ old('content') }}</textarea>
                             </div>
                             <div class="modal-footer">
@@ -53,7 +53,7 @@
             <!-- End reply Modal -->
 
             @can ('edit reply')
-            <!-- begin update reply modaL --> 
+            <!-- begin update reply modaL -->
             <div class="modal fade" id="editReplyModal_{{$reply->id}}" tabindex="-1" role="dialog" aria-labelledby="editReplyModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -64,10 +64,10 @@
                         <form action="{{ route('replies.update', $reply->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
-            
-                            <div class="modal-body">                                                    
-                                <x-easy-mde name="content" :options="['hideIcons' => ['image']]">                                                        
-                                    {{ $reply->content }}    
+
+                            <div class="modal-body">
+                                <x-easy-mde name="content" :options="['hideIcons' => ['image']]">
+                                    {{ $reply->content }}
                                 </x-easy-mde>
                             </div>
 
@@ -78,12 +78,12 @@
                         </form>
                     </div>
                 </div>
-            </div> 
-            <!-- end update reply modaL --> 
+            </div>
+            <!-- end update reply modaL -->
             @endcan
 
             <!-- begin delete reply modal -->
-            @can ('delete reply')                                  
+            @can ('delete reply')
             <div class="modal fade" id="deleteReplyModal_{{$reply->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteReplyModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -92,21 +92,21 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
-                            <p>{{$reply->content}}<br><small>by: {{$reply->user->username}}</small></p>                           
+                            <p>{{$reply->content}}<br><small>by: {{$reply->user->username}}</small></p>
                         </div>
                         <div class="modal-footer">
 
                             <form action="{{ route('replies.destroy', ['postReply' => $reply ]) }}" method="POST">
                                 @method('DELETE')
-                                @csrf    
+                                @csrf
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('Close') }}</button>
                                 <button type="submit" class="btn btn-success">{{__('Delete') }}</button>
                             </form>
 
-                        </div>                                                
+                        </div>
                     </div>
                 </div>
-            </div>                                    
+            </div>
             @endcan
             <!-- end delete reply modal -->
 

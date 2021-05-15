@@ -18,17 +18,17 @@
             </div>
 
             <a href="{{ route('users.show', auth()->user() ) }}" type="button"
-               class="btn btn-block m-0 mb-4 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Profile</a>
+               class="btn btn-block m-0 mb-2 py-2">Profile</a>
 
             @can('access admin area')
                 <a href="{{ route('admin-area.dashboard') }}" type="button"
-                   class="btn btn-block m-0 mb-4 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Admin Area</a>
+                   class="btn btn-block m-0 mb-2 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Admin Area</a>
             @endcan
 
             <form action="{{ route('logout') }}" method="POST" class="w-100">
                 @csrf
 
-                <button type="submit" class="btn btn-block" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Logout</button>
+                <button type="submit" class="btn btn-block m-0 mb-2 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};"><i class="fas fa-sign-out-alt"></i> Logout</button>
 
             </form>
 
@@ -86,12 +86,12 @@
 
                     <div class="form-group row m-0 mb-4 py-2">
 
-                        <button type="submit" class="btn btn-lg btn-block btn-dark">
+                        <button type="submit" class="btn btn-lg btn-block btn-dark m-0 mb-2 py-2">
                             {{ __('Login') }}
                         </button>
 
                         @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                            <a href="{{ route('password.request') }}">
                                 {{ __('Forgot Your Password?') }}
                             </a>
                         @endif
@@ -179,7 +179,7 @@
 
                     <div class="form-group row m-0 mb-4 py-2">
 
-                        <button type="submit" class="btn btn-lg btn-block btn-dark">
+                        <button type="submit" class="btn btn-lg btn-block btn-dark m-0 mb-2 py-2">
                             {{ __('Register') }}
                         </button>
 
@@ -188,18 +188,18 @@
 
                 <!-- oAuth -->
 
-                <a class="btn btn-block btn-outline-dark my-2 p-2"
+                <a class="btn btn-block btn-outline-dark outline-primary m-0 mb-2 py-2"
                    href="{{ route('oauth', ['provider' => 'google']) }}"><img src="{{ asset('icons/google.png') }}"
                                                                               alt="google-icon"> Login with Google</a>
-                <a class="btn btn-block btn-outline-dark my-2 p-2"
+                <a class="btn btn-block btn-outline-dark outline-primary m-0 mb-2 py-2"
                    href="{{ route('oauth', ['provider' => 'github']) }}"><img src="{{ asset('icons/github.png') }}"
                                                                               alt="github-icon"> Login with Github</a>
 
             </div>
 
-            <a {{ count($errors) > 0 && old('reg-form') ? "hidden" : "" }} id="to-registration" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm
+            <a {{ count($errors) > 0 && old('reg-form') ? "hidden" : "" }} id="to-registration" onclick="toggleLoginRegistration()">I'm
                 not registered yet</a>
-            <a {{ count($errors) === 0 || $errors && old('login-form') ? "hidden" : "" }} id="to-login" onclick="toggleLoginRegistration()" class="ml-4 text-sm text-gray-700 underline">I'm
+            <a {{ count($errors) === 0 || $errors && old('login-form') ? "hidden" : "" }} id="to-login" onclick="toggleLoginRegistration()">I'm
                 already registered</a>
 
 

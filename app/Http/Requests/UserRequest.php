@@ -29,7 +29,6 @@ class UserRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users,email,'.$this->user->id,
             'avatar' => 'sometimes|image|max:5000',
         ];
-
         if ($this->password) {
             $validation_array = array_merge($validation_array, [
                 'password' => 'string|min:8|confirmed',

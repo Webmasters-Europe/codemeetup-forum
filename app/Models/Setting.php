@@ -18,8 +18,8 @@ class Setting extends Model
         'number_categories_startpage',
         'number_last_entries_startpage',
         'number_posts',
-        'contact_page',
+        'email_contact_page',
         'imprint_page',
-        'copyright_page',
+        'copyright',
     ];
 }
