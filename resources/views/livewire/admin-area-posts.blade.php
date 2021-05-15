@@ -9,9 +9,9 @@
                     id="showDeletedPosts" name="showDeletedPosts" />
                 <label class="custom-control-label" for="showDeletedPosts">Show deleted Posts</label>
             </div>
-            
+
             <!-- features are not yet implemented
-            <div> 
+            <div>
                 <button wire:click.prevent="showPostForm" class="btn btn-sm btn-success">
                     <i class="fas fa-plus-circle mr-2"></i>Add new Post
                 </button>
@@ -21,7 +21,7 @@
             </div>
             -->
         </div>
-        
+
         <div class="card-body table-responsive p-0">
             <table class="table table-hover">
                 <tbody>
@@ -38,17 +38,17 @@
                         @endif
                         <th>Action</th>
                     </tr>
-                    
+
                     @foreach ($posts as $post)
-                    
+
                         <tr>
                             <td>{{ $post->id }}</td>
                             <td>{{ $post->category_id }}</td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->user->name}}</td>
                             @if(!$showDeletedPosts)
-                            <td>{{ $post->reply()->count()}}</td> 
-                            @else 
+                            <td>{{ $post->reply()->count()}}</td>
+                            @else
                             <td>{{ $post->repliesTrashed->count() }}</td>
                             @endif
                             <td>{{ $post->created_at->diffForHumans() }}</td>
@@ -62,18 +62,18 @@
                                         class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    
+
                                     <button wire:click="selectPost({{ $post->id }}, 'delete')"
                                         class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 @else
-                               
+
                                     <button  @if (!$post->category) disabled title="{{ __('you cant restore this post because its category has been deleted') }}" @endif wire:click="selectPost({{ $post->id }}, 'restore')"
-                                        class="btn btn-secondary btn-sm">                                        
-                                        <i class="fas fa-trash-restore"></i>                                        
+                                        class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-trash-restore"></i>
                                     </button>
-                                    
+
                                 @endif
                             </td>
                         </tr>
@@ -98,12 +98,12 @@
         @csrf
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="deleteModelInstanceModalLabel">Delete this Post?</h4>
+                <h4 class="modal-title" id="deleteModelInstanceModalLabel">{{ __('Delete this Post') }}?</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
 
-            <div class="modal-body">                
-                <p>Title: {{ $title }}<br><small>by: {{ $userName }}</small></p>
+            <div class="modal-body">
+                <p>{{ __('Title') }}: {{ $title }}<br><small>by: {{ $userName }}</small></p>
                 <p>There are <strong>{{$replyCount}}</strong> replies to this post. Deleting this post will also delete all replies, uploads and comments associated with it.</p>
             </div>
 
@@ -130,7 +130,7 @@
             </div>
             <div class="modal-body">
                 <p>Title: {{ $title }}<br><small>by: {{ $userName }}</small></p>
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -140,9 +140,8 @@
     </form>
 </div>
 </div>
-    
 
-    
+
+
 
 </div>
- 
