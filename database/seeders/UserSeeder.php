@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        if (!User::whereUsername('susi')->exists()) {
+        if (! User::whereUsername('susi')->exists()) {
             User::create([
                 'name' => 'Susi Musterfrau',
                 'username' => 'susi',
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             ])->assignRole('super-admin');
         }
 
-        if (!User::whereUsername('max')->exists()) {
+        if (! User::whereUsername('max')->exists()) {
             User::create([
                 'name' => 'Max Mustermann',
                 'username' => 'max',

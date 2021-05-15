@@ -85,10 +85,11 @@ class AdminAreaDashboard extends Component
 
         $postsGroupedCounted = Post::where('created_at', '>=', Carbon::now()->subMonths(3))
             ->groupBy('created_at')
-            ->get([
+            ->select([
                 DB::raw('DATE( created_at ) as date'),
                 DB::raw('COUNT( * ) as "count"'),
             ])
+            ->get()
             ->pluck('count', 'date')->toArray();
 
         $fromDate = $dateThreeMonthsAgo;

@@ -17,12 +17,12 @@
 
     @forelse($posts as $post)
         <div class="row border my-2 p-2 no-gutters">
-            <div class="col-3 col-lg-4">
+            <div class="col-12 col-lg-4">
                 <a href="{{route('posts.show', $post)}}">
                     <h3>{{$post->title}}</h3>
                 </a>
             </div>
-            <div class="col-3 col-lg-4">
+            <div class="col-12 col-lg-4">
                 {{ __('by') }}
                 @if ($post->user->trashed())
                     {{ __('a deleted user') }}
@@ -31,7 +31,7 @@
                 @endif
                 {{__('at') }} {{ $post->created_at->format('d.m.Y H:i:s') }}
             </div>
-            <div class="col-3 col-lg-2">
+            <div class="col-12 col-lg-2">
                 @if ($post->reply_count === 1)
                 1 {{ __('reply') }}
                 @else 

@@ -79,9 +79,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
         return redirect()->route('admin-area.posts')->withStatus('Post and all its followups have been deleted');
     }
-
 
     private function isImage($file)
     {
