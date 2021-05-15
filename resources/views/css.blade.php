@@ -323,3 +323,11 @@ textarea:focus {
 .page-link:hover {
     opacity: 0.8;
 }
+
+.badge {
+    background-color: {
+            {
+            config('app.settings.primary_color')
+        }
+    }
+}
