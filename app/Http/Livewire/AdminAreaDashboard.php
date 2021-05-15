@@ -158,11 +158,13 @@ class AdminAreaDashboard extends Component
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
 
-            /* mein alter Code */
+            $year = Carbon::now()->year;
+            
+            /* mein alter Code ergänzt um die Year-Abfrage */
             for ($i = 0; $i <= 5; $i++) {
-                $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), Post::whereMonth('created_at', '=', $i)->count());
-                $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), PostReply::whereMonth('created_at', '=', $i)->count());
-                $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=',$i)->count());
+                $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), Post::whereYear('created_at','=',$year)->whereMonth('created_at','=', $i)->count());
+                $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), PostReply::whereYear('created_at','=',$year)->whereMonth('created_at','=', $i)->count());
+                $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), User::whereYear('created_at','=',$year)->whereMonth('created_at','=',$i)->count());
             }
             
             /* aktueller Code - falsche Ergebnisse */
