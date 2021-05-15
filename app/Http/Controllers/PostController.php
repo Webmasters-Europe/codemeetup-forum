@@ -73,14 +73,14 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
-        return redirect()->route('posts.show', $post)->withStatus('Post has been updated.');
+        return redirect()->route('posts.show', $post)->withStatus(__('Post successfully updated.'));
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
 
-        return redirect()->route('admin-area.posts')->withStatus('Post and all its followups have been deleted');
+        return redirect()->route('admin-area.posts')->withStatus(__('Post and all replies and comments in this post successfully deleted.'));
     }
 
     private function isImage($file)
