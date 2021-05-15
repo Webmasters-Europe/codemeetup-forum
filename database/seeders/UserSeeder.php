@@ -15,18 +15,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //if (!User::whereUsername('susi')->exists()) {
-        User::create([
-            'name' => 'Susi Musterfrau',
-            'username' => 'susi',
-            'email' => 'susi@musterfrau.de',
-            'password' => Hash::make('password'),
-            'email_verified_at' => now(),
-        ]);
-        //->assignRole('super-admin');
-        //}
+        if (!User::whereUsername('susi')->exists()) {
+            User::create([
+                'name' => 'Susi Musterfrau',
+                'username' => 'susi',
+                'email' => 'susi@musterfrau.de',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ])->assignRole('super-admin');
+        }
 
-        /*   if (!User::whereUsername('max')->exists()) {
+        if (!User::whereUsername('max')->exists()) {
             User::create([
                 'name' => 'Max Mustermann',
                 'username' => 'max',
@@ -45,6 +44,5 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
             $user->assignRole('user');
         }
-        */
     }
 }

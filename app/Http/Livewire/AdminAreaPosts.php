@@ -34,26 +34,11 @@ class AdminAreaPosts extends TableComponent
     public function render()
     {
         if ($this->showDeletedPosts) {
-            $posts = Post::onlyTrashed();
+            $posts = Post::onlyTrashed()->with('repliesTrashed');
         } else {
             $posts = Post::with('reply');
         }
 
-        /* Search filter:
-        $posts = $posts
-            ->when($this->globalSearch, function ($query) {
-                $query->globalSearch(trim($this->globalSearch));
-            })
-            ->when($this->searchName, function ($query) {
-                $query->singleFieldSearch(trim($this->searchName), 'name');
-            })
-            ->when($this->searchUsername, function ($query) {
-                $query->singleFieldSearch(trim($this->searchUsername), 'username');
-            })
-            ->when($this->searchEmail, function ($query) {
-                $query->singleFieldSearch(trim($this->searchEmail), 'email');
-            });
-            */
         // Ordering:
         $posts = $posts->orderBy($this->sortBy, $this->sortDirection);
 
@@ -85,10 +70,8 @@ class AdminAreaPosts extends TableComponent
     {
         Post::onlyTrashed()->findOrFail($this->selectedPost)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
-
         $this->resetInputFields();
         session()->flash('status', 'Post successfully restored.');
-
         return redirect()->route('admin-area.posts');
     }
 

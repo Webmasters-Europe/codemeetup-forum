@@ -23,6 +23,11 @@ class Post extends Model
 
     protected $withCount = ['reply', 'repliesTrashed'];
 
+    public function repliesTrashed()
+    {
+        return $this->hasMany(PostReply::class)->whereNull('parent_id')->onlyTrashed();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();
@@ -48,5 +53,30 @@ class Post extends Model
     public function uploads()
     {
         return $this->hasMany(Upload::class);
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('title', 'like', $term)
+                ->orWhere('content', 'like', $term);
+        });
+    }
+
+    public function scopeSearchTitle($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('title', 'like', $term);
+        });
+    }
+
+    public function scopeSearchContent($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('content', 'like', $term);
+        });
     }
 }

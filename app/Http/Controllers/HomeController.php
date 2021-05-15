@@ -14,16 +14,16 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
-        //phpinfo();
+
         $numberCategories = config('app.settings.number_categories_startpage');
         $category = Category::first();
-        dd($category);
+
         $categories = Category::orderBy('name')->paginate($numberCategories);
-        dd($categories);
+
         foreach ($categories as $category) {
             $category->latestPost = $category->latestPost();
         }
 
-        //return view('welcome', compact('categories'));
+        return view('welcome', compact('categories'));
     }
 }

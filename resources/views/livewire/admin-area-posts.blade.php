@@ -46,11 +46,15 @@
                             <td>{{ $post->category_id }}</td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->user->name}}</td>
-                            <td>{{ $post->reply()->count()}}</td>                            
-                            <td>{{ $post->created_at->format('d.m.Y H:i:s') }}</td>
-                            <td>{{ $post->updated_at->format('d.m.Y H:i:s') }}</td>
+                            @if(!$showDeletedPosts)
+                            <td>{{ $post->reply()->count()}}</td> 
+                            @else 
+                            <td>{{ $post->repliesTrashed->count() }}</td>
+                            @endif
+                            <td>{{ $post->created_at->diffForHumans() }}</td>
+                            <td>{{ $post->updated_at->diffForHumans() }}</td>
                             @if($showDeletedPosts)
-                            <td>{{ $post->deleted_at->format('d.m.Y H:i:s') }}
+                            <td>{{ $post->deleted_at->diffForHumans() }}
                             @endif
                             <td>
                                 @if (!$showDeletedPosts)
@@ -126,7 +130,7 @@
             </div>
             <div class="modal-body">
                 <p>Title: {{ $title }}<br><small>by: {{ $userName }}</small></p>
-                <p>There are <strong>{{$replyCount}}</strong> replies to this post.</p>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
