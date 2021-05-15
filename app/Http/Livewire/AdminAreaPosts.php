@@ -61,7 +61,7 @@ class AdminAreaPosts extends TableComponent
         Post::findOrFail($this->selectedPost)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
         $this->resetInputFields();
-        session()->flash('status', 'Post and all replies and comments in this post successfully deleted.');
+        session()->flash('status', __('Post and all replies and comments in this post successfully deleted.'));
 
         return redirect()->route('admin-area.posts');
     }
@@ -71,7 +71,7 @@ class AdminAreaPosts extends TableComponent
         Post::onlyTrashed()->findOrFail($this->selectedPost)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
         $this->resetInputFields();
-        session()->flash('status', 'Post successfully restored.');
+        session()->flash('status', __('Post successfully restored.'));
 
         return redirect()->route('admin-area.posts');
     }
@@ -86,7 +86,7 @@ class AdminAreaPosts extends TableComponent
         ]);
         $this->dispatchBrowserEvent('closeUpdateModelInstanceModal');
         $this->resetInputFields();
-        session()->flash('status', 'post successfully updated.');
+        session()->flash('status', __('Post successfully updated.'));
 
         return redirect()->route('admin-area.posts');
     }

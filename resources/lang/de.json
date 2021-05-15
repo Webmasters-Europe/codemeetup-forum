@@ -892,6 +892,8 @@
 	"Edit Post": "Beitrag bearbeiten",
 	"Delete this post": "Beitrag löschen",
 	"Edit Reply": "Kommentar bearbeiten",
-	"Delete this reply": "Kommentar löschen"
-	
+	"Delete this reply": "Kommentar löschen",
+	"Post and all replies and comments in this post successfully deleted.": "Der Beitrag und alle Antworten und Kommentare wurden erfolgreich gelöscht",
+	"Post successfully restored.": "Beitrag erfolgreich wiederhergestellt.",
+	"Post successfully updated.": "Beitrag erfolgreich aktualisiert."
 }
