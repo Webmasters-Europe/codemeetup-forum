@@ -36,6 +36,6 @@ class AdminAreaPermissions extends Component
 
         $selectedRole->permissions()->sync($allowedPermissions);
 
-        session()->flash('success', __('Permissions for role ').ucwords($selectedRole->name, '- '). __(' successfully updated.'));
+        session()->flash('success', __('Permissions for role ').ucwords($selectedRole->name, '- ').__(' successfully updated.'));
     }
 }

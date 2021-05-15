@@ -38,10 +38,9 @@ class SettingRequest extends FormRequest
             ];
     }
 
-
     public function messages()
-{
-    return [
+    {
+        return [
         'primary_color.required' => __('The main color field must not be empty.'),
         'primary_color.max' => __('Main color must be a HEX code and may have a maximum of 7 characters.'),
         'primary_color.string' => __('Main color must be a HEX code and may have a maximum of 7 characters.'),
@@ -65,5 +64,5 @@ class SettingRequest extends FormRequest
         'copyright.string' => __('The Copyright field must contain a character string.'),
         'email_contact_page.email' => __('You have to enter an email address in the field for the contact page.'),
     ];
-}
+    }
 }
