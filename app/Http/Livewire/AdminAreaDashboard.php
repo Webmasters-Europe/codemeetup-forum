@@ -11,6 +11,7 @@ use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class AdminAreaDashboard extends Component
@@ -48,13 +49,13 @@ class AdminAreaDashboard extends Component
     {
         $this->numberOfEntitiesOverallChart =
             (new ColumnChartModel())
-                ->setTitle('Number of entities overall')
-                ->addColumn('Users', User::count(), '#90cdf4')
-                ->addColumn('Categories', Category::count(), '#f6ad55')
-                ->addColumn('Posts', Post::count(), '#fc8181')
-                ->addColumn('Replies', PostReply::count(), '#62de76')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
+            ->setTitle('Number of entities overall')
+            ->addColumn('Users', User::count(), '#90cdf4')
+            ->addColumn('Categories', Category::count(), '#f6ad55')
+            ->addColumn('Posts', Post::count(), '#fc8181')
+            ->addColumn('Replies', PostReply::count(), '#62de76')
+            ->withoutLegend()
+            ->setDataLabelsEnabled(true);
     }
 
     private function prepareNumberOfEntitiesCurrentMonthChart()
@@ -69,28 +70,26 @@ class AdminAreaDashboard extends Component
 
         $this->monthChart =
             (new ColumnChartModel())
-                ->setTitle('Entities created this month')
-                ->addColumn('Users', $usersCreatedInCurrentMonth, '#90cdf4')
-                ->addColumn('Categories', $categoriesCreatedInCurrentMonth, '#f6ad55')
-                ->addColumn('Posts', $postsCreatedInCurrentMonth, '#fc8181')
-                ->addColumn('Replies', $postRepliesCreatedInCurrentMonth, '#62de76')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
+            ->setTitle('Entities created this month')
+            ->addColumn('Users', $usersCreatedInCurrentMonth, '#90cdf4')
+            ->addColumn('Categories', $categoriesCreatedInCurrentMonth, '#f6ad55')
+            ->addColumn('Posts', $postsCreatedInCurrentMonth, '#fc8181')
+            ->addColumn('Replies', $postRepliesCreatedInCurrentMonth, '#62de76')
+            ->withoutLegend()
+            ->setDataLabelsEnabled(true);
     }
 
     private function preparePostsGroupedByCreationDateChart()
     {
         $dateThreeMonthsAgo = Carbon::now()->subMonths(3);
 
-        $postsGroupedByDate = Post::whereDate('created_at', '>=', Carbon::now()->subMonths(3))->get()
-        ->groupBy(function($date) {
-            return Carbon::parse($date->created_at)->format('Y-m-d');
-        })->toArray();
-
-        $postsGroupedCounted = [];
-        foreach ($postsGroupedByDate as $key => $posts) {
-            $postsGroupedCounted[$key] = count($posts);
-        }
+        $postsGroupedCounted = Post::where('created_at', '>=', Carbon::now()->subMonths(3))
+            ->groupBy('created_at')
+            ->get([
+                DB::raw('DATE( created_at ) as date'),
+                DB::raw('COUNT( * ) as "count"'),
+            ])
+            ->pluck('count', 'date');
 
         $fromDate = $dateThreeMonthsAgo;
         $toDate = Carbon::now();
@@ -98,20 +97,19 @@ class AdminAreaDashboard extends Component
 
         $resultData = [];
         foreach ($period as $dt) {
-            $loopDate = $dt->format("Y-m-d");
+            $loopDate = $dt->format('Y-m-d');
             if (array_key_exists($loopDate, $postsGroupedCounted)) {
                 $resultData[$loopDate] = $postsGroupedCounted[$loopDate];
-            }
-            else {
+            } else {
                 $resultData[$loopDate] = 0;
             }
         }
 
         $this->postsCreatedByDateChart =
             (new LineChartModel())
-                ->setTitle('Number of created Posts (last three months)')
-                ->setGridVisible(true)
-                ->setSmoothCurve();
+            ->setTitle('Number of created Posts (last three months)')
+            ->setGridVisible(true)
+            ->setSmoothCurve();
 
         foreach ($resultData as $date => $numberOfPosts) {
             $this->postsCreatedByDateChart->addPoint($date, $numberOfPosts);
@@ -127,8 +125,7 @@ class AdminAreaDashboard extends Component
 
         $colors = ['#90cdf4', '#f6ad55', '#fc8181', '#62de76', '#f1f2de'];
 
-        foreach ($users as $key => $user)
-        {
+        foreach ($users as $key => $user) {
             $macro->addSlice($user->name, (float) $user->posts_count, $colors[$key]);
         }
 
@@ -144,27 +141,24 @@ class AdminAreaDashboard extends Component
 
         $colors = ['#90cdf4', '#f6ad55', '#fc8181', '#62de76', '#f1f2de'];
 
-        foreach ($users as $key =>  $user)
-        {
+        foreach ($users as $key =>  $user) {
             $macro->addSlice($user->name, (float) $user->post_replies_count, $colors[$key]);
         }
 
         $this->topFiveUsersRepliesChart = $macro;
-
     }
 
     private function prepareLastSixMonthChart()
     {
         $this->lastSixMonthChart =
             (new LineChartModel())
-                ->setTitle('Last Six Month')
-                ->multiLine()
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
+            ->setTitle('Last Six Month')
+            ->multiLine()
+            ->withoutLegend()
+            ->setDataLabelsEnabled(true);
 
         $j = 5;
         for ($i = 0; $i <= 5; $i++) {
-
             $month = Carbon::now()->subMonths($j);
 
             $postsInMonth = Post::whereDate('created_at', '>=', $month)->count();
