@@ -60,11 +60,10 @@
                     </div>
                     {{-- end show all uploads to this post --}}
                 </div>
-
+<hr>
                 <h1>{{ __('Replies') }}:</h1>
-                <hr>
+               
                 <!-- begin show PostReplies -->
-
                 @can('create post replies')
                 <div>
                     <form action="{{ route('replies.store', $post) }}" method="POST">
@@ -82,13 +81,12 @@
                         @csrf
                         <div class="form-group p-2">
                             <label for="postContent">{{ __('Write your reply:') }}:</label><br>
-                            <textarea class="w-100 disabled-reply" disabled placeholder="Login to leave a reply"></textarea>
+                            <textarea class="w-100 disabled-reply" disabled placeholder="{{ __( 'Login to leavea reply') }}"></textarea>
                         </div>
-                        <button disabled type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Reply</button>
+                        <button disabled type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Create Reply') }}</button>
                     </form>
                 </div>
                 @endcan
-
                 <div class="card-text">
                     <ul class="row my-2 p-2 no-gutters">
                         @forelse ($replies as $reply)
@@ -161,14 +159,13 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title" id="deleteReplyModalLabel">{{__('Delete This Reply?') }}</h4>
+                                                <h4 class="modal-title" id="deleteReplyModalLabel">{{ __('Delete this reply') }}?</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>{{$reply->content}}<br><small>by: {{$reply->user->username}}</small></p>
+                                                <p>{{$reply->content}}<br><small>{{ __('by') }}: {{$reply->user->username}}</small></p>
                                             </div>
                                             <div class="modal-footer">
-
                                                 <form action="{{ route('replies.destroy', ['postReply' => $reply ]) }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
@@ -184,7 +181,7 @@
                                 <!-- end delete reply modaL -->
 
                                 {{-- show reply to reply --}}
-                                <br>
+                            
                                 <x-replies :reply="$reply" :post="$post" />
 
                                 <!-- Begin post reply Modal -->
@@ -223,31 +220,7 @@
                 </div>
                 <!-- end show PostReplies -->
 
-                <!-- begin post reply form -->
-                @can('create post replies')
-                    <div>
-                        <form action="{{ route('replies.store', $post) }}" method="POST">
-                            @csrf
-                            <div class="form-group p-2">
-                                <label for="postContent"> {{ __('Write your reply') }}:</label>
-                                <x-easy-mde class="w-100" name="content" :options="['hideIcons' => ['image'], 'minHeight' => '150px']"/>
-                            </div>
-                            <button type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Create Reply') }}</button>
-                        </form>
-                    </div>
-                @else
-                    <div>
-                        <form action="{{ route('replies.store', $post) }}" method="POST">
-                            @csrf
-                            <div class="form-group p-2">
-                                <label for="postContent">{{ __('Write your reply') }}:</label><br>
-                                <textarea class="w-100 disabled-reply" disabled placeholder="Login to leave a reply"></textarea>
-                            </div>
-                            <button disabled type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Create Reply') }}</button>
-                        </form>
-                    </div>
-                @endcan
-                <!-- end post reply form-->
+
 
             </div>
         </div>
@@ -258,12 +231,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="deletePostModalLabel">{{__('Delete This Post?') }}</h4>
+                <h4 class="modal-title" id="deletePostModalLabel">{{__('Delete this post') }}?</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-                <p>{{$post->title}}<br><small>by: {{$post->user->name}} </small> </p>
-                <p>There are <strong>{{count($replies)}}</strong> replies to this post. Deleting this post will also delete all replies, uploads and comments associated with it.</p>
+                <p>{{$post->title}}<br><small>{{ __('by') }}: {{$post->user->name}} </small> </p>
+                <p>{{ __('There are') }} <strong>{{count($replies)}}</strong> {{ __('replies to this post. Deleting this post will also delete all replies, uploads and comments associated with it.') }}</p>
             </div>
             <div class="modal-footer">
                 <form action="{{ route('posts.destroy', $post) }}" method="POST">
@@ -286,7 +259,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="editPostModalLabel">{{__('Edit Post') }}</h4>
+                <h4 class="modal-title" id="editPostModalLabel">{{ __('Edit Post') }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <form action="{{ route('posts.update', $post->id) }}" method="POST">
@@ -295,7 +268,7 @@
 
                 <div class="modal-body">
                     <div class="form-group p-2">
-                        <label for="postTitle">Title</label>
+                        <label for="postTitle">{{ __('Title') }}</label>
                         <input wire:model="title" type="text" value="{{ old('title', $post->title) }}" class="form-control" id="postTitle" name="title" placeholder="Post title" >
                       </div>
                     <x-easy-mde name="content" :options="['hideIcons' => ['image']]">

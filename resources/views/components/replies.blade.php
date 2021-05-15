@@ -88,11 +88,11 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="deleteReplyModalLabel">{{__('Delete This Reply?') }}</h4>
+                            <h4 class="modal-title" id="deleteReplyModalLabel">{{__('Delete this reply') }}?</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
-                            <p>{{$reply->content}}<br><small>by: {{$reply->user->username}}</small></p>
+                            <p>{{$reply->content}}<br><small>{{ __('by') }}: {{$reply->user->username}}</small></p>
                         </div>
                         <div class="modal-footer">
 

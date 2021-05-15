@@ -205,7 +205,7 @@
 	"Delete this Category": "Kategorie löschen",
 	"Delete this User": "Benutzer löschen",
 	"Delete": "Löschen",
-    "Delete this Post": "Post löschen",
+    "Delete this Post": "Beitrag löschen",
 	"Denmark": "Dänemark",
 	"Description": "Beschreibung",
 	"Detach Resource": "Ressource abtrennen",
@@ -883,5 +883,15 @@
 	"total": "gesamt",
 	"updated at": "aktualisiert am",
 	"updated": "aktualisiert",
-	"uploaded files": "hochgeladene Dateien"
+	"uploaded files": "hochgeladene Dateien",
+	"Show deleted Posts": "zeige gelöschte Beiträge",
+	"There are": "Es gibt",
+	"replies to this post. Deleting this post will also delete all replies, uploads and comments associated with it.": "Antworten auf diesen Beitrag. Wenn du diesen Betirag löscht werden auch alle Antworten, Bilder, Dateien und Kommentare gelöscht.",
+	"Restore this Post": "Beitrag wiederherstellen",
+	"Login to leavea reply": "Du musst angemeldet sein um Antworten zu posten.",
+	"Edit Post": "Beitrag bearbeiten",
+	"Delete this post": "Beitrag löschen",
+	"Edit Reply": "Kommentar bearbeiten",
+	"Delete this reply": "Kommentar löschen"
+	
 }

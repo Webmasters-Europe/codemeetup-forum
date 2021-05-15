@@ -7,7 +7,7 @@
             <div class="custom-control custom-switch">
                 <input wire:model="showDeletedPosts" wire:click="resetPaginatorPage" type="checkbox" class="custom-control-input"
                     id="showDeletedPosts" name="showDeletedPosts" />
-                <label class="custom-control-label" for="showDeletedPosts">Show deleted Posts</label>
+                <label class="custom-control-label" for="showDeletedPosts">{{ __('Show deleted Posts') }}</label>
             </div>
 
             <!-- features are not yet implemented
@@ -26,17 +26,17 @@
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th>Id</th>
-                        <th wire:click="sortBy('category_id')" style="cursor: pointer;">Category @include('components.sort_icon',['field' => 'category_id'])</td>
-                        <th wire:click="sortBy('title')" style="cursor: pointer;">Title @include('components.sort_icon',['field' => 'title'])</th>
-                        <th wire:click="sortBy('user_id')" style="cursor: pointer;">User @include('components.sort_icon',['field' => 'user_id'])</th>
-                        <th wire:click="sortBy('reply_count')" style="cursor: pointer;">Replies @include('components.sort_icon',['field' => 'reply_count'])</th>
-                        <th wire:click="sortBy('created_at')" style="cursor: pointer;">created @include('components.sort_icon',['field' => 'created_at'])</th>
-                        <th wire:click="sortBy('updated_at')" style="cursor: pointer;">updated @include('components.sort_icon',['field' => 'updated_at'])</th>
+                        <th>{{ __('Id') }}</th>
+                        <th wire:click="sortBy('category_id')" style="cursor: pointer;">{{ __('Category') }} @include('components.sort_icon',['field' => 'category_id'])</td>
+                        <th wire:click="sortBy('title')" style="cursor: pointer;">{{ __('Title') }} @include('components.sort_icon',['field' => 'title'])</th>
+                        <th wire:click="sortBy('user_id')" style="cursor: pointer;">{{ __('User') }} @include('components.sort_icon',['field' => 'user_id'])</th>
+                        <th wire:click="sortBy('reply_count')" style="cursor: pointer;">{{ __('Replies') }} @include('components.sort_icon',['field' => 'reply_count'])</th>
+                        <th wire:click="sortBy('created_at')" style="cursor: pointer;">{{ __('created') }} @include('components.sort_icon',['field' => 'created_at'])</th>
+                        <th wire:click="sortBy('updated_at')" style="cursor: pointer;">{{ __('updated') }} @include('components.sort_icon',['field' => 'updated_at'])</th>
                         @if($showDeletedPosts)
-                        <th wire:click="sortBy('deleted_at')" style="cursor: pointer;">deleted @include('components.sort_icon',['field' => 'deleted_at'])</th>
+                        <th wire:click="sortBy('deleted_at')" style="cursor: pointer;">{{ __('deleted') }} @include('components.sort_icon',['field' => 'deleted_at'])</th>
                         @endif
-                        <th>Action</th>
+                        <th>{{ __('Action') }}</th>
                     </tr>
 
                     @foreach ($posts as $post)
@@ -84,7 +84,7 @@
 
         <div class="row mt-4">
             <div class="col-sm-6 offset-5">
-                {{ $posts->firstItem()}} - {{ $posts->lastItem() }} from {{ $posts->total() }} results
+                {{ $posts->firstItem()}} - {{ $posts->lastItem() }} {{ __('from') }} {{ $posts->total() }}
                 {{ $posts->links() }}
             </div>
         </div>
@@ -103,13 +103,13 @@
             </div>
 
             <div class="modal-body">
-                <p>{{ __('Title') }}: {{ $title }}<br><small>by: {{ $userName }}</small></p>
-                <p>There are <strong>{{$replyCount}}</strong> replies to this post. Deleting this post will also delete all replies, uploads and comments associated with it.</p>
+                <p>{{ __('Title') }}: {{ $title }}<br><small>{{ __('by') }}: {{ $userName }}</small></p>
+                <p>{{ __('There are') }} <strong>{{$replyCount}}</strong> {{ __('replies to this post. Deleting this post will also delete all replies, uploads and comments associated with it.') }}</p>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                <button type="submit" class="btn btn-danger">{{ __('Yes, Delete') }}</button>
             </div>
         </div>
     </form>
@@ -123,18 +123,18 @@
         @csrf
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="restoreModelInstanceModalLabel">Restore this Post?</h4>
+                <h4 class="modal-title" id="restoreModelInstanceModalLabel">{{ __('Restore this Post') }}?</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Title: {{ $title }}<br><small>by: {{ $userName }}</small></p>
+                <p>{{ __('Title') }}: {{ $title }}<br><small>{{ __('by') }}: {{ $userName }}</small></p>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-success">Yes, Restore</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                <button type="submit" class="btn btn-success">{{ __('Yes, Restore') }}</button>
             </div>
         </div>
     </form>
