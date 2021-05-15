@@ -10,13 +10,13 @@ use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use function Ramsey\Uuid\v1;
 
 class AdminAreaDashboard extends Component
 {
-    private $numberOfEntitiesChart;
+    private $numberOfEntitiesOverallChart;
     private $postsCreatedByDateChart;
     private $topFiveUsersPostsChart;
     private $topFiveUsersRepliesChart;
@@ -25,18 +25,18 @@ class AdminAreaDashboard extends Component
 
     public function mount()
     {
-        $this->prepareNumberOfEntitiesChart();
+        $this->prepareNumberOfEntitiesOverallChart();
+        $this->prepareNumberOfEntitiesCurrentMonthChart();
         $this->preparePostsGroupedByCreationDateChart();
         $this->prepareTopFiveUsersPostsChart();
         $this->prepareTopFiveUsersRepliesChart();
         $this->prepareLastSixMonthChart();
-        $this->prepareMonthChart();
     }
 
     public function render()
     {
         return view('livewire.admin-area-dashboard', [
-            'numberOfEntitiesChart' => $this->numberOfEntitiesChart,
+            'numberOfEntitiesChart' => $this->numberOfEntitiesOverallChart,
             'postsCreatedByDateChart' => $this->postsCreatedByDateChart,
             'topFiveUsersPostsChart' => $this->topFiveUsersPostsChart,
             'topFiveUsersRepliesChart' => $this->topFiveUsersRepliesChart,
@@ -45,108 +45,133 @@ class AdminAreaDashboard extends Component
         ]);
     }
 
-    private function prepareNumberOfEntitiesChart()
+    private function prepareNumberOfEntitiesOverallChart()
     {
-        $this->numberOfEntitiesChart =
+        $this->numberOfEntitiesOverallChart =
             (new ColumnChartModel())
-                ->setTitle('Number of entities')
-                ->addColumn('User', User::all()->count(), '#90cdf4')
-                ->addColumn('Categories', Category::all()->count(), '#f6ad55')
-                ->addColumn('Posts', Post::all()->count(), '#fc8181')
-                ->addColumn('Replies', PostReply::all()->count(), '#62de76')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
+            ->setTitle('Number of entities overall')
+            ->addColumn('Users', User::count(), '#90cdf4')
+            ->addColumn('Categories', Category::count(), '#f6ad55')
+            ->addColumn('Posts', Post::count(), '#fc8181')
+            ->addColumn('Replies', PostReply::count(), '#62de76')
+            ->withoutLegend()
+            ->setDataLabelsEnabled(true);
+    }
+
+    private function prepareNumberOfEntitiesCurrentMonthChart()
+    {
+        $usersCreatedInCurrentMonth = User::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->count();
+
+        $categoriesCreatedInCurrentMonth = Category::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->count();
+
+        $postsCreatedInCurrentMonth = Post::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->count();
+
+        $postRepliesCreatedInCurrentMonth = PostReply::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->count();
+
+        $this->monthChart =
+            (new ColumnChartModel())
+            ->setTitle('Entities created this month')
+            ->addColumn('Users', $usersCreatedInCurrentMonth, '#90cdf4')
+            ->addColumn('Categories', $categoriesCreatedInCurrentMonth, '#f6ad55')
+            ->addColumn('Posts', $postsCreatedInCurrentMonth, '#fc8181')
+            ->addColumn('Replies', $postRepliesCreatedInCurrentMonth, '#62de76')
+            ->withoutLegend()
+            ->setDataLabelsEnabled(true);
     }
 
     private function preparePostsGroupedByCreationDateChart()
     {
-        $postsGroupedByCreationDate = DB::table('posts')
-            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") AS day')
-            ->selectRaw('count(*) AS total')
-            ->whereRaw('created_at >= DATE(NOW() - INTERVAL 3 MONTH)')
-            ->groupBy('day')
-            ->pluck('total', 'day')
-            ->toArray();
+        $dateThreeMonthsAgo = Carbon::now()->subMonths(3);
+
+        $postsGroupedCounted = Post::where('created_at', '>=', Carbon::now()->subMonths(3))
+            ->groupBy('created_at')
+            ->get([
+                DB::raw('DATE( created_at ) as date'),
+                DB::raw('COUNT( * ) as "count"'),
+            ])
+            ->pluck('count', 'date')->toArray();
+
+        $fromDate = $dateThreeMonthsAgo;
+        $toDate = Carbon::now();
+        $period = CarbonPeriod::create($fromDate, '1 day', $toDate);
+
+        $resultData = [];
+        foreach ($period as $dt) {
+            $loopDate = $dt->format('Y-m-d');
+            if (array_key_exists($loopDate, $postsGroupedCounted)) {
+                $resultData[$loopDate] = $postsGroupedCounted[$loopDate];
+            } else {
+                $resultData[$loopDate] = 0;
+            }
+        }
 
         $this->postsCreatedByDateChart =
             (new LineChartModel())
-                ->setTitle('Number of created Posts (last three months)')
-                ->setGridVisible(true)
-                ->setSmoothCurve();
+            ->setTitle('Number of created Posts (last three months)')
+            ->setGridVisible(true)
+            ->setSmoothCurve();
 
-        foreach ($postsGroupedByCreationDate as $date => $numberOfPosts) {
+        foreach ($resultData as $date => $numberOfPosts) {
             $this->postsCreatedByDateChart->addPoint($date, $numberOfPosts);
         }
     }
 
     private function prepareTopFiveUsersPostsChart()
     {
-        $users = User::with('posts')->withCount('posts')
-                    ->has('posts')
-                    ->orderByDesc('posts_count')
-                    ->limit(5)
-                    ->get();
-        $users->toArray();
+        $users = User::withCount('posts')->orderBy('posts_count', 'DESC')->limit(5)->get();
 
-        $this->topFiveUsersPostsChart =
-            (new PieChartModel())
-                ->setTitle('Top 5 Users - Most Posts')
-                ->addSlice($users[0]->name, $users[0]->posts_count, '#90cdf4')
-                ->addSlice($users[1]->name, $users[1]->posts_count, '#f6ad55')
-                ->addSlice($users[2]->name, $users[2]->posts_count, '#fc8181')
-                ->addSlice($users[3]->name, $users[3]->posts_count, '#62de76')
-                ->addSlice($users[4]->name, $users[4]->posts_count, '#f1f2de')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
+        $macro = (new PieChartModel())->setTitle('Top 5 Users - Most Posts')->withoutLegend()
+            ->setDataLabelsEnabled(true);
+
+        $colors = ['#90cdf4', '#f6ad55', '#fc8181', '#62de76', '#f1f2de'];
+
+        foreach ($users as $key => $user) {
+            $macro->addSlice($user->name, (float) $user->posts_count, $colors[$key]);
+        }
+
+        $this->topFiveUsersPostsChart = $macro;
     }
 
     private function prepareTopFiveUsersRepliesChart()
     {
-        $replies = DB::table('post_replies')
-            ->selectRaw('user_id, COUNT(*) AS number_replies')
-            ->groupBy('user_id')
-            ->orderBy('number_replies', 'DESC')
-            ->get()
-            ->toArray();
+        $users = User::withCount('postReplies')->orderBy('post_replies_count', 'DESC')->limit(5)->get();
 
-        $this->topFiveUsersRepliesChart =
-            (new PieChartModel())
-                ->setTitle('Top 5 Users - Most Replies')
-                ->addSlice(User::find($replies[0]->user_id)->name, $replies[0]->number_replies, '#90cdf4')
-                ->addSlice(User::find($replies[1]->user_id)->name, $replies[1]->number_replies, '#f6ad55')
-                ->addSlice(User::find($replies[2]->user_id)->name, $replies[2]->number_replies, '#fc8181')
-                ->addSlice(User::find($replies[3]->user_id)->name, $replies[3]->number_replies, '#62de76')
-                ->addSlice(User::find($replies[4]->user_id)->name, $replies[4]->number_replies, '#f1f2de')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
+        $macro = (new PieChartModel())->setTitle('Top 5 Users - Most Replies')->withoutLegend()
+            ->setDataLabelsEnabled(true);
+
+        $colors = ['#90cdf4', '#f6ad55', '#fc8181', '#62de76', '#f1f2de'];
+
+        foreach ($users as $key =>  $user) {
+            $macro->addSlice($user->name, (float) $user->post_replies_count, $colors[$key]);
+        }
+
+        $this->topFiveUsersRepliesChart = $macro;
     }
 
     private function prepareLastSixMonthChart()
     {
         $this->lastSixMonthChart =
             (new LineChartModel())
-                ->setTitle('Last Six Month')
-                ->multiLine()
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
+            ->setTitle('Last Six Month')
+            ->multiLine()
+            ->withoutLegend()
+            ->setDataLabelsEnabled(true);
 
+        $j = 5;
         for ($i = 0; $i <= 5; $i++) {
-            $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), Post::whereMonth('created_at', '=', $i)->count());
-            $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), PostReply::whereMonth('created_at', '=', $i)->count());
-            $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), User::whereMonth('created_at', '=', $i)->count());
-        }
-    }
+            $month = Carbon::now()->subMonths($j);
 
-    private function prepareMonthChart()
-    {
-        $this->monthChart =
-            (new ColumnChartModel())
-                ->setTitle('This month')
-                ->addColumn('User', User::whereMonth('created_at', '=', now()->month)->count(), '#90cdf4')
-                ->addColumn('Categories', Category::whereMonth('created_at', '=', now()->month)->count(), '#f6ad55')
-                ->addColumn('Posts', Post::whereMonth('created_at', '=', now()->month)->count(), '#fc8181')
-                ->addColumn('Replies', PostReply::whereMonth('created_at', '=', now()->month)->count(), '#62de76')
-                ->withoutLegend()
-                ->setDataLabelsEnabled(true);
+            $postsInMonth = Post::whereDate('created_at', '>=', $month)->count();
+
+            $postRepliesInMonth = PostReply::whereDate('created_at', '>=', $month)->count();
+
+            $usersInMonth = User::whereDate('created_at', '>=', $month)->count();
+
+            $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), $postsInMonth);
+            $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), $postRepliesInMonth);
+            $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), $usersInMonth);
+
+            $j--;
+        }
     }
 }
