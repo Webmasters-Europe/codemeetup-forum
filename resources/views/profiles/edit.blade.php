@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="form-group p-2">
-                            <a href="{{ route('users.reset_avatar', $user) }}" class="text-danger">Reset profile picture?</a>
+                            <a href="{{ route('users.reset_avatar', $user) }}" class="btn">Reset profile picture?</a>
                         </div>
 
                     </div>
