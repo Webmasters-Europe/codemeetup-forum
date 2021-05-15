@@ -82,7 +82,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect()->route('home')->withStatus('Profile successfully updated.');
+        return redirect()->route('home')->withStatus(__('Profile successfully updated.'));
     }
 
     public function reset_avatar()
@@ -95,6 +95,6 @@ class UserController extends Controller
             'avatar' => null,
         ]);
 
-        return redirect()->route('home')->withStatus('Avatar successfully set to default picture.');
+        return redirect()->route('home')->withStatus(__('Avatar successfully set to default picture.'));
     }
 }

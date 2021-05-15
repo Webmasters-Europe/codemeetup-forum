@@ -47,7 +47,7 @@ textarea {
 input:focus,
 input.form-control:focus,
 textarea:focus {
-    outline:none !important;
+    outline: none !important;
     outline-width: 0 !important;
     box-shadow: none;
     -moz-box-shadow: none;
@@ -103,8 +103,7 @@ textarea:focus {
 }
 
 #footer a:hover {
-    background: rgba(255,255,255,0.2);
-
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Search */

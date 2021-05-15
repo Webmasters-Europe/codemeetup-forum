@@ -4,11 +4,11 @@
         $email_contact = config('app.settings.email_contact_page');
       @endphp
 
-      <a class="px-5 py-3" href="{{ route('imprint')}}">Impressum</a> 
-      <span class="px-5 py-3">&copy @php echo date("Y"); @endphp by {{ config('app.settings.copyright') }}</span>
+      <a class="px-5 py-3" href="{{ route('imprint')}}">{{ __('Imprint') }}</a> 
+      <span class="px-5 py-3">&copy @php echo date("Y"); @endphp {{ __('by') }} {{ config('app.settings.copyright') }}</span>
       
       @if($email_contact)
-        <a class="px-5 py-3" href="{{ route('contact') }}">Kontakt</a>
+        <a class="px-5 py-3" href="{{ route('contact') }}">{{ __('Contact') }}</a>
       @endif
       
   </div>

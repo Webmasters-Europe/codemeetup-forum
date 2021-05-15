@@ -4,7 +4,7 @@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url('/') }}">{{ __('Home') }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ $user->username }}</li>
     </ol>
 </nav>
@@ -19,12 +19,12 @@
             @endif
             <div class="card-body">
                 <h5 class="card-title">{{ $user->username }}</h5>
-                <p class="card-text">E-mail: {{ $user->email }} </p>
-                <p class="card-text">Name: {{ $user->name }} </p>
+                <p class="card-text">{{ __('E-Mail') }}: {{ $user->email }} </p>
+                <p class="card-text">{{ __('Name') }}: {{ $user->name }} </p>
                 @can('edit own profile')
                     @if(auth()->user()->is($user))
                         <div>
-                            <a href="{{ route('users.edit', $user) }}" type="button" class="btn btn-block m-0 mt-4" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Edit Your Profile</a>
+                            <a href="{{ route('users.edit', $user) }}" type="button" class="btn btn-block m-0 mt-4" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Edit Your Profile') }}</a>
                         </div>
                     @endif
                 @endcan
@@ -34,7 +34,7 @@
     <div class="col-md-8">
         @if(auth()->check() && auth()->user()->is($user))
         <div class="card mb-4">
-            <h5 class="card-header">Notifications of {{ $user->username }}</h5>
+            <h5 class="card-header">{{ __('Notifications of') }} {{ $user->username }}</h5>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     @forelse ($notifications as $notification)
@@ -44,13 +44,13 @@
                             <a href="{{ route('posts.show', $notification->data['postReply']['post_id']) }}" class="btn btn-sm bg-info text-white">View</a>
                         </li>
                     @empty
-                        <p>No Notification.</p>
+                        <p>{{ __('No Notifications.') }}</p>
                     @endforelse
                 </ul>
             </div>
             <div class="card-footer">
                 @if ($notifications->isNotEmpty())
-                    {{ $notifications->firstItem()}} - {{ $notifications->lastItem() }} from {{ $notifications->total() }} results
+                    {{ $notifications->firstItem()}} - {{ $notifications->lastItem() }} {{ __('from') }} {{ $notifications->total() }}
                     {{ $notifications->links() }}
                 @endif
             </div>
@@ -59,44 +59,44 @@
 
 
         <div class="card">
-            <h5 class="card-header">Posts of {{ $user->username }}</h5>
+            <h5 class="card-header">{{ __('Posts of') }} {{ $user->username }}</h5>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     @forelse ($posts as $post)
                         <li class="list-group-item">
                             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a> <br>
-                            <span class="small">created {{ $post->created_at }}</span> |
-                            <span class="small">{{ $post->uploads->count() }} uploaded files</span>
+                            <span class="small">{{ __('created') }} {{ $post->created_at }}</span> |
+                            <span class="small">{{ $post->uploads->count() }} {{ __('uploaded files') }}</span>
                         </li>
                     @empty
-                        <p>No Posts.</p>
+                        <p>{{ __('No Posts.') }}</p>
                     @endforelse
                 </ul>
             </div>
             <div class="card-footer">
                 @if ($posts->isNotEmpty())
-                    {{ $posts->firstItem()}} - {{ $posts->lastItem() }} from {{ $posts->total() }} results
+                    {{ $posts->firstItem()}} - {{ $posts->lastItem() }} {{ __('from') }} {{ $posts->total() }}
                     {{ $posts->links() }}
                 @endif
             </div>
         </div>
         <div class="card my-4">
-            <h5 class="card-header">Replies of {{ $user->username }}</h5>
+            <h5 class="card-header">{{ __('Replies of') }} {{ $user->username }}</h5>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     @forelse ($replies as $reply)
                         <li class="list-group-item">
                             <a href="{{ route('posts.show', $reply->post_id) }}">{{ str_limit($reply->content, 100) }}</a> <br>
-                            <span class="small">created {{ $reply->created_at }}</span>
+                            <span class="small">{{ __('created') }} {{ $reply->created_at }}</span>
                         </li>
                     @empty
-                        <p>No Replies.</p>
+                        <p>{{ __('No Replies.') }}</p>
                     @endforelse
                 </ul>
             </div>
             <div class="card-footer">
                 @if ($replies->isNotEmpty())
-                    {{ $replies->firstItem()}} - {{ $replies->lastItem() }} from {{ $replies->total() }} results
+                    {{ $replies->firstItem()}} - {{ $replies->lastItem() }} {{ __('from') }} {{ $replies->total() }}
                     {{ $replies->links() }}
                 @endif
             </div>

@@ -83,7 +83,7 @@ class AdminAreaUsers extends TableComponent
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
         $this->resetFormFields();
 
-        session()->flash('status', 'User successfully deleted.');
+        session()->flash('status', __('User successfully deleted.'));
 
         return redirect()->route('admin-area.users');
     }
@@ -92,7 +92,7 @@ class AdminAreaUsers extends TableComponent
     {
         User::onlyTrashed()->findOrFail($this->selectedModelInstance)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
-        session()->flash('status', 'User successfully restored.');
+        session()->flash('status', __('User successfully restored.'));
 
         return redirect()->route('admin-area.users');
     }
@@ -124,7 +124,7 @@ class AdminAreaUsers extends TableComponent
         $this->dispatchBrowserEvent('closeUpdateModelInstanceModal');
         $this->resetFormFields();
 
-        session()->flash('status', 'Roles of '.$user->username.' successfully updated.');
+        session()->flash('status', __('Roles of ').$user->username.__(' successfully updated.'));
 
         return redirect()->route('admin-area.users');
     }

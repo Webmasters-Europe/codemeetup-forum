@@ -10,6 +10,15 @@
                             <img src="{{ asset('icons/codemeetup.png') }}" height="50px">
                         @endif
                         {{ config('app.settings.forum_name') }}</a>
+                        <ul class="nav pt-3">
+                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <li class"nav-item">
+                                    <a class="p-2 nav-link @if(LaravelLocalization::getCurrentLocaleName() === $properties['name']) active disabled @endif" style="color: {{ config('app.settings.button_text_color') }};" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{ $properties['native'] }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     <button id="collapse-search-button" class="btn d-lg-none" type="button" data-toggle="collapse" data-target="#searchbar" aria-expanded="false" aria-controls="searchbar">
                         <i class="fas fa-search fa-2x"></i>
                     </button>

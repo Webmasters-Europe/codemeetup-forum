@@ -4,7 +4,7 @@
 
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('/') }}">{{ __('Home') }}</a></li>
             <li class="breadcrumb-item"><a href="{{ route('category.show', $post->category->id) }}">{{ $post->category->name}}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $post->title }}</li>
         </ol>
@@ -15,8 +15,8 @@
                 <h1 class="card-title">{{ $post->title }}</h1>
                 <div class="card-subtitle mb-2 text-muted">
                     <span class="text-muted">
-                        by
-                        @if ($post->user->trashed()) <i>deleted user:</i>
+                        __('by')
+                        @if ($post->user->trashed()) <i>__('a deleted user'):</i>
                         @else <strong><a href=" {{ route('users.show', $post->user) }}">{{$post->user->username}}</a></strong>
                         @endif
                     </span>
@@ -42,18 +42,18 @@
                     @markdown($post->content)
                     {{-- begin show all uploads to this post --}}
                     <div>
-                        <p>Images:
+                        <p>{{ __('Images') }}:</p>
                         @forelse ($images as $image)
                             <img src="{{ asset('storage/'.$image->filename) }}" width="100" alt="">
                         @empty
-                            No uploded images for this post.
+                            {{ __('No uploded images for this post.') }}
                         @endforelse
                         </p>
-                        <ul>Files:
+                        <ul>__('Files'):
                             @forelse ($otherFiles as $otherFile)
                                 <li class="list-unstyled"><a href="{{ asset('storage/'.$otherFile->filename) }}">{{ basename($otherFile->filename) }}</a></li>
                             @empty
-                                <li class="list-unstyled">No uploded Files for this post.</li>
+                                <li class="list-unstyled">__('No uploded Files for this post.')</li>
                             @endforelse
                         </ul>
 
@@ -70,7 +70,7 @@
                     <form action="{{ route('replies.store', $post) }}" method="POST">
                         @csrf
                         <div class="form-group p-2">
-                            <label for="postContent">Write your reply:</label>
+                            <label for="postContent">__('Write your reply:')</label>
                             <x-easy-mde class="w-100" name="content" :options="['hideIcons' => ['image'], 'minHeight' => '150px']"/>
                         </div>
                         <button type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Reply</button>
@@ -81,7 +81,7 @@
                     <form action="{{ route('replies.store', $post) }}" method="POST">
                         @csrf
                         <div class="form-group p-2">
-                            <label for="postContent">Write your reply:</label><br>
+                            <label for="postContent">__('Write your reply:'):</label><br>
                             <textarea class="w-100 disabled-reply" disabled placeholder="Login to leave a reply"></textarea>
                         </div>
                         <button disabled type="submit" class="btn ml-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Create Reply</button>
@@ -95,7 +95,7 @@
 
                             <li class="list-unstyled border-bottom w-100">
                                 @if ($reply->user->trashed())
-                                    <i>deleted user:</i>
+                                    <i>__('deleted user'):</i>
                                 @else
                                     <strong><a href=" {{ route('users.show', $reply->user) }}">{{$reply->user->username}}</a></strong>:
                                 @endif

@@ -1,7 +1,7 @@
 <div class="d-flex">
 
     <div class="d-flex align-items-center ml-4">
-        <label for="paginate" class="text-nowrap mr-2 mb-0">Per Page</label>
+        <label for="paginate" class="text-nowrap mr-2 mb-0">{{ __('Per Page') }}</label>
         <select wire:model="paginate" name="paginate" id="paginate"
                 class="form-control form-control-sm">
             <option value="10">10</option>

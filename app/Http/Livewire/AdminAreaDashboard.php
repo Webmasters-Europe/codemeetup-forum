@@ -49,11 +49,11 @@ class AdminAreaDashboard extends Component
     {
         $this->numberOfEntitiesOverallChart =
             (new ColumnChartModel())
-            ->setTitle('Number of entities overall')
-            ->addColumn('Users', User::count(), '#90cdf4')
-            ->addColumn('Categories', Category::count(), '#f6ad55')
-            ->addColumn('Posts', Post::count(), '#fc8181')
-            ->addColumn('Replies', PostReply::count(), '#62de76')
+            ->setTitle(__('Number of entities'))
+            ->addColumn(__('Users'), User::count(), '#90cdf4')
+            ->addColumn(__('Categories'), Category::count(), '#f6ad55')
+            ->addColumn(__('Posts'), Post::count(), '#fc8181')
+            ->addColumn(__('Replies'), PostReply::count(), '#62de76')
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
     }
@@ -108,7 +108,7 @@ class AdminAreaDashboard extends Component
 
         $this->postsCreatedByDateChart =
             (new LineChartModel())
-            ->setTitle('Number of created Posts (last three months)')
+            ->setTitle(__('Number of created Posts (last three months)'))
             ->setGridVisible(true)
             ->setSmoothCurve();
 
@@ -121,7 +121,7 @@ class AdminAreaDashboard extends Component
     {
         $users = User::withCount('posts')->orderBy('posts_count', 'DESC')->limit(5)->get();
 
-        $macro = (new PieChartModel())->setTitle('Top 5 Users - Most Posts')->withoutLegend()
+        $macro = (new PieChartModel())->setTitle(__('Top 5 Users - Most Posts'))->withoutLegend()
             ->setDataLabelsEnabled(true);
 
         $colors = ['#90cdf4', '#f6ad55', '#fc8181', '#62de76', '#f1f2de'];
@@ -137,7 +137,7 @@ class AdminAreaDashboard extends Component
     {
         $users = User::withCount('postReplies')->orderBy('post_replies_count', 'DESC')->limit(5)->get();
 
-        $macro = (new PieChartModel())->setTitle('Top 5 Users - Most Replies')->withoutLegend()
+        $macro = (new PieChartModel())->setTitle(__('Top 5 Users - Most Replies'))->withoutLegend()
             ->setDataLabelsEnabled(true);
 
         $colors = ['#90cdf4', '#f6ad55', '#fc8181', '#62de76', '#f1f2de'];
@@ -153,7 +153,7 @@ class AdminAreaDashboard extends Component
     {
         $this->lastSixMonthChart =
             (new LineChartModel())
-            ->setTitle('Last Six Month')
+            ->setTitle(__('śast Six Month'))
             ->multiLine()
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
@@ -168,9 +168,9 @@ class AdminAreaDashboard extends Component
 
             $usersInMonth = User::whereDate('created_at', '>=', $month)->count();
 
-            $this->lastSixMonthChart->addSeriesPoint('Posts', date('M', mktime(null, null, null, $i)), $postsInMonth);
-            $this->lastSixMonthChart->addSeriesPoint('Replies', date('M', mktime(null, null, null, $i)), $postRepliesInMonth);
-            $this->lastSixMonthChart->addSeriesPoint('User Registrations', date('M', mktime(null, null, null, $i)), $usersInMonth);
+            $this->lastSixMonthChart->addSeriesPoint(__('Posts'), date('M', mktime(null, null, null, $i)), $postsInMonth);
+            $this->lastSixMonthChart->addSeriesPoint(__('Replies'), date('M', mktime(null, null, null, $i)), $postRepliesInMonth);
+            $this->lastSixMonthChart->addSeriesPoint(__('User Registrations'), date('M', mktime(null, null, null, $i)), $usersInMonth);
 
             $j--;
         }

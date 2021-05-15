@@ -11,24 +11,24 @@
                          alt="Avatar von  {{ auth()->user()->username }}">
                 @endif
                 <div class="ml-4" id="user-profile-text">
-                    <h5>Name: <strong>{{ auth()->user()->name }}</strong></h5>
-                    <h5>Username: <strong>{{ auth()->user()->username }}</strong></h5>
-                    <h5>Unread Notifications: <a href="{{ route('users.show', auth()->user() ) }}" class="badge text-white">{{ auth()->user()->unreadNotifications->count() }}</a></h5>
+                    <h5>{{ __('Name') }}: <strong>{{ auth()->user()->name }}</strong></h5>
+                    <h5>{{ __('Username') }}: <strong>{{ auth()->user()->username }}</strong></h5>
+                    <h5>{{ __('Unread Notifications') }}: <a href="{{ route('users.show', auth()->user() ) }}" class="badge text-white">{{ auth()->user()->unreadNotifications->count() }}</a></h5>
                 </div>
             </div>
 
             <a href="{{ route('users.show', auth()->user() ) }}" type="button"
-               class="btn btn-block m-0 mb-2 py-2">Profile</a>
+               class="btn btn-block m-0 mb-2 py-2">{{ __('Profile') }}</a>
 
             @can('access admin area')
                 <a href="{{ route('admin-area.dashboard') }}" type="button"
-                   class="btn btn-block m-0 mb-2 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Admin Area</a>
+                   class="btn btn-block m-0 mb-2 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Admin Area') }}</a>
             @endcan
 
             <form action="{{ route('logout') }}" method="POST" class="w-100">
                 @csrf
 
-                <button type="submit" class="btn btn-block m-0 mb-2 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button type="submit" class="btn btn-block m-0 mb-2 py-2" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};"><i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}</button>
 
             </form>
 
@@ -44,7 +44,7 @@
                     <div class="form-group row m-0 py-2">
 
                         <input id="login" type="text" class="form-control @error('username') {{ old('login-form') ? "is-invalid" : ""}} @enderror"
-                               name="login" value="{{ old('login-form') ? old('login') : ""}}" placeholder='Username or E-Mail' required
+                               name="login" value="{{ old('login-form') ? old('login') : ""}}" placeholder='{{ __('Username or E-Mail') }}' required
                                autocomplete="login" autofocus>
 
                         @if(old('login-form'))
@@ -61,7 +61,7 @@
                         <input id="password-login" type="password"
                                class="form-control @error('password') {{ old('login-form') ? "is-invalid" : ""}} @enderror"
                                minlength="8"
-                               name="password" placeholder='Password' required autocomplete="current-password">
+                               name="password" placeholder='{{ __('Password') }}' required autocomplete="current-password">
 
                         @if(old('login-form'))
                             @error('password')
@@ -108,7 +108,7 @@
                     <div class="form-group row m-0 py-2">
 
                         <input id="name" type="text" class="form-control @error('name') {{ old('reg-form') ? "is-invalid" : ""}} @enderror"
-                               placeholder="Your name" name="name" value="{{ old('reg-form') ? old('name') : "" }}" required
+                               placeholder="{{ __('Your name') }}" name="name" value="{{ old('reg-form') ? old('name') : "" }}" required
                                autocomplete="name"
                                autofocus>
 
@@ -125,7 +125,7 @@
                     <div class="form-group row m-0 py-2">
 
                         <input id="username" type="text" class="form-control @error('username') {{ old('reg-form') ? "is-invalid" : ""}} @enderror"
-                               placeholder="Username" name="username" value="{{ old('reg-form') ? old('username') : "" }}" required
+                               placeholder="{{ __('Username') }}" name="username" value="{{ old('reg-form') ? old('username') : "" }}" required
                                autocomplete="username" autofocus>
 
                         @if(old('reg-form'))
@@ -140,7 +140,7 @@
                     <div class="form-group row m-0 py-2">
 
                         <input id="email" type="email" class="form-control @error('email') {{ old('reg-form') ? "is-invalid" : ""}} @enderror"
-                               placeholder="E-Mail" name="email" value="{{ old('reg-form') ? old('email') : "" }}" required
+                               placeholder="{{ __('E-Mail') }}" name="email" value="{{ old('reg-form') ? old('email') : "" }}" required
                                autocomplete="email">
 
                         @if(old('reg-form'))
@@ -157,7 +157,7 @@
                         <input id="password-registration" type="password"
                                class="form-control @error('password') {{ old('reg-form') ? "is-invalid" : ""}} @enderror"
                                minlength="8"
-                               placeholder="Password" name="password" required autocomplete="new-password">
+                               placeholder="{{ __('Password') }}" name="password" required autocomplete="new-password">
 
                         @if(old('reg-form'))
                             @error('password')
@@ -172,7 +172,7 @@
 
                         <input id="password-confirm" type="password" class="form-control"
                                minlength="8"
-                               placeholder="Confirm your password" name="password_confirmation" required
+                               placeholder="{{ __('Confirm your password') }}" name="password_confirmation" required
                                autocomplete="new-password">
 
                     </div>
@@ -190,17 +190,17 @@
 
                 <a class="btn btn-block btn-outline-dark outline-primary m-0 mb-2 py-2"
                    href="{{ route('oauth', ['provider' => 'google']) }}"><img src="{{ asset('icons/google.png') }}"
-                                                                              alt="google-icon"> Login with Google</a>
+                                                                              alt="google-icon"> {{ __('Login with Google') }}</a>
                 <a class="btn btn-block btn-outline-dark outline-primary m-0 mb-2 py-2"
                    href="{{ route('oauth', ['provider' => 'github']) }}"><img src="{{ asset('icons/github.png') }}"
-                                                                              alt="github-icon"> Login with Github</a>
+                                                                              alt="github-icon"> {{ __('Login with Github') }}</a>
 
             </div>
 
-            <a {{ count($errors) > 0 && old('reg-form') ? "hidden" : "" }} id="to-registration" onclick="toggleLoginRegistration()">I'm
-                not registered yet</a>
-            <a {{ count($errors) === 0 || $errors && old('login-form') ? "hidden" : "" }} id="to-login" onclick="toggleLoginRegistration()">I'm
-                already registered</a>
+            <a {{ count($errors) > 0 && old('reg-form') ? "hidden" : "" }} id="to-registration" onclick="toggleLoginRegistration()">
+                {{ __('I am not registered yet.') }}</a>
+            <a {{ count($errors) === 0 || $errors && old('login-form') ? "hidden" : "" }} id="to-login" onclick="toggleLoginRegistration()">
+                {{__('I am already registered.') }}</a>
 
 
         @endcan
