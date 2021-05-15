@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -65,13 +66,30 @@ class PostController extends Controller
         return view('posts.show', compact('post', 'images', 'otherFiles', 'replies'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect()->route('posts.show', $post)->withStatus('Post has been updated.');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('admin-area.posts')->withStatus('Post and all its followups have been deleted');
+    }
+
+
     private function isImage($file)
     {
         $info = pathinfo($file);
 
         return in_array(
             strtolower($info['extension']),
-            ['jpg', 'jpeg', 'gif', 'png', 'bmp']
+            ['jpg', 'jpeg', 'gif', 'png', 'bmp'],
         );
     }
 }

@@ -16,7 +16,9 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
+
         $numberCategories = config('app.settings.number_categories_startpage');
+        $category = Category::first();
 
         $categories = Category::orderBy('name')->paginate($numberCategories);
 

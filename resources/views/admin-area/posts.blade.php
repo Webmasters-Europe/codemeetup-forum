@@ -11,4 +11,8 @@
 
     <h1>{{ __('Administrate Posts') }}</h1>
 
+    @livewire('admin-area-posts')
+    
 @endsection
+
+<x-table-modal-event-listeners/>

@@ -17,9 +17,14 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['replyCount'];
-
     protected $softCascade = ['reply', 'uploads'];
+
+    protected $withCount = ['reply', 'repliesTrashed'];
+
+    public function repliesTrashed()
+    {
+        return $this->hasMany(PostReply::class)->whereNull('parent_id')->onlyTrashed();
+    }
 
     public function user()
     {
@@ -36,15 +41,33 @@ class Post extends Model
         return $this->hasMany(PostReply::class)->whereNull('parent_id');
     }
 
-    public function getReplyCountAttribute()
-    {
-        $replies = $this->reply()->where('parent_id', null);
-
-        return $replies->count();
-    }
-
     public function uploads()
     {
         return $this->hasMany(Upload::class);
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('title', 'like', $term)
+                ->orWhere('content', 'like', $term);
+        });
+    }
+
+    public function scopeSearchTitle($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('title', 'like', $term);
+        });
+    }
+
+    public function scopeSearchContent($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('content', 'like', $term);
+        });
     }
 }

@@ -94,6 +94,12 @@ textarea:focus {
     min-height: 50px;
     bottom: 0;
     width: 100%;
+    font-style: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
 }
 
 #footer a:hover {
@@ -136,4 +142,3 @@ textarea:focus {
 
 .reply-info {
 }
-
