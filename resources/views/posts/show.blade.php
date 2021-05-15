@@ -29,12 +29,19 @@
                                 {{__('Edit') }}
                             </button>
                         @endcan
-
-                        @can ('delete post')
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePostModal">
-                            {{__('Delete') }}
-                            </button>
-                        @endcan
+                        @auth
+                            @if((auth()->user()->can('delete own posts')) && ($post->user->id == auth()->user()->id))
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePostModal">
+                                    {{__('Delete') }}
+                                </button>
+                            @else
+                                @can('delete any posts')
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePostModal">
+                                        {{__('Delete') }}
+                                    </button>
+                                @endcan
+                            @endif   
+                        @endauth
                     </div>
                 </div>
 
@@ -103,28 +110,34 @@
 
                                     <div class="text-right">
                                         @can('create post replies')
-                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}">
+                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#replyModal_{{$reply->id}}" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">
                                             {{__('Comment') }}
                                         </button>
                                         @endcan
 
-                                        @can ('edit reply')
+                                        @can ('update post replies')
                                         <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#editReplyModal_{{$reply->id}}">
                                             {{__('Edit') }}
                                         </button>
                                         @endcan
-
-                                        @can ('delete reply')
-                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteReplyModal_{{$reply->id}}">
-                                            {{__('Delete') }}
-                                        </button>
-                                        @endcan
-
+                                        @auth
+                                            @if(auth()->user()->can('delete own post replies') && $reply->user->id == auth()->user()->id)
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteReplyModal_{{$reply->id}}">
+                                                    {{__('Delete') }}
+                                                </button>
+                                            @else
+                                                @can ('delete any post replies')
+                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteReplyModal_{{$reply->id}}">
+                                                        {{__('Delete') }}
+                                                    </button>
+                                                @endcan
+                                            @endif                                        
+                                        @endauth
                                     </div>
                                 </div>
 
                                 <!-- begin update reply modaL -->
-                                @can ('edit reply')
+                                @can ('update post replies')
                                 <div class="modal fade" id="editReplyModal_{{$reply->id}}" tabindex="-1" role="dialog" aria-labelledby="editReplyModalLabel">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -154,7 +167,7 @@
                                 <!-- end update reply modaL -->
 
                                 <!-- begin delete reply modaL -->
-                                @can ('delete reply')
+                                @canany (['delete any post replies', 'delete own post replies'])
                                 <div class="modal fade" id="deleteReplyModal_{{$reply->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteReplyModalLabel">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -177,7 +190,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @endcan
+                                @endcanany
                                 <!-- end delete reply modaL -->
 
                                 {{-- show reply to reply --}}
@@ -226,7 +239,7 @@
         </div>
 
 <!-- Begin Delete Post Modal -->
-@can('delete posts')
+@canany(['delete own posts', 'delete any posts'])
 <div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="deletePostModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -250,11 +263,11 @@
         </div>
     </div>
 </div>
-@endcan
+@endcanany
 <!-- End Delete Post Modal -->
 
 <!-- Update Post Modal -->
-@can ('edit posts')
+@can ('update posts')
 <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

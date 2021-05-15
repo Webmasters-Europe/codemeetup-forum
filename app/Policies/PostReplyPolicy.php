@@ -50,7 +50,7 @@ class PostReplyPolicy
      */
     public function delete(User $user)
     {
-        if ($user->can('delete post replies')) {
+        if ($user->can('delete any post replies') || ($user->can('delete own post replies') && $user == auth()->user())) {
             return true;
         }
     }

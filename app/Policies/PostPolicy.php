@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -50,7 +51,7 @@ class PostPolicy
      */
     public function delete(User $user)
     {
-        if ($user->can('delete posts')) {
+        if ($user->can('delete any posts') || ($user->can('delete own posts') && $user == auth()->user())){
             return true;
         }
     }

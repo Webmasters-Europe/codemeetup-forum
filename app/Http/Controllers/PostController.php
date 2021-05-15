@@ -68,6 +68,8 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->authorize('update', Post::class);
+
         $post = Post::findOrFail($id);
         $post->title = $request->title;
         $post->content = $request->content;
@@ -78,9 +80,11 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('delete', Post::class);
+
         $post->delete();
 
-        return redirect()->route('admin-area.posts')->withStatus(__('Post and all replies and comments in this post successfully deleted.'));
+        return redirect()->route('home')->withStatus(__('Post and all replies and comments in this post successfully deleted.'));
     }
 
     private function isImage($file)
