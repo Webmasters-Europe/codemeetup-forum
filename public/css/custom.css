@@ -44,8 +44,8 @@ textarea {
 }
 
 .btn:focus,
-input:focus, 
-input.form-control:focus, 
+input:focus,
+input.form-control:focus,
 textarea:focus {
     outline:none !important;
     outline-width: 0 !important;
@@ -94,6 +94,11 @@ textarea:focus {
     min-height: 50px;
     bottom: 0;
     width: 100%;
+    font-style: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
 
 }
 
@@ -138,4 +143,3 @@ textarea:focus {
 
 .reply-info {
 }
-

@@ -39,7 +39,10 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/sendmail', [HomeController::class, 'sendmail'])->name('sendmail');
 
 Route::post('/replies/store/{post}/{postReply?}', [PostReplyController::class, 'store'])->name('replies.store');
-Route::resource('/posts', PostController::class)->only(['index', 'show']);
+Route::delete('/replies/{postReply}', [PostReplyController::class, 'destroy'])->name('replies.destroy');
+Route::patch('/replies/{postReply}', [PostReplyController::class, 'update'])->name('replies.update');
+
+Route::resource('/posts', PostController::class)->only(['index', 'show', 'destroy', 'update']);
 Route::get('/posts/create/{category}', [PostController::class, 'create'])->name('posts.create');
 Route::get('/category/{category}', CategoryController::class)->name('category.show');
 Route::resource('/users', UserController::class)->only(['show', 'edit', 'update']);

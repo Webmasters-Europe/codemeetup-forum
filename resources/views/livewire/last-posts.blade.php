@@ -7,6 +7,7 @@
             @foreach ($posts as $post)
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
+                        
                         <a href="{{ route('posts.show', $post)}}"><h6 class="my-0">{{ $post->title }}</h6></a>
                         <small class="text-muted">{{ $post->category->name }}</small>
                         <div>

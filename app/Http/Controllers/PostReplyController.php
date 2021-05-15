@@ -85,10 +85,12 @@ class PostReplyController extends Controller
      * @param  \App\Models\PostReply  $postReply
      * @return \Illuminate\Http\Response
      */
-    public function update(PostReplyRequest $request, Post $post, PostReply $postReply)
+    public function update(PostReplyRequest $request, PostReply $postReply)
     {
         $this->authorize('update', PostReply::class);
-
+        $postReply->content = $request->content;
+        $postReply->save();
+        return redirect()->route('posts.show', $postReply->post_id)->withStatus('Reply has been updated');
         // Update the post reply...
     }
 
@@ -99,10 +101,11 @@ class PostReplyController extends Controller
      * @param  \App\Models\PostReply  $postReply
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post, PostReply $postReply)
+    public function destroy(PostReply $postReply)
     {
         $this->authorize('delete', PostReply::class);
-
-        // Delete the post reply...
+        $post = $postReply->post_id;
+        $postReply->delete();
+        return redirect()->route('posts.show', $post)->withStatus('Reply has been deleted.');
     }
 }

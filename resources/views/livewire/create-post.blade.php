@@ -1,14 +1,16 @@
 
     <form wire:submit.prevent="submitForm" class="w-50">
-      @if($errors->any())
-    <div class="alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        
+        @if($errors->any())
+        <div class="alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         @csrf
         <div class="form-group p-2">
             <label for="categoryId">Category</label>
