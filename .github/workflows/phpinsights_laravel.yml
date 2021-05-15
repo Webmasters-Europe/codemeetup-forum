@@ -18,5 +18,7 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+    - name: Install phpinsights
+      run: composer require nunomaduro/phpinsights --dev
     - name: Execute phpinsight
       run: php artisan insights -n --ansi --format=github-action
