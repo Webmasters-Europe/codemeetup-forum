@@ -153,7 +153,7 @@ class AdminAreaDashboard extends Component
     {
         $this->lastSixMonthChart =
             (new LineChartModel())
-            ->setTitle(__('śast Six Month'))
+            ->setTitle(__('Last Six Month'))
             ->multiLine()
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
