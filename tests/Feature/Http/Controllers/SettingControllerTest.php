@@ -55,7 +55,7 @@ class SettingControllerTest extends TestCase
             'number_posts' => 0,
             'contact_page' => 'test',
             'imprint_page' => 'test',
-            'copyright_page' => 'test',
+            'copyright' => 'test',
         ]);
         $this->assertDatabaseHas('settings', ['id' => 2]);
 
@@ -80,11 +80,13 @@ class SettingControllerTest extends TestCase
             'number_categories_startpage' => 6,
             'number_last_entries_startpage' => 6,
             'number_posts' => 6,
-            'contact_page' => 'test contact page',
+            'email_contact_page' => 'thisIsAValidEmailAddress@stupidMistakes.com',
             'imprint_page' => 'test impring page',
-            'copyright_page' => 'test copyright page',
+            'copyright' => 'test copyright page',
             'forum_image' => $testImage,
             ]);
+
+        $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('settings', [
             'primary_color' => '#000000',
@@ -94,9 +96,9 @@ class SettingControllerTest extends TestCase
             'number_categories_startpage' => 6,
             'number_last_entries_startpage' => 6,
             'number_posts' => 6,
-            'contact_page' => 'test contact page',
+            'email_contact_page' => 'thisIsAValidEmailAddress@stupidMistakes.com',
             'imprint_page' => 'test impring page',
-            'copyright_page' => 'test copyright page',
+            'copyright' => 'test copyright page',
             'forum_image' => 'uploads/'.$testImage->hashName(),
         ]);
 
