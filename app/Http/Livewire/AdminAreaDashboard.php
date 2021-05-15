@@ -89,7 +89,7 @@ class AdminAreaDashboard extends Component
                 DB::raw('DATE( created_at ) as date'),
                 DB::raw('COUNT( * ) as "count"'),
             ])
-            ->pluck('count', 'date');
+            ->pluck('count', 'date')->toArray();
 
         $fromDate = $dateThreeMonthsAgo;
         $toDate = Carbon::now();
