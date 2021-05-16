@@ -896,6 +896,7 @@
 	"Post and all replies and comments in this post successfully deleted.": "Der Beitrag und alle Antworten und Kommentare wurden erfolgreich gelöscht",
 	"Post successfully restored.": "Beitrag erfolgreich wiederhergestellt.",
 	"Reply has been updated.": "Antwort erfolgreich aktualisiert.",
-	"Reply has been deleted.": "Antwort wurde erfolgreich gelosöcht."
+	"Reply has been deleted.": "Antwort wurde erfolgreich gelosöcht.",
+	"Post successfully updated.": "Beitrag wurde erfolgreich aktualisiert."
 	
 }

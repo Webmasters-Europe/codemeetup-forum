@@ -104,7 +104,7 @@ class PostReplyController extends Controller
      */
     public function destroy(PostReply $postReply)
     {
-        $this->authorize('delete', PostReply::class);
+        $this->authorize('delete', [PostReply::class, $postReply]);
 
         $post = $postReply->post_id;
         $postReply->delete();
