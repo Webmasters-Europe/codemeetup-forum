@@ -19,12 +19,19 @@
                     {{__('Edit') }}
                 </button>
                 @endcan
-
-                @can ('delete reply')
-                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteReplyModal_{{$reply->id}}">
-                    {{__('Delete') }}
-                </button>
-                @endcan
+                @auth
+                    @if(auth()->user()->can('delete own post replies') && $reply->user->id == auth()->user()->id)
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteReplyModal_{{$reply->id}}">
+                            {{__('Delete') }}
+                        </button>
+                    @else
+                        @can ('delete any post replies')
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteReplyModal_{{$reply->id}}">
+                                {{__('Delete') }}
+                            </button>
+                        @endcan
+                    @endif
+                @endauth
             </div>
 
             <!-- Begin reply Modal -->
@@ -83,7 +90,7 @@
             @endcan
 
             <!-- begin delete reply modal -->
-            @can ('delete reply')
+            @canany (['delete any post replies', 'delete own post replies'])
             <div class="modal fade" id="deleteReplyModal_{{$reply->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteReplyModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -107,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            @endcan
+            @endcanany
             <!-- end delete reply modal -->
 
             <x-replies :reply="$reply" :post="$post" />

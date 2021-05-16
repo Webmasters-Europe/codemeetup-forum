@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\PostReply;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -48,9 +49,9 @@ class PostReplyPolicy
     /**
      * Determine whether the user can delete the post reply.
      */
-    public function delete(User $user)
+    public function delete(User $user, PostReply $reply)
     {
-        if ($user->can('delete post replies')) {
+        if ($user->can('delete any post replies') || ($user->can('delete own post replies') && $user->is($reply->user))) {
             return true;
         }
     }
