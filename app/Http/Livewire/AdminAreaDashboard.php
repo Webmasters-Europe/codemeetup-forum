@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class AdminAreaDashboard extends Component
 {
@@ -70,11 +71,11 @@ class AdminAreaDashboard extends Component
 
         $this->monthChart =
             (new ColumnChartModel())
-            ->setTitle('Entities created this month')
-            ->addColumn('Users', $usersCreatedInCurrentMonth, '#90cdf4')
-            ->addColumn('Categories', $categoriesCreatedInCurrentMonth, '#f6ad55')
-            ->addColumn('Posts', $postsCreatedInCurrentMonth, '#fc8181')
-            ->addColumn('Replies', $postRepliesCreatedInCurrentMonth, '#62de76')
+            ->setTitle(__('Entities created this month'))
+            ->addColumn(__('Users'), $usersCreatedInCurrentMonth, '#90cdf4')
+            ->addColumn(__('Categories'), $categoriesCreatedInCurrentMonth, '#f6ad55')
+            ->addColumn(__('Posts'), $postsCreatedInCurrentMonth, '#fc8181')
+            ->addColumn(__('Replies'), $postRepliesCreatedInCurrentMonth, '#62de76')
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
     }
@@ -151,6 +152,8 @@ class AdminAreaDashboard extends Component
 
     private function prepareLastSixMonthChart()
     {
+        Carbon::setLocale(LaravelLocalization::getCurrentLocale());
+
         $this->lastSixMonthChart =
             (new LineChartModel())
             ->setTitle(__('Last Six Month'))
@@ -158,21 +161,23 @@ class AdminAreaDashboard extends Component
             ->withoutLegend()
             ->setDataLabelsEnabled(true);
 
-        $j = 5;
-        for ($i = 0; $i <= 5; $i++) {
-            $month = Carbon::now()->subMonths($j);
+        $from = Carbon::now()->subMonths(5);
+        $to = Carbon::now();
+        $period = CarbonPeriod::create($from, '1 month', $to);
 
-            $postsInMonth = Post::whereDate('created_at', '>=', $month)->count();
+        foreach ($period as $dt) {
 
-            $postRepliesInMonth = PostReply::whereDate('created_at', '>=', $month)->count();
+            $this->lastSixMonthChart->addSeriesPoint(__('Posts'), $dt->translatedFormat('F'),
+                Post::whereBetween('created_at', [$dt->firstOfMonth()->format('Y-m-d'), $dt->lastOfMonth()->format('Y-m-d')])
+                    ->count());
 
-            $usersInMonth = User::whereDate('created_at', '>=', $month)->count();
+            $this->lastSixMonthChart->addSeriesPoint(__('Replies'), $dt->translatedFormat('F'),
+                PostReply::whereBetween('created_at', [$dt->firstOfMonth()->format('Y-m-d'), $dt->lastOfMonth()->format('Y-m-d')])
+                    ->count());
 
-            $this->lastSixMonthChart->addSeriesPoint(__('Posts'), date('M', mktime(null, null, null, $i)), $postsInMonth);
-            $this->lastSixMonthChart->addSeriesPoint(__('Replies'), date('M', mktime(null, null, null, $i)), $postRepliesInMonth);
-            $this->lastSixMonthChart->addSeriesPoint(__('User Registrations'), date('M', mktime(null, null, null, $i)), $usersInMonth);
-
-            $j--;
+            $this->lastSixMonthChart->addSeriesPoint(__('User Registrations'), $dt->translatedFormat('F'),
+                User::whereBetween('created_at', [$dt->firstOfMonth()->format('Y-m-d'), $dt->lastOfMonth()->format('Y-m-d')])
+                    ->count());
         }
     }
 }
