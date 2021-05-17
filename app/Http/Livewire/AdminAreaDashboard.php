@@ -166,7 +166,6 @@ class AdminAreaDashboard extends Component
         $period = CarbonPeriod::create($from, '1 month', $to);
 
         foreach ($period as $dt) {
-
             $this->lastSixMonthChart->addSeriesPoint(__('Posts'), $dt->translatedFormat('F'),
                 Post::whereBetween('created_at', [$dt->firstOfMonth()->format('Y-m-d'), $dt->lastOfMonth()->format('Y-m-d')])
                     ->count());

@@ -50,9 +50,8 @@ class PostPolicy
      * Determine whether the user can delete the post.
      */
     public function delete(User $user, Post $post)
-    {   
-       
-        if ($user->can('delete any posts') || ($user->can('delete own posts') && $user->is($post->user))){
+    {
+        if ($user->can('delete any posts') || ($user->can('delete own posts') && $user->is($post->user))) {
             return true;
         }
     }

@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use Tests\TestCase;
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Category;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
@@ -32,7 +32,6 @@ class PostControllerTest extends TestCase
         ]);
         $this->post->category()->associate($this->category);
         $this->user->posts()->save($this->post);
-
     }
 
     /**
@@ -49,21 +48,19 @@ class PostControllerTest extends TestCase
      */
     public function a_moderator_can_delete_any_posts()
     {
-
         $this->assertDatabaseHas('posts', [
             'title' => 'Test',
             'content' => 'Test',
             'category_id' => $this->category->id,
             'user_id' => $this->user->id,
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
-        
+
         $this->actingAs($this->moderator);
         $this->delete(route('posts.destroy', $this->post));
         $this->assertSoftDeleted('posts', [
-            'id' => $this->post->id
+            'id' => $this->post->id,
         ]);
-       
     }
 
     /**
@@ -71,22 +68,21 @@ class PostControllerTest extends TestCase
      */
     public function a_user_can_delete_own_posts()
     {
-
         $this->assertDatabaseHas('posts', [
             'title' => 'Test',
             'content' => 'Test',
             'category_id' => $this->category->id,
             'user_id' => $this->user->id,
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
-        
+
         $this->actingAs($this->user);
-        
+
         $response = $this->delete(route('posts.destroy', $this->post));
         $response->assertStatus(302);
-        
+
         $this->assertSoftDeleted('posts', [
-            'id' => $this->post->id
+            'id' => $this->post->id,
         ]);
     }
 
@@ -95,19 +91,18 @@ class PostControllerTest extends TestCase
      */
     public function a_user_cannot_delete_posts_from_other_users()
     {
-
         $this->assertDatabaseHas('posts', [
             'title' => 'Test',
             'content' => 'Test',
             'category_id' => $this->category->id,
             'user_id' => $this->user->id,
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
-        
+
         $this->user2 = User::factory()->create()->assignRole('user');
 
         $this->actingAs($this->user2);
-        
+
         $response = $this->delete(route('posts.destroy', $this->post));
         $response->assertStatus(403);
 
@@ -116,10 +111,9 @@ class PostControllerTest extends TestCase
             'content' => 'Test',
             'category_id' => $this->category->id,
             'user_id' => $this->user->id,
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
     }
-
 
     /**
      * @test
@@ -130,19 +124,18 @@ class PostControllerTest extends TestCase
             ->actingAs($this->moderator)
             ->put(route('posts.update', $this->post->id), [
                 'title' => 'updated title',
-                'content' => 'updated content'
+                'content' => 'updated content',
             ]);
         $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('posts', [
             'title' => 'updated title',
-            'content' => 'updated content'
+            'content' => 'updated content',
         ]);
 
         $response->assertRedirect(route('posts.show', $this->post));
         $response->assertSessionHas('status', 'Post successfully updated.');
-    } 
-
+    }
 
     /**
      * @test
@@ -152,14 +145,12 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->user)
             ->put(route('posts.update', $this->post->id), [
                 'title' => 'updated title',
-                'content' => 'updated content'
+                'content' => 'updated content',
             ]);
 
         $this->assertDatabaseMissing('posts', [
             'title' => 'updated title',
-            'content' => 'updated content'
+            'content' => 'updated content',
         ]);
- 
     }
-
 }
