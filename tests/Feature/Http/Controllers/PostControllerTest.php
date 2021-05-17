@@ -14,6 +14,10 @@ class PostControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    private $user;
+    private $moderator;
+    private $category;
+    private $post;
 
     protected function setUp(): void
     {
@@ -26,9 +30,6 @@ class PostControllerTest extends TestCase
             'title' => 'Test',
             'content' => 'Test',
         ]);
-        $this->post->category()->associate($this->category);
-        $this->user->posts()->save($this->post);
-
         $this->post->category()->associate($this->category);
         $this->user->posts()->save($this->post);
 
@@ -60,11 +61,7 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->moderator);
         $this->delete(route('posts.destroy', $this->post));
         $this->assertSoftDeleted('posts', [
-            'id' => $this->post->id,
-            'title' => 'Test',
-            'content' => 'Test',
-            'category_id' => $this->category->id,
-            'user_id' => $this->user->id,
+            'id' => $this->post->id
         ]);
        
     }
@@ -84,13 +81,12 @@ class PostControllerTest extends TestCase
         ]);
         
         $this->actingAs($this->user);
-        $this->delete(route('posts.destroy', $this->post));
+        
+        $response = $this->delete(route('posts.destroy', $this->post));
+        $response->assertStatus(302);
+        
         $this->assertSoftDeleted('posts', [
-            'id' => $this->post->id,
-            'title' => 'Test',
-            'content' => 'Test',
-            'category_id' => $this->category->id,
-            'user_id' => $this->user->id,
+            'id' => $this->post->id
         ]);
     }
 
@@ -111,7 +107,9 @@ class PostControllerTest extends TestCase
         $this->user2 = User::factory()->create()->assignRole('user');
 
         $this->actingAs($this->user2);
-        $this->delete(route('posts.destroy', $this->post));
+        
+        $response = $this->delete(route('posts.destroy', $this->post));
+        $response->assertStatus(403);
 
         $this->assertDatabaseHas('posts', [
             'title' => 'Test',
@@ -141,7 +139,6 @@ class PostControllerTest extends TestCase
             'content' => 'updated content'
         ]);
 
-        $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('posts.show', $this->post));
         $response->assertSessionHas('status', 'Post successfully updated.');
     } 
