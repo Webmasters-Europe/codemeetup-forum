@@ -197,6 +197,7 @@ class PostReplyControllerTest extends TestCase
         
         $this->assertDatabaseHas('post_replies', [
             'content' => $content,
+            'deleted_at' => null
         ]);
     }
 
@@ -248,6 +249,7 @@ class PostReplyControllerTest extends TestCase
             'content' => 'updated content'
         ]);
         $response->assertSessionHasNoErrors();
+        $response->assertStatus(403);
 
         $this->assertDatabaseMissing('post_replies', [
             'content' => 'updated content'
