@@ -108,7 +108,6 @@ class PostReplyControllerTest extends TestCase
         $response->assertRedirect(route('home'));
     }
 
-
     /**
      * @test
      */
@@ -125,19 +124,17 @@ class PostReplyControllerTest extends TestCase
             ->post(route('replies.store', [$post, $postReply]), [
             'content' => $content,
         ]);
-        
+
         $this->assertDatabaseHas('post_replies', [
             'content' => $content,
         ]);
-        
+
         $this->actingAs($moderator);
         $this->delete(route('replies.destroy', $postReply));
         $this->assertSoftDeleted('post_replies', [
-            'id' => $postReply->id
+            'id' => $postReply->id,
         ]);
-        
     }
-
 
     /**
      * @test
@@ -154,22 +151,20 @@ class PostReplyControllerTest extends TestCase
             ->post(route('replies.store', [$post, $postReply]), [
             'content' => $content,
         ]);
-        
+
         $this->assertDatabaseHas('post_replies', [
             'content' => $content,
         ]);
-        
+
         $this->actingAs($user);
         $response = $this->delete(route('replies.destroy', $postReply));
         $response->assertStatus(302);
         $this->assertSoftDeleted('post_replies', [
-            'id' => $postReply->id
+            'id' => $postReply->id,
         ]);
-
     }
 
-
-     /**
+    /**
      * @test
      */
     public function a_user_cannot_delete_post_replies_from_other_users()
@@ -184,20 +179,20 @@ class PostReplyControllerTest extends TestCase
             ->post(route('replies.store', [$post, $postReply]), [
             'content' => $content,
         ]);
-        
+
         $this->assertDatabaseHas('post_replies', [
             'content' => $content,
         ]);
-        
+
         $this->user2 = User::factory()->create()->assignRole('user');
 
         $this->actingAs($this->user2);
         $response = $this->delete(route('replies.destroy', $postReply));
         $response->assertStatus(403);
-        
+
         $this->assertDatabaseHas('post_replies', [
             'content' => $content,
-            'deleted_at' => null
+            'deleted_at' => null,
         ]);
     }
 
@@ -219,17 +214,16 @@ class PostReplyControllerTest extends TestCase
         $response = $this
         ->actingAs($moderator)
         ->patch(route('replies.update', $reply->id), [
-            'content' => 'updated content'
+            'content' => 'updated content',
         ]);
         $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('post_replies', [
-            'content' => 'updated content'
+            'content' => 'updated content',
         ]);
 
         $response->assertRedirect(route('posts.show', $reply->post_id));
         $response->assertSessionHas('status', 'Reply has been updated.');
-        
     }
 
     public function a_user_cannot_update_post_replies()
@@ -246,16 +240,13 @@ class PostReplyControllerTest extends TestCase
         $response = $this
         ->actingAs($user)
         ->patch(route('replies.update', $reply->id), [
-            'content' => 'updated content'
+            'content' => 'updated content',
         ]);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(403);
 
         $this->assertDatabaseMissing('post_replies', [
-            'content' => 'updated content'
+            'content' => 'updated content',
         ]);
-        
     }
-
-
 }
