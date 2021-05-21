@@ -100,7 +100,7 @@
                     <ul>{{ __('Files') }}:
                         @forelse ($otherFiles as $otherFile)
                             <li class="list-unstyled"><a
-                                    href="{{ asset('storage/' . $otherFile->filename) }}">{{ basename($otherFile->filename) }}</a>
+                                href="{{ asset('storage/' . $otherFile->filename) }}">{{ $otherFile->original_filename }}</a>     
                             </li>
                         @empty
                             <li class="list-unstyled">{{ __('No uploded Files for this post.') }}</li>
@@ -172,8 +172,7 @@
                                         </button>
                                     @endcan
                                     @auth
-                                        @if (auth()->user()->can('delete own post replies') &&
-            $reply->user->id == auth()->user()->id)
+                                        @if (auth()->user()->can('delete own post replies') && $reply->user->id == auth()->user()->id)
                                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                                 data-target="#deleteReplyModal_{{ $reply->id }}">
                                                 {{ __('Delete') }}
