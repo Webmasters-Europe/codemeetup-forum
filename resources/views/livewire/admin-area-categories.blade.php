@@ -1,36 +1,36 @@
 <div>
     <div>
-        <div class="d-flex justify-content-between align-content-center mb-2">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-2">
 
             <x-table-pagination/>
 
-            <div class="custom-control custom-switch">
+            <div class="custom-control custom-switch m-2">
                 <input wire:model="showDeletedCategories" wire:click="resetPaginatorPage" type="checkbox" class="custom-control-input"
                     id="showDeletedCategories" name="showDeletedCategories" />
                 <label class="custom-control-label" for="showDeletedCategories">{{ __('Show deleted Categories') }}</label>
             </div>
-            <div>
+            <div class="m-2">
                 <button wire:click.prevent="showCategoryForm" class="btn btn-sm" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};><i
                         class="fas fa-plus-circle mr-2"></i>{{ __('Add new Category') }}</button>
             </div>
-            <div class=" col-md-4">
+            <div class="m-2">
                 <input wire:model="search" type="search" class="form-control" placeholder="{{ __('Search in name and description') }}">
             </div>
         </div>
-        <div class="card-body table-responsive p-0">
+        <div class="card-body table-responsive-md p-0">
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th wire:click="sortBy('name')" style="cursor: pointer;">
+                        <th scope="col" wire:click="sortBy('name')" style="cursor: pointer;">
                             {{ __('Name') }} @include('components.sort_icon',['field' => 'name'])
 
                         </th>
-                        <th wire:click="sortBy('description')" style="cursor: pointer;">
+                        <th scope="col" wire:click="sortBy('description')" style="cursor: pointer;">
                             {{ __('Description') }} @include('components.sort_icon',['field' => 'description'])
                         </th>
-                        <th wire:click="sortBy('posts_count')" style="cursor: pointer;">{{ __('Posts') }} @include('components.sort_icon',['field' => 'posts_count'])</th>
-                        <th wire:click="sortBy('created_at')" style="cursor: pointer;">{{ __('created') }} @include('components.sort_icon',['field' => 'created_at'])</th>
-                        <th wire:click="sortBy('updated_at')" style="cursor: pointer;">{{ __('updated') }} @include('components.sort_icon',['field' => 'updated_at'])</th>
+                        <th scope="col" wire:click="sortBy('posts_count')" style="cursor: pointer;">{{ __('Posts') }} @include('components.sort_icon',['field' => 'posts_count'])</th>
+                        <th scope="col" wire:click="sortBy('created_at')" style="cursor: pointer;">{{ __('created') }} @include('components.sort_icon',['field' => 'created_at'])</th>
+                        <th scope="col" wire:click="sortBy('updated_at')" style="cursor: pointer;">{{ __('updated') }} @include('components.sort_icon',['field' => 'updated_at'])</th>
                         <th>{{ __('Action') }}</th>
                     </tr>
                     <tr>
@@ -56,11 +56,11 @@
                             <td>
                                 @if (!$showDeletedCategories)
                                     <button wire:click="selectCategory({{ $category->id }}, 'update')"
-                                        class="btn btn-primary btn-sm">
+                                        class="btn btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button wire:click="selectCategory({{ $category->id }}, 'delete')"
-                                        class="btn btn-danger btn-sm">
+                                        class="btn btn-secondary btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 @else
@@ -76,7 +76,7 @@
             </table>
         </div>
         <div class="row mt-4">
-            <div class="col-sm-6 offset-5">
+            <div class="col-sm-6">
                 {{ $categories->firstItem()}} - {{ $categories->lastItem() }} {{ _('from') }} {{ $categories->total() }}
                 {{ $categories->links() }}
             </div>
