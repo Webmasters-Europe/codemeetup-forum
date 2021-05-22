@@ -126,7 +126,7 @@
                 <ul>{{ __('Files') }}:
                     @foreach ($otherFiles as $otherFile)
                     <li class="list-unstyled"><a
-                            href="{{ asset('storage/' . $otherFile->filename) }}">{{ basename($otherFile->filename) }}</a>
+                            href="{{ asset('storage/' . $otherFile->filename) }}">{{ basename($otherFile->original_filename) }}</a>
                     </li>
                     @endforeach
                 </ul>
