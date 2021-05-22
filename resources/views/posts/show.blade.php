@@ -88,24 +88,24 @@
                 @markdown($post->content)
                 {{-- begin show all uploads to this post --}}
                 <div>
-                    <p>{{ __('Images') }}:</p>
-                    <div class="grid">
-                        @forelse ($images as $image)
-                            <img src="{{ asset('storage/' . $image->filename) }}" alt="">
-                        @empty
-                            {{ __('No uploded images for this post.') }}
-                        @endforelse
-                    </div>
-                    </p>
-                    <ul>{{ __('Files') }}:
-                        @forelse ($otherFiles as $otherFile)
-                            <li class="list-unstyled"><a
-                                    href="{{ asset('storage/' . $otherFile->filename) }}">{{ basename($otherFile->filename) }}</a>
-                            </li>
-                        @empty
-                            <li class="list-unstyled">{{ __('No uploded Files for this post.') }}</li>
-                        @endforelse
-                    </ul>
+                    @if($images)
+                        <p>{{ __('Images') }}:</p>
+                        <div class="grid">
+                            @foreach ($images as $image)
+                                <img src="{{ asset('storage/' . $image->filename) }}" alt="">
+                            @endforeach
+                        </div>
+                        </p>
+                    @endif
+                    @if($otherFiles)
+                        <ul>{{ __('Files') }}:
+                            @foreach ($otherFiles as $otherFile)
+                                <li class="list-unstyled">
+                                    <a href="{{ asset('storage/' . $otherFile->filename) }}">{{ basename($otherFile->filename) }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
                 {{-- end show all uploads to this post --}}
             </div>
