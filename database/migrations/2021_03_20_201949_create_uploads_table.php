@@ -17,6 +17,7 @@ class CreateUploadsTable extends Migration
             $table->id();
             $table->string('filename');
             $table->unsignedBigInteger('post_id');
+            $table->string('original_filename');
             $table->foreign('post_id')->references('id')->on('posts');
             $table->timestamps();
         });
