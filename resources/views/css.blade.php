@@ -147,177 +147,67 @@ a:hover {
 input:focus,
 input.form-control:focus,
 textarea:focus {
-    border: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    2px solid;
+    border: {{ config('app.settings.primary_color') }} 2px solid;
 }
 
+
 .btn {
-    background-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
+    background-color: {{ config('app.settings.primary_color') }};
+    color: {{ config('app.settings.button_text_color') }};
+    border: {{ config('app.settings.primary_color') }} 1px solid;
+}
 
-    ;
-
-    color: {
-            {
-            config('app.settings.button_text_color')
-        }
-    }
-
-    ;
-
-    border: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    1px solid;
+.btn.btn-secondary {
+    background-color: {{ config('app.settings.category_icons_color') }};
+    color: {{ config('app.settings.button_text_color') }};
+    border: {{ config('app.settings.category_icons_color') }} 1px solid;
 }
 
 .btn:hover,
 .btn:focus {
-    background-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    ;
-
-    color: {
-            {
-            config('app.settings.button_text_color')
-        }
-    }
-
-    ;
     opacity: 0.8;
-
-    border: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    1px solid;
+    color: {{ config('app.settings.button_text_color') }};
 }
 
 .outline-primary {
     background-color: transparent;
-
-    color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    ;
-
-    border: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    solid 1px;
+    color: {{ config('app.settings.primary_color') }};
+    border: {{ config('app.settings.primary_color') }} solid 1px;
 }
 
 .outline-primary:hover {
-    background-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    ;
-
-    color: {
-            {
-            config('app.settings.button_text_color')
-        }
-    }
-
-    ;
+    background-color: {{ config('app.settings.primary_color') }};
+    color: {{ config('app.settings.button_text_color') }};
 }
 
 #navbar.navbar {
-    background-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    ;
+    background-color: {{ config('app.settings.primary_color') }};
 }
 
 #navbar .navbar-brand {
-    color: {
-            {
-            config('app.settings.button_text_color')
-        }
-    }
-
-    ;
+    color: {{ config('app.settings.button_text_color') }};
 }
 
 #footer {
-    background-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
-
-    ;
-
-    color: {
-            {
-            config('app.settings.button_text_color')
-        }
-    }
-
-    ;
+    background-color: {{ config('app.settings.primary_color') }};
+    color: {{ config('app.settings.button_text_color') }};
 }
 
 #footer a {
-    color: {
-            {
-            config('app.settings.button_text_color')
-        }
-    }
-
-    ;
+    color: {{ config('app.settings.button_text_color') }};
 }
 
 #footer a:hover {
     color: #212529;
-
-
 }
 
-.page-link {
-    color: {
-        {
-            config('app.settings.primary_color')
-        } 
-    };
-    background-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    };
-    border-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
+.page-item.active .page-link {
+    background-color: {{ config('app.settings.primary_color') }};
+    border-color: {{ config('app.settings.primary_color') }};
+}
+
+.page-item .page-link {
+    color: {{ config('app.settings.primary_color') }};
 }
 
 .page-link:hover {
@@ -325,22 +215,10 @@ textarea:focus {
 }
 
 .badge {
-    background-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
+    background-color: {{ config('app.settings.category_icons_color') }};
 }
 
-.custom-control-input:checked ~ .custom-control-label::before {
-    border-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    };
-    background-color: {
-            {
-            config('app.settings.primary_color')
-        }
-    }
+.custom-control-input:checked~.custom-control-label::before {
+    border-color: {{ config('app.settings.category_icons_color') }};
+    background-color: {{ config('app.settings.category_icons_color') }};
 }
