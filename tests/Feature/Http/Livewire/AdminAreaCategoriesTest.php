@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Feature\Http\Livewire;
+namespace Tests\Feature\Http\Livewire;
 
 use App\Http\Livewire\AdminAreaCategories;
 use App\Models\Category;
