@@ -11,29 +11,9 @@
             width: 100px;
             cursor: pointer;
         }
-        #lightbox {
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, .8);
-            display: none;
-        }
-        #lightbox.active {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #lightbox img {
-            max-width: 80%;
-            max-height: 80%;
-            padding: 4px;
-            background-color: black;
-            border: 2px solid white;
-        }
 
     </style>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -87,15 +67,49 @@
             <div class="card-text">
                 @markdown($post->content)
                 {{-- begin show all uploads to this post --}}
-                <div>
                     <p>{{ __('Images') }}:</p>
-                    <div class="grid">
+                    <div x-data="{ imgModal : false, imgModalSrc : '', imgPath : '' }">
+                        <template @img-modal.window="imgModal = true; imgModalSrc = $event.detail.imgModalSrc; imgPath = $event.detail.imgPath" x-if="imgModal">
+                          <div x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90" x-on:click.away="imgModalSrc = ''" class="p-2 fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center bg-black bg-opacity-75">
+                            <div @click.away="imgModal = ''" class="flex flex-col max-w-3xl max-h-full overflow-auto">
+                              <div class="z-50">
+                                <button @click="imgModal = ''" class="float-right pt-2 pr-2 outline-none focus:outline-none">
+
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-current text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                  </svg>
+                                </button>
+                                <button
+                                @click="
+                                var url = '{{ route('file.download', ":slug") }}';
+                                url = url.replace(':slug', imgPath);
+                                window.location.href=url;
+                                "
+                                class="float-right pt-2 pr-2 outline-none focus:outline-none">
+
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-current text-white" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                  </svg>
+                                </button>
+                              </div>
+                              <div class="p-2">
+                                <img :alt="imgModalSrc" class="object-contain h-1/2-screen" :src="imgModalSrc">
+                              </div>
+                            </div>
+                          </div>
+                        </template>
+                      </div>
+
+                    <div class="grid" x-data="{}">
                         @forelse ($images as $image)
-                            <img src="{{ asset('storage/' . $image->filename) }}" alt="">
+                            <a @click="$dispatch('img-modal', {  imgModalSrc: '{{ asset('storage/' . $image->filename) }}', imgPath: '{{$image->filename}}' })" class="cursor-pointer">
+                                <img alt="" class="object-fit w-full" src="{{ asset('storage/' . $image->filename) }}">
+                            </a>
                         @empty
                             {{ __('No uploded images for this post.') }}
                         @endforelse
                     </div>
+                    <div>
                     </p>
                     <ul>{{ __('Files') }}:
                         @forelse ($otherFiles as $otherFile)
@@ -373,29 +387,3 @@
     <!-- End Update Post Modal -->
 
 @endsection
-
-@push('scripts')
-    <script>
-        const lightbox = document.createElement('div')
-        lightbox.id = 'lightbox'
-        document.body.appendChild(lightbox)
-
-        const images = document.querySelectorAll('img')
-        images.forEach(image => {
-            image.addEventListener('click', e => {
-                lightbox.classList.add('active')
-                const img = document.createElement('img')
-                img.src = image.src
-                while (lightbox.firstChild) {
-                    lightbox.removeChild(lightbox.firstChild)
-                }
-                lightbox.appendChild(img)
-            })
-        })
-
-        lightbox.addEventListener('click', e => {
-            if (e.target !== e.currentTarget) return
-            lightbox.classList.remove('active')
-        })
-    </script>
-@endpush
