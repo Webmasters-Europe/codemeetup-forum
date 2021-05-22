@@ -70,12 +70,6 @@ textarea:focus {
     padding-bottom: 50px;
 }
 
-@media (max-width: 768px) {
-    #app {
-        padding-bottom: 150px;
-    }
-}
-
 .content-wrap {
     padding-bottom: 50px;
 }
@@ -221,4 +215,14 @@ textarea:focus {
 .custom-control-input:checked~.custom-control-label::before {
     border-color: {{ config('app.settings.category_icons_color') }};
     background-color: {{ config('app.settings.category_icons_color') }};
+}
+
+.forum-name {
+    color: {{ config('app.settings.button_text_color') }};
+}
+
+@media (max-width: 768px) {
+    #app {
+        padding-bottom: 150px;
+    }
 }
