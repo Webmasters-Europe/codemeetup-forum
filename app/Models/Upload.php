@@ -11,7 +11,7 @@ class Upload extends Model
 {
     use HasFactory, SoftDeletes, SoftCascadeTrait;
 
-    protected $fillable = ['filename'];
+    protected $fillable = ['filename','original_filename'];
 
     public function post()
     {

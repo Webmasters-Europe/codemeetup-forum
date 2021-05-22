@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FileDownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostReplyController;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /* ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Auth::routes(['verify' => true]);
 
@@ -39,6 +41,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/category/{category}', CategoryController::class)->name('category.show');
     Route::resource('/users', UserController::class)->only(['show', 'edit', 'update']);
     Route::get('/users/reset_avatar/{users}', [UserController::class, 'reset_avatar'])->name('users.reset_avatar');
+    Route::get('/file/download/{path}', FileDownloadController::class)->where('path', '.*')->name('file.download');
 
     Route::prefix('admin-area')->middleware(['auth'])->group(__DIR__.'/admin.php');
 });

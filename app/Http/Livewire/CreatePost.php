@@ -39,10 +39,12 @@ class CreatePost extends Component
 
         auth()->user()->posts()->save($post);
 
+           
         foreach ($this->files as $file) {
             $filename = $file->store('uploads', 'public');
             $upload = new Upload([
                 'filename' => $filename,
+                'original_filename' => $file->getClientOriginalName(),
             ]);
             $upload->post()->associate($post->id);
             $upload->save();
