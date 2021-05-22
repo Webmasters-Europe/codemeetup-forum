@@ -221,6 +221,10 @@ textarea:focus {
     color: {{ config('app.settings.button_text_color') }};
 }
 
+.chart {
+    height: 24rem; 
+}
+
 @media (max-width: 768px) {
     #app {
         padding-bottom: 150px;
