@@ -63,19 +63,19 @@
 
                 <div class="text-right">
                     @can('update post')
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editPostModal">
+                        <button type="button" class="btn" data-toggle="modal" data-target="#editPostModal">
                             {{ __('Edit') }}
                         </button>
                     @endcan
                     @auth
                         @if (auth()->user()->can('delete own posts') &&
             $post->user->id == auth()->user()->id)
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePostModal">
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deletePostModal">
                                 {{ __('Delete') }}
                             </button>
                         @else
                             @can('delete any posts')
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePostModal">
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deletePostModal">
                                     {{ __('Delete') }}
                                 </button>
                             @endcan
@@ -122,9 +122,7 @@
                             <x-easy-mde class="w-100" name="content"
                                 :options="['hideIcons' => ['image'], 'minHeight' => '150px']" />
                         </div>
-                        <button type="submit" class="btn ml-2"
-                            style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">
-                            {{ __('Create Reply') }}</button>
+                        <button type="submit" class="btn ml-2">{{ __('Create Reply') }}</button>
                     </form>
                 </div>
             @else
@@ -136,8 +134,7 @@
                             <textarea class="w-100 disabled-reply" disabled
                                 placeholder="{{ __('Login to leavea reply') }}"></textarea>
                         </div>
-                        <button disabled type="submit" class="btn ml-2"
-                            style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">{{ __('Create Reply') }}</button>
+                        <button disabled type="submit" class="btn ml-2">{{ __('Create Reply') }}</button>
                     </form>
                 </div>
             @endcan
@@ -145,7 +142,7 @@
                 <ul class="row my-2 p-2 no-gutters">
                     @forelse ($replies as $reply)
 
-                        <li class="list-unstyled border-bottom w-100">
+                        <li class="list-unstyled w-100">
                             @if ($reply->user->trashed())
                                 <i>{{ __('deleted user') }}:</i>
                             @else
@@ -153,12 +150,12 @@
                                         href=" {{ route('users.show', $reply->user) }}">{{ $reply->user->username }}</a></strong>:
                             @endif
                             <small>{{ $reply->created_at->diffForHumans() }}</small>
-                            <div class="border-bottom">
+                            <div class="">
                                 @markdown($reply->content)
 
                                 <div class="text-right">
                                     @can('create post replies')
-                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        <button type="button" class="btn btn-sm" data-toggle="modal"
                                             data-target="#replyModal_{{ $reply->id }}"
                                             style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">
                                             {{ __('Comment') }}
@@ -166,7 +163,7 @@
                                     @endcan
 
                                     @can('update post replies')
-                                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
+                                        <button type="button" class="btn btn-sm" data-toggle="modal"
                                             data-target="#editReplyModal_{{ $reply->id }}">
                                             {{ __('Edit') }}
                                         </button>
@@ -174,13 +171,13 @@
                                     @auth
                                         @if (auth()->user()->can('delete own post replies') &&
             $reply->user->id == auth()->user()->id)
-                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                            <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
                                                 data-target="#deleteReplyModal_{{ $reply->id }}">
                                                 {{ __('Delete') }}
                                             </button>
                                         @else
                                             @can('delete any post replies')
-                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
                                                     data-target="#deleteReplyModal_{{ $reply->id }}">
                                                     {{ __('Delete') }}
                                                 </button>
@@ -212,9 +209,9 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger"
+                                                    <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">{{ __('Close') }}</button>
-                                                    <button type="submit" class="btn btn-success">{{ __('Update') }}</button>
+                                                    <button type="submit" class="btn">{{ __('Update') }}</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -244,9 +241,9 @@
                                                     method="POST">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="button" class="btn btn-danger"
+                                                    <button type="button" class="btn"
                                                         data-dismiss="modal">{{ __('Close') }}</button>
-                                                    <button type="submit" class="btn btn-success">{{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-secondary">{{ __('Delete') }}</button>
                                                 </form>
 
                                             </div>
@@ -255,6 +252,8 @@
                                 </div>
                             @endcanany
                             <!-- end delete reply modaL -->
+
+                            <hr>
 
                             {{-- show reply to reply --}}
 
@@ -279,9 +278,9 @@
                                                         {{ old('content') }}</x-easy-mde>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger"
+                                                    <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">{{ __('Close') }}</button>
-                                                    <button type="submit" class="btn btn-success">{{ __('Save') }}</button>
+                                                    <button type="submit" class="btn">{{ __('Save') }}</button>
                                                 </div>
                                             </form>
 
@@ -325,8 +324,8 @@
                         <form action="{{ route('posts.destroy', $post) }}" method="POST">
                             @method('DELETE')
                             @csrf
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
-                            <button type="submit" class="btn btn-success">{{ __('Delete') }}</button>
+                            <button type="button" class="btn" data-dismiss="modal">{{ __('Close') }}</button>
+                            <button type="submit" class="btn btn-secondary">{{ __('Delete') }}</button>
                         </form>
                     </div>
 
@@ -362,8 +361,8 @@
                             </x-easy-mde>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
-                            <button type="submit" class="btn btn-success">{{ __('Save') }}</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                            <button type="submit" class="btn">{{ __('Save') }}</button>
                         </div>
                     </form>
                 </div>

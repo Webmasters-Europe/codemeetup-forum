@@ -41,7 +41,7 @@
                         <li class="list-group-item">
                             {{ $notification->data['postReply']['content'] }}<br>
                             <span class="small">created {{ $notification->created_at }}</span> <br>
-                            <a href="{{ route('posts.show', $notification->data['postReply']['post_id']) }}" class="btn btn-sm bg-info text-white">View</a>
+                            <a href="{{ route('posts.show', $notification->data['postReply']['post_id']) }}" class="btn btn-sm mt-2">View</a>
                         </li>
                     @empty
                         <p>{{ __('No Notifications.') }}</p>
