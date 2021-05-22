@@ -39,7 +39,6 @@ class CreatePost extends Component
 
         auth()->user()->posts()->save($post);
 
-           
         foreach ($this->files as $file) {
             $filename = $file->store('uploads', 'public');
             $upload = new Upload([
