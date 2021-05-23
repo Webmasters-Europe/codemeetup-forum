@@ -258,6 +258,16 @@ textarea:focus {
     background-color: #f4f5f7;
 }
 
+.language a {
+    color: {{ config('app.settings.button_text_color') }};
+    opacity: 0.3;
+}
+
+.language a.disabled {
+    color: {{ config('app.settings.button_text_color') }};
+    opacity: 1;
+}
+
 @media (max-width: 768px) {
     #app {
         padding-bottom: 150px;
