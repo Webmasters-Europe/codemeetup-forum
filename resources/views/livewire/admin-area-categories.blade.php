@@ -1,6 +1,6 @@
 <div>
     <div>
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-2">
+        <div class="d-flex flex-wrap justify-content-start align-items-center mb-2">
 
             <x-table-pagination/>
 

@@ -225,6 +225,39 @@ textarea:focus {
     height: 24rem; 
 }
 
+.permissions {
+    max-width: 1000px;
+}
+
+.allowed-actions {
+    background-color: {{ config('app.settings.primary_color') }};
+    color: {{ config('app.settings.button_text_color') }};
+}
+
+.allowed-actions .action {
+    background-color: {{ config('app.settings.button_text_color') }};
+    color: {{ config('app.settings.primary_color') }};
+    border-radius: 25px;
+}
+
+.disallowed-actions {
+    border: {{ config('app.settings.primary_color') }} solid 1px;
+}
+
+.disallowed-actions h2 {
+    color: {{ config('app.settings.primary_color') }};
+}
+
+.disallowed-actions .action {
+    background-color: {{ config('app.settings.primary_color') }};
+    color: {{ config('app.settings.button_text_color') }};
+    border-radius: 25px;
+}
+
+.settings > div {
+    background-color: #f4f5f7;
+}
+
 @media (max-width: 768px) {
     #app {
         padding-bottom: 150px;

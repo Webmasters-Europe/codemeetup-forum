@@ -1,10 +1,10 @@
 
 <div>
     <div>
-        <div class="d-flex justify-content-between align-content-center mb-2">
+        <div class="d-flex flex-wrap justify-content-start align-items-center mb-2">
 
             <x-table-pagination/>
-            <div class="custom-control custom-switch">
+            <div class="custom-control custom-switch m-2">
                 <input wire:model="showDeletedPosts" wire:click="resetPaginatorPage" type="checkbox" class="custom-control-input"
                     id="showDeletedPosts" name="showDeletedPosts" />
                 <label class="custom-control-label" for="showDeletedPosts">{{ __('Show deleted Posts') }}</label>
@@ -22,7 +22,7 @@
             -->
         </div>
 
-        <div class="card-body table-responsive p-0">
+        <div class="card-body table-responsive-md p-0">
             <table class="table table-hover">
                 <tbody>
                     <tr>
@@ -59,12 +59,12 @@
                             <td>
                                 @if (!$showDeletedPosts)
                                     <a href="{{ route('posts.show',$post)}}"
-                                        class="btn btn-primary btn-sm">
+                                        class="btn btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
 
                                     <button wire:click="selectPost({{ $post->id }}, 'delete')"
-                                        class="btn btn-danger btn-sm">
+                                        class="btn btn-secondary btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 @else
@@ -83,7 +83,7 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-sm-6 offset-5">
+            <div class="col-sm-6">
                 {{ $posts->firstItem()}} - {{ $posts->lastItem() }} {{ __('from') }} {{ $posts->total() }}
                 {{ $posts->links() }}
             </div>

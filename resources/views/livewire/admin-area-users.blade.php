@@ -1,19 +1,19 @@
 <div>
-    <div class="d-flex justify-content-between align-content-center mb-2">
+    <div class="d-flex flex-wrap justify-content-start align-items-center mb-2">
 
         <x-table-pagination/>
 
-        <div class="custom-control custom-switch">
+        <div class="custom-control custom-switch m-2">
             <input wire:model="showDeletedElements" wire:click="resetPaginatorPage" type="checkbox" class="custom-control-input"
                    id="showDeletedElements" name="showDeletedElements"/>
             <label class="custom-control-label" for="showDeletedElements">{{ __('Show deleted Users') }}</label>
         </div>
-        <div class=" col-md-4">
+        <div class="m-2">
             <input wire:model="globalSearch" type="search" class="form-control"
                    placeholder="{{ __('Search in name, username, email') }}">
         </div>
     </div>
-    <div class="card-body table-responsive p-0">
+    <div class="card-body table-responsive-md p-0">
         <table class="table table-hover">
             <tbody>
             <tr>
@@ -26,7 +26,7 @@
                 <th wire:click="sortBy('email')" style="cursor: pointer;">
                     {{ __('Email') }} @include('components.sort_icon',['field' => 'email'])
                 </th>
-                <th>
+                <th class="">
                     {{ __('Roles') }}
                 </th>
                 <th wire:click="sortBy('created_at')" style="cursor: pointer;">
@@ -79,12 +79,12 @@
                     <td>
                         @if (!$showDeletedElements)
                             <button wire:click="selectModelInstance({{ $user->id }}, 'update')"
-                                    class="btn btn-primary btn-sm">
+                                    class="btn btn-sm">
                                 <i class="fas fa-edit"></i>
                             </button>
                             @if ($user->id != auth()->user()->id )
                                 <button wire:click="selectModelInstance({{ $user->id }}, 'delete')"
-                                        class="btn btn-danger btn-sm">
+                                        class="btn btn-secondary btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             @endif
@@ -101,7 +101,7 @@
         </table>
     </div>
     <div class="row mt-4">
-        <div class="col-sm-6 offset-5">
+        <div class="col-sm-6">
             {{ $users->firstItem()}} - {{ $users->lastItem() }} {{ __('from') }} {{ $users->total() }}
             {{ $users->links() }}
         </div>
