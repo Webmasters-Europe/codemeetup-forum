@@ -11,11 +11,11 @@
 
     <h1>{{ __('Settings') }}</h1>
 
-    <form action="{{ route('admin-area.settings.update') }}" method="POST" enctype="multipart/form-data">
+    <form class="settings" action="{{ route('admin-area.settings.update') }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('PUT')
 
-      <div class="border rounded-lg p-3" style="background-color: #f7dcc3;">
+      <div class="border rounded-lg p-3">
         <h5>{{ __('Forum Name') }}</h5>
         <div class="form-row">
           <div class="col">
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="border rounded-lg mt-3 p-3" style="background-color: #f7dcc3;">
+      <div class="border rounded-lg mt-3 p-3">
         <h5 class="mt-3">{{ __('Primary Color (Header, Footer, Button)') }}<small>(in Hex-Code)</small></h5>
         <div class="form-row">
           <div class="col">
@@ -74,7 +74,7 @@
 
       </div>
       
-      <div class="border rounded-lg mt-3 p-3" style="background-color: #f7dcc3;">
+      <div class="border rounded-lg mt-3 p-3">
         <h5 class="mt-3">{{ __('Number of Categories on Startpage') }}</h5>
         <div class="form-row">
           <div class="col">
@@ -106,7 +106,7 @@
         </div>
       </div>
 
-      <div class="border rounded-lg mt-3 p-3" style="background-color: #f7dcc3;">
+      <div class="border rounded-lg mt-3 p-3">
         <h5 class="mt-3">{{ __('Copyright') }}</h5>
         <div class="form-row">
           <div class="col">
@@ -118,7 +118,7 @@
         </div>
       </div>
 
-      <div class="border rounded-lg mt-3 p-3" style="background-color: #f7dcc3;">
+      <div class="border rounded-lg mt-3 p-3">
         <h5 class="mt-3">{{ __('Text for Imprint Page') }}</h5>
         <div class="form-row">
           <div class="col">
@@ -127,7 +127,7 @@
         </div>
       </div>
 
-      <div class="border rounded-lg mt-3 p-3" style="background-color: #f7dcc3;">
+      <div class="border rounded-lg mt-3 p-3">
         <h5 class="mt-3">{{ __('E-Mail for Contact Page') }}</h5>
         <div class="form-row">
           <div class="col">
@@ -138,7 +138,7 @@
         </div>
       </div>
       </div>
-        <button type="submit" class="btn btn-lg mb-4 mt-3" style="background-color: {{ config('app.settings.primary_color') }}; color: {{ config('app.settings.button_text_color') }};">Save Settings</button>
+        <button type="submit" class="btn btn-lg mb-4 mt-3">Save Settings</button>
       </form>
 
 @endsection

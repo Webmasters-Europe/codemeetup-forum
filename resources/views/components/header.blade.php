@@ -12,8 +12,8 @@
                         <span class="forum-name d-none d-md-inline">{{ config('app.settings.forum_name') }}</span></a>
                         <ul class="nav">
                             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <li class="nav-item">
-                                    <a class="p-2 nav-link @if(LaravelLocalization::getCurrentLocaleName() === $properties['name']) active disabled @endif" style="color: {{ config('app.settings.button_text_color') }};" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                <li class="nav-item language">
+                                    <a class="p-2 nav-link @if(LaravelLocalization::getCurrentLocaleName() === $properties['name']) active disabled @endif" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                         {{ $properties['native'] }}
                                     </a>
                                 </li>
