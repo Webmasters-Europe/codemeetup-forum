@@ -2,6 +2,8 @@ body {
     font-family: 'Nunito Sans', sans-serif;
     color: #212529;
     font-size: 1rem;
+    position: relative;
+
 }
 
 a {
@@ -62,6 +64,11 @@ textarea:focus {
 #navbar .navbar-brand {
     font-size: 2rem;
     font-weight: 700;
+}
+
+#navbar .navbar-brand img {
+    display: inline-block;
+    height: 50px;
 }
 
 #app {
