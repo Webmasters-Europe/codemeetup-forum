@@ -190,10 +190,10 @@
                 <!-- oAuth -->
 
                 <a class="btn btn-block btn-outline-dark outline-primary m-0 mb-2 py-2"
-                   href="{{ route('oauth', ['provider' => 'google']) }}"><img src="{{ asset('icons/google.png') }}"
+                   href="{{ route('oauth', ['provider' => 'google']) }}"><img class="d-inline-block" src="{{ asset('icons/google.png') }}"
                                                                               alt="google-icon"> {{ __('Login with Google') }}</a>
                 <a class="btn btn-block btn-outline-dark outline-primary m-0 mb-2 py-2"
-                   href="{{ route('oauth', ['provider' => 'github']) }}"><img src="{{ asset('icons/github.png') }}"
+                   href="{{ route('oauth', ['provider' => 'github']) }}"><img class="d-inline-block" src="{{ asset('icons/github.png') }}"
                                                                               alt="github-icon"> {{ __('Login with Github') }}</a>
 
             </div>
