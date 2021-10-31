@@ -8,10 +8,8 @@ class AddEmailNotificationForReplyToUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('reply_email_notification')->default(false);
@@ -20,10 +18,8 @@ class AddEmailNotificationForReplyToUsersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('reply_email_notification');

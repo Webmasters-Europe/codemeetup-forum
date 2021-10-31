@@ -12,7 +12,7 @@ class UserPolicy
     /**
      * Determine whether the user can view any users.
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): bool
     {
         return true;
     }
@@ -20,7 +20,7 @@ class UserPolicy
     /**
      * Determine whether the user can view the user.
      */
-    public function view(?User $user)
+    public function view(?User $user): bool
     {
         return true;
     }
@@ -28,7 +28,7 @@ class UserPolicy
     /**
      * Determine whether the user can create the user.
      */
-    public function create(?User $user)
+    public function create(?User $user): bool
     {
         return false;
     }

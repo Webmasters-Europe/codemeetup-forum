@@ -10,10 +10,8 @@ class PostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         Post::factory(50)->hasCategory()->create();
         Post::factory(30)->hasCategory()->create(['created_at' => Carbon::now()->subMonths(1)]);

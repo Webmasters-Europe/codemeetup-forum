@@ -13,7 +13,7 @@ class Upload extends Model
 
     protected $fillable = ['filename', 'original_filename'];
 
-    public function post()
+    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Post::class);
     }

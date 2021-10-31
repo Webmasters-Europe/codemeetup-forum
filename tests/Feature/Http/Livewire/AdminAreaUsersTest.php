@@ -36,7 +36,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function page_contains_user_table_livewire_component()
+    public function page_contains_user_table_livewire_component(): void
     {
         $response = $this->get(route('admin-area.users'));
 
@@ -46,7 +46,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_show_users_table_when_the_user_has_no_permission()
+    public function it_does_not_show_users_table_when_the_user_has_no_permission(): void
     {
         $moderatorRole = Role::findByName('moderator');
         $moderatorRole->revokePermissionTo('admin users');
@@ -57,7 +57,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_shows_users_in_the_table()
+    public function it_shows_users_in_the_table(): void
     {
         $this->assertDatabaseCount('users', 2);
 
@@ -72,7 +72,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_to_search_for_users()
+    public function it_allows_to_search_for_users(): void
     {
         // Global search:
         Livewire::test(AdminAreaUsers::class)
@@ -123,7 +123,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_to_order_users()
+    public function it_allows_to_order_users(): void
     {
         $this->authUser->name = 'Anna';
         $this->authUser->email = 'aaa@bbb.com';
@@ -146,7 +146,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_shows_deleted_users_when_table_view_is_changed()
+    public function it_shows_deleted_users_when_table_view_is_changed(): void
     {
         Livewire::test(AdminAreaUsers::class)
             ->call('render')
@@ -177,7 +177,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_to_delete_and_restore_users()
+    public function it_allows_to_delete_and_restore_users(): void
     {
         $this->assertDatabaseHas('users', [
             'name' => 'Rolf Liebermann',
@@ -229,7 +229,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_to_edit_user_roles()
+    public function it_allows_to_edit_user_roles(): void
     {
         $testUserId = $this->testUser->id;
 
@@ -266,7 +266,7 @@ class AdminAreaUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_disallows_to_assign_or_revoke_the_superadmin_user_role_for_users_not_in_role_superadmin()
+    public function it_disallows_to_assign_or_revoke_the_superadmin_user_role_for_users_not_in_role_superadmin(): void
     {
         $testUserId = $this->testUser->id;
 

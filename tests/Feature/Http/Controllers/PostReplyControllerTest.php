@@ -17,7 +17,7 @@ class PostReplyControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_stores_a_post_reply_and_redirects_with_status()
+    public function it_stores_a_post_reply_and_redirects_with_status(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $post = Post::factory()->create();
@@ -45,7 +45,7 @@ class PostReplyControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_stores_a_comment_to_a_post_reply_and_redirects_with_status()
+    public function it_stores_a_comment_to_a_post_reply_and_redirects_with_status(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $post = Post::factory()->create();
@@ -74,7 +74,7 @@ class PostReplyControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_store_a_post_reply_with_no_content_provided()
+    public function it_does_not_store_a_post_reply_with_no_content_provided(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $post = Post::factory()->create();
@@ -92,7 +92,7 @@ class PostReplyControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_store_a_post_reply_when_the_user_is_not_authenticated()
+    public function it_does_not_store_a_post_reply_when_the_user_is_not_authenticated(): void
     {
         $post = Post::factory()->create();
         $content = $this->faker->sentence;
@@ -111,7 +111,7 @@ class PostReplyControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_moderator_can_delete_post_replies()
+    public function a_moderator_can_delete_post_replies(): void
     {
         $moderator = User::factory()->create()->assignRole('moderator');
         $user = User::factory()->create()->assignRole('user');
@@ -139,7 +139,7 @@ class PostReplyControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_user_can_delete_his_own_post_replies()
+    public function a_user_can_delete_his_own_post_replies(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $post = Post::factory()->create();
@@ -167,7 +167,7 @@ class PostReplyControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_user_cannot_delete_post_replies_from_other_users()
+    public function a_user_cannot_delete_post_replies_from_other_users(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $post = Post::factory()->create();
@@ -199,7 +199,7 @@ class PostReplyControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_moderator_can_update_post_replies()
+    public function a_moderator_can_update_post_replies(): void
     {
         $moderator = User::factory()->create()->assignRole('moderator');
         // create reply
@@ -226,7 +226,7 @@ class PostReplyControllerTest extends TestCase
         $response->assertSessionHas('status', 'Reply has been updated.');
     }
 
-    public function a_user_cannot_update_post_replies()
+    public function a_user_cannot_update_post_replies(): void
     {
         // create reply
         $post = Post::factory()->create();

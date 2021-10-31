@@ -19,7 +19,7 @@ class CreatePostTest extends TestCase
     /**
      * @test
      */
-    public function page_contains_post_form_livewire_component()
+    public function page_contains_post_form_livewire_component(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $category = Category::factory()->create();
@@ -32,7 +32,7 @@ class CreatePostTest extends TestCase
     /**
      * @test
      */
-    public function it_stores_a_post_and_redirects_with_status()
+    public function it_stores_a_post_and_redirects_with_status(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $this->actingAs($user);
@@ -59,7 +59,7 @@ class CreatePostTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_store_a_post_with_no_content_and_title_provided()
+    public function it_does_not_store_a_post_with_no_content_and_title_provided(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $this->actingAs($user);
@@ -79,7 +79,7 @@ class CreatePostTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_store_a_post_when_the_user_is_not_authenticated()
+    public function it_does_not_store_a_post_when_the_user_is_not_authenticated(): void
     {
         $category = Category::factory()->create();
 
@@ -100,7 +100,7 @@ class CreatePostTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_store_a_post_when_the_user_has_no_permission()
+    public function it_does_not_store_a_post_when_the_user_has_no_permission(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $userRole = Role::findByName('user');

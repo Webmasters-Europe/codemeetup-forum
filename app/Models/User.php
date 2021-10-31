@@ -48,22 +48,22 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function socialAuths()
+    public function socialAuths(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(SocialAuth::class);
     }
 
-    public function posts()
+    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    public function postReplies()
+    public function postReplies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(PostReply::class);
     }
 
-    public function scopeGlobalSearch($query, $term)
+    public function scopeGlobalSearch($query, $term): void
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
@@ -73,7 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-    public function scopeSingleFieldSearch($query, $term, $field)
+    public function scopeSingleFieldSearch($query, $term, $field): void
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term, $field) {

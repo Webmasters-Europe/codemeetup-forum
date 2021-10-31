@@ -15,7 +15,6 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function show(User $user)
@@ -40,7 +39,6 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function edit(User $user)
@@ -54,10 +52,8 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, User $user): \Illuminate\Http\Response
     {
         $this->authorize('update', [User::class, $user]);
 

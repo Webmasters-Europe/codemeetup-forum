@@ -20,12 +20,12 @@ class PostReply extends Model
         return $this->belongsTo(User::class)->withTrashed();
     }
 
-    public function post()
+    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
 
-    public function reply()
+    public function reply(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }

@@ -13,7 +13,7 @@ class PostPolicy
     /**
      * Determine whether the user can view any posts.
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class PostPolicy
     /**
      * Determine whether the user can view the post.
      */
-    public function view(?User $user)
+    public function view(?User $user): bool
     {
         return true;
     }

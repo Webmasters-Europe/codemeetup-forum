@@ -15,7 +15,7 @@ class CategoryControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_should_return_the_categories_show_view_with_posts()
+    public function it_should_return_the_categories_show_view_with_posts(): void
     {
         $category = Category::factory()->create();
 
@@ -28,7 +28,7 @@ class CategoryControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_should_return_404_status_code_when_category_is_unknown()
+    public function it_should_return_404_status_code_when_category_is_unknown(): void
     {
         $response = $this->get(route('category.show', '1'));
 

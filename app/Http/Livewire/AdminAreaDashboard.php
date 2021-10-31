@@ -24,7 +24,7 @@ class AdminAreaDashboard extends Component
     private $lastSixMonthChart;
     private $monthChart;
 
-    public function mount()
+    public function mount(): void
     {
         $this->prepareNumberOfEntitiesOverallChart();
         $this->prepareNumberOfEntitiesCurrentMonthChart();
@@ -46,7 +46,7 @@ class AdminAreaDashboard extends Component
         ]);
     }
 
-    private function prepareNumberOfEntitiesOverallChart()
+    private function prepareNumberOfEntitiesOverallChart(): void
     {
         $this->numberOfEntitiesOverallChart =
             (new ColumnChartModel())
@@ -59,7 +59,7 @@ class AdminAreaDashboard extends Component
             ->setDataLabelsEnabled(true);
     }
 
-    private function prepareNumberOfEntitiesCurrentMonthChart()
+    private function prepareNumberOfEntitiesCurrentMonthChart(): void
     {
         $usersCreatedInCurrentMonth = User::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->count();
 
@@ -80,7 +80,7 @@ class AdminAreaDashboard extends Component
             ->setDataLabelsEnabled(true);
     }
 
-    private function preparePostsGroupedByCreationDateChart()
+    private function preparePostsGroupedByCreationDateChart(): void
     {
         $dateThreeMonthsAgo = Carbon::now()->subMonths(3);
 
@@ -118,7 +118,7 @@ class AdminAreaDashboard extends Component
         }
     }
 
-    private function prepareTopFiveUsersPostsChart()
+    private function prepareTopFiveUsersPostsChart(): void
     {
         $users = User::withCount('posts')->orderBy('posts_count', 'DESC')->limit(5)->get();
 
@@ -134,7 +134,7 @@ class AdminAreaDashboard extends Component
         $this->topFiveUsersPostsChart = $macro;
     }
 
-    private function prepareTopFiveUsersRepliesChart()
+    private function prepareTopFiveUsersRepliesChart(): void
     {
         $users = User::withCount('postReplies')->orderBy('post_replies_count', 'DESC')->limit(5)->get();
 
@@ -150,7 +150,7 @@ class AdminAreaDashboard extends Component
         $this->topFiveUsersRepliesChart = $macro;
     }
 
-    private function prepareLastSixMonthChart()
+    private function prepareLastSixMonthChart(): void
     {
         Carbon::setLocale(LaravelLocalization::getCurrentLocale());
 

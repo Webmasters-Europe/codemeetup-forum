@@ -35,7 +35,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function page_contains_categories_table_livewire_component()
+    public function page_contains_categories_table_livewire_component(): void
     {
         $response = $this->get(route('admin-area.categories'));
 
@@ -43,7 +43,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function does_not_show_categories_table_when_the_user_has_no_permission()
+    public function does_not_show_categories_table_when_the_user_has_no_permission(): void
     {
         $moderatorRole = Role::findByName('moderator');
         $moderatorRole->revokePermissionTo('admin categories');
@@ -52,7 +52,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function shows_categories_in_the_table()
+    public function shows_categories_in_the_table(): void
     {
         $this->assertDatabaseCount('categories', 2);
 
@@ -65,7 +65,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function allows_to_search_for_categories()
+    public function allows_to_search_for_categories(): void
     {
         $this->testCategory->name = 'Die besten Programmierer aller Zeiten';
         $this->testCategory->description = 'Michael und Rhea sind die ...';
@@ -110,7 +110,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function allows_to_sort_categories()
+    public function allows_to_sort_categories(): void
     {
         Livewire::test(AdminAreaCategories::class)
             ->call('render')
@@ -127,7 +127,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function shows_deleted_categories_when_table_view_is_changed()
+    public function shows_deleted_categories_when_table_view_is_changed(): void
     {
         Livewire::test(AdminAreaCategories::class)
             ->call('render')
@@ -156,7 +156,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function allows_to_delete_and_restore_categories()
+    public function allows_to_delete_and_restore_categories(): void
     {
         $testCategoryId = $this->testCategory->id;
 
@@ -197,7 +197,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function can_add_a_new_category()
+    public function can_add_a_new_category(): void
     {
         Livewire::test(AdminAreaCategories::class)
             ->call('render')
@@ -216,7 +216,7 @@ class AdminAreaCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function can_edit_a_category()
+    public function can_edit_a_category(): void
     {
         Livewire::test(AdminAreaCategories::class)
             ->call('render')

@@ -24,7 +24,7 @@ class CreatePost extends Component
         'files.*' => 'max:5000',
     ];
 
-    public function submitForm()
+    public function submitForm(): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('create', Post::class);
 

@@ -19,7 +19,7 @@ class Category extends Model
 
     protected $softCascade = ['posts'];
 
-    public function posts()
+    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
     }
@@ -29,7 +29,7 @@ class Category extends Model
         return $this->hasMany(Post::class)->onlyTrashed();
     }
 
-    public function scopeSearch($query, $term)
+    public function scopeSearch($query, $term): void
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
@@ -38,7 +38,7 @@ class Category extends Model
         });
     }
 
-    public function scopeSearchName($query, $term)
+    public function scopeSearchName($query, $term): void
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
@@ -46,7 +46,7 @@ class Category extends Model
         });
     }
 
-    public function scopeSearchDescription($query, $term)
+    public function scopeSearchDescription($query, $term): void
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {

@@ -46,7 +46,7 @@ class AdminAreaPosts extends TableComponent
         return view('livewire.admin-area-posts', compact('posts'));
     }
 
-    public function selectPost($id, $action)
+    public function selectPost($id, $action): void
     {
         $this->selectedPost = $id;
         $post = Post::withTrashed()->with('reply')->findOrFail($this->selectedPost);
@@ -56,7 +56,7 @@ class AdminAreaPosts extends TableComponent
         $this->dispatchBrowserEventByAction($action);
     }
 
-    public function delete()
+    public function delete(): \Illuminate\Http\RedirectResponse
     {
         Post::findOrFail($this->selectedPost)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
@@ -66,7 +66,7 @@ class AdminAreaPosts extends TableComponent
         return redirect()->route('admin-area.posts');
     }
 
-    public function restore()
+    public function restore(): \Illuminate\Http\RedirectResponse
     {
         Post::onlyTrashed()->findOrFail($this->selectedPost)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
@@ -76,7 +76,7 @@ class AdminAreaPosts extends TableComponent
         return redirect()->route('admin-area.posts');
     }
 
-    public function update()
+    public function update(): \Illuminate\Http\RedirectResponse
     {
         $this->validate();
         $post = Post::findOrFail($this->selectedPost);
@@ -91,7 +91,7 @@ class AdminAreaPosts extends TableComponent
         return redirect()->route('admin-area.posts');
     }
 
-    private function resetInputFields()
+    private function resetInputFields(): void
     {
         $this->title = '';
         $this->userName = '';

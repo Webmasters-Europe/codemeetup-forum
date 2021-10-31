@@ -15,7 +15,7 @@ class HomeControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_should_return_the_welcome_view_for_an_authenticated_user()
+    public function it_should_return_the_welcome_view_for_an_authenticated_user(): void
     {
         $user = User::factory()->create();
 
@@ -28,7 +28,7 @@ class HomeControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_should_return_the_welcome_view_for_an_unauthenticated_user()
+    public function it_should_return_the_welcome_view_for_an_unauthenticated_user(): void
     {
         $response = $this->get(route('home'));
 

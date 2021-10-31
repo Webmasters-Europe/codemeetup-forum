@@ -23,9 +23,8 @@ class OnlySuperUserMayAssignOrRevokeSuperAdminUserRole implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         if (auth()->user()->hasRole('super-admin')) {
             return true;
@@ -49,10 +48,8 @@ class OnlySuperUserMayAssignOrRevokeSuperAdminUserRole implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'You are not allowed to assign or revoke the super-admin role.';
     }

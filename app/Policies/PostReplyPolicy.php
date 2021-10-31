@@ -13,7 +13,7 @@ class PostReplyPolicy
     /**
      * Determine whether the user can view any post replies.
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class PostReplyPolicy
     /**
      * Determine whether the user can view the post reply.
      */
-    public function view(?User $user)
+    public function view(?User $user): bool
     {
         return true;
     }
