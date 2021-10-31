@@ -29,7 +29,7 @@ class SettingControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_shows_settings_page_only_for_admins()
+    public function it_shows_settings_page_only_for_admins(): void
     {
         $response = $this->actingAs($this->testAdmin)->get(route('admin-area.settings'));
         $response->assertViewIs('admin-area.settings');
@@ -43,9 +43,9 @@ class SettingControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_checks_if_only_the_first_instance_of_settings_is_used()
+    public function it_checks_if_only_the_first_instance_of_settings_is_used(): void
     {
-        $setting = Setting::create([
+        Setting::create([
             'primary_color' => 'test',
             'button_text_color' => 'test',
             'category_icons_color' => 'test',
@@ -66,7 +66,7 @@ class SettingControllerTest extends TestCase
     /**
      * @test
      */
-    public function if_can_update_settings_values()
+    public function if_can_update_settings_values(): void
     {
         $testImage = UploadedFile::fake()->image('logo.jpg');
 
@@ -110,7 +110,7 @@ class SettingControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_update_settings_with_no_values()
+    public function it_does_not_update_settings_with_no_values(): void
     {
         $response = $this
             ->actingAs($this->testAdmin)

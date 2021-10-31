@@ -42,7 +42,6 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function show(Post $post)
@@ -87,7 +86,7 @@ class PostController extends Controller
         return redirect()->route('home')->withStatus(__('Post and all replies and comments in this post successfully deleted.'));
     }
 
-    private function isImage($file)
+    private function isImage($file): bool
     {
         $info = pathinfo($file);
 

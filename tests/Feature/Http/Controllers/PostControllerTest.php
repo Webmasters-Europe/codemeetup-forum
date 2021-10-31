@@ -37,7 +37,7 @@ class PostControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_should_return_the_post_create_view()
+    public function it_should_return_the_post_create_view(): void
     {
         $response = $this->actingAs($this->user)->get(route('posts.create', $this->category));
         $response->assertViewIs('posts.create');
@@ -46,7 +46,7 @@ class PostControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_moderator_can_delete_any_posts()
+    public function a_moderator_can_delete_any_posts(): void
     {
         $this->assertDatabaseHas('posts', [
             'title' => 'Test',
@@ -66,7 +66,7 @@ class PostControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_user_can_delete_own_posts()
+    public function a_user_can_delete_own_posts(): void
     {
         $this->assertDatabaseHas('posts', [
             'title' => 'Test',
@@ -89,7 +89,7 @@ class PostControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_user_cannot_delete_posts_from_other_users()
+    public function a_user_cannot_delete_posts_from_other_users(): void
     {
         $this->assertDatabaseHas('posts', [
             'title' => 'Test',
@@ -118,7 +118,7 @@ class PostControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_moderator_can_update_posts()
+    public function a_moderator_can_update_posts(): void
     {
         $response = $this
             ->actingAs($this->moderator)
@@ -140,7 +140,7 @@ class PostControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_user_cannot_edit_posts()
+    public function a_user_cannot_edit_posts(): void
     {
         $this->actingAs($this->user)
             ->put(route('posts.update', $this->post->id), [

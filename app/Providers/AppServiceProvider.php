@@ -12,20 +12,16 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Artisan::call('migrate', ['--force' => true, '--path' => '/database/migrations/2021_04_17_094446_create_settings_table.php']);
         if (Setting::exists() == false) {

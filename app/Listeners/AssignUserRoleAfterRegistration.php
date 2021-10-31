@@ -20,9 +20,8 @@ class AssignUserRoleAfterRegistration
      * Handle the event.
      *
      * @param  object  $event
-     * @return void
      */
-    public function handle(Registered $event)
+    public function handle(Registered $event): void
     {
         $event->user->assignRole('user');
     }

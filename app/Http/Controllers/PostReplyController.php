@@ -18,11 +18,8 @@ class PostReplyController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
      */
-    public function index(Post $post)
+    public function index(Post $post): void
     {
         $this->authorize('viewAny', PostReply::class);
 
@@ -30,8 +27,6 @@ class PostReplyController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\PostReplyRequest $request
-     * @param \App\Models\Post $post
      * @param \App\Models\PostReply|null $postReply
      * @return mixed
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -65,12 +60,8 @@ class PostReplyController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @param  \App\Models\PostReply  $postReply
-     * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post, PostReply $postReply)
+    public function edit(Post $post, PostReply $postReply): void
     {
         $this->authorize('update', PostReply::class);
 
@@ -82,10 +73,8 @@ class PostReplyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Post  $post
-     * @param  \App\Models\PostReply  $postReply
-     * @return \Illuminate\Http\Response
      */
-    public function update(PostReplyRequest $request, PostReply $postReply)
+    public function update(PostReplyRequest $request, PostReply $postReply): \Illuminate\Http\Response
     {
         $this->authorize('update', PostReply::class);
         $postReply->content = $request->content;
@@ -99,10 +88,8 @@ class PostReplyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Post  $post
-     * @param  \App\Models\PostReply  $postReply
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(PostReply $postReply)
+    public function destroy(PostReply $postReply): \Illuminate\Http\Response
     {
         $this->authorize('delete', [PostReply::class, $postReply]);
 

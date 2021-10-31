@@ -31,22 +31,22 @@ class Post extends Model
         return $this->belongsTo(User::class)->withTrashed();
     }
 
-    public function category()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function reply()
+    public function reply(): \Illuminate\Database\Query\Builder
     {
         return $this->hasMany(PostReply::class)->whereNull('parent_id');
     }
 
-    public function uploads()
+    public function uploads(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Upload::class);
     }
 
-    public function scopeSearch($query, $term)
+    public function scopeSearch($query, $term): void
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
@@ -55,7 +55,7 @@ class Post extends Model
         });
     }
 
-    public function scopeSearchTitle($query, $term)
+    public function scopeSearchTitle($query, $term): void
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
@@ -63,7 +63,7 @@ class Post extends Model
         });
     }
 
-    public function scopeSearchContent($query, $term)
+    public function scopeSearchContent($query, $term): void
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {

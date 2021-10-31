@@ -15,7 +15,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function it_shows_a_users_profile_page_for_auth_users()
+    public function it_shows_a_users_profile_page_for_auth_users(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $response = $this->actingAs($user)->get(route('users.show', $user));
@@ -25,7 +25,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_user_can_edit_his_profile()
+    public function a_user_can_edit_his_profile(): void
     {
         $user = User::factory()->create()->assignRole('user');
         $response = $this->actingAs($user)->get(route('users.edit', $user));
@@ -35,7 +35,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function a_user_can_update_name_username_and_email()
+    public function a_user_can_update_name_username_and_email(): void
     {
         $user = User::factory()->create()->assignRole('user');
 

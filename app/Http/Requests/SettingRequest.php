@@ -8,20 +8,16 @@ class SettingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
                 'primary_color' => 'required|string|max:7',
@@ -38,7 +34,7 @@ class SettingRequest extends FormRequest
             ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
         'primary_color.required' => __('The main color field must not be empty.'),

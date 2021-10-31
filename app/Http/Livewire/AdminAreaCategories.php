@@ -55,13 +55,13 @@ class AdminAreaCategories extends TableComponent
         return view('livewire.admin-area-categories', compact('categories'));
     }
 
-    public function showCategoryForm()
+    public function showCategoryForm(): void
     {
         $this->resetInputFields();
         $this->dispatchBrowserEvent('openAddModelInstanceModal');
     }
 
-    public function addNewCategory()
+    public function addNewCategory(): \Illuminate\Http\RedirectResponse
     {
         $this->validate();
 
@@ -78,7 +78,7 @@ class AdminAreaCategories extends TableComponent
         return redirect()->route('admin-area.categories');
     }
 
-    public function selectCategory($categoryId, $action)
+    public function selectCategory($categoryId, $action): void
     {
         $this->selectedCategory = $categoryId;
         $category = Category::withTrashed()->findOrFail($this->selectedCategory);
@@ -88,7 +88,7 @@ class AdminAreaCategories extends TableComponent
         $this->dispatchBrowserEventByAction($action);
     }
 
-    public function update()
+    public function update(): \Illuminate\Http\RedirectResponse
     {
         $this->validate();
         $category = Category::findOrFail($this->selectedCategory);
@@ -103,7 +103,7 @@ class AdminAreaCategories extends TableComponent
         return redirect()->route('admin-area.categories');
     }
 
-    public function delete()
+    public function delete(): \Illuminate\Http\RedirectResponse
     {
         Category::findOrFail($this->selectedCategory)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
@@ -113,7 +113,7 @@ class AdminAreaCategories extends TableComponent
         return redirect()->route('admin-area.categories');
     }
 
-    public function restore()
+    public function restore(): \Illuminate\Http\RedirectResponse
     {
         Category::onlyTrashed()->findOrFail($this->selectedCategory)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
@@ -123,7 +123,7 @@ class AdminAreaCategories extends TableComponent
         return redirect()->route('admin-area.categories');
     }
 
-    private function resetInputFields()
+    private function resetInputFields(): void
     {
         $this->name = '';
         $this->description = '';

@@ -21,11 +21,10 @@ class AtLeastOneUserRoleRequired implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
-        foreach ($value as $key => $isChosen) {
+        foreach ($value as $isChosen) {
             if ($isChosen) {
                 return true;
             }
@@ -36,10 +35,8 @@ class AtLeastOneUserRoleRequired implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'A user must have at least one role.';
     }

@@ -12,7 +12,7 @@ class AdminAreaPermissions extends Component
     public $permissions;
     public $selectedRoleId;
 
-    public function mount()
+    public function mount(): void
     {
         $this->roles = Role::where('name', '!=', 'super-admin')->with('permissions')->get();
         $this->selectedRoleId = $this->roles->first()->id;
@@ -30,7 +30,7 @@ class AdminAreaPermissions extends Component
             'actionRole' => $actionRole, ]);
     }
 
-    public function updateAllowedPermissions($allowedPermissions)
+    public function updateAllowedPermissions($allowedPermissions): void
     {
         $selectedRole = Role::findOrFail($this->selectedRoleId);
 

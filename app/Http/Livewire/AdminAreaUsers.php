@@ -63,7 +63,7 @@ class AdminAreaUsers extends TableComponent
         return view('livewire.admin-area-users', compact('users'));
     }
 
-    public function selectModelInstance($id, $action)
+    public function selectModelInstance($id, $action): void
     {
         $this->selectedModelInstance = $id;
         $user = User::withTrashed()->findOrFail($this->selectedModelInstance);
@@ -77,7 +77,7 @@ class AdminAreaUsers extends TableComponent
         $this->dispatchBrowserEventByAction($action);
     }
 
-    public function deleteModelInstance()
+    public function deleteModelInstance(): \Illuminate\Http\RedirectResponse
     {
         User::findOrFail($this->selectedModelInstance)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
@@ -88,7 +88,7 @@ class AdminAreaUsers extends TableComponent
         return redirect()->route('admin-area.users');
     }
 
-    public function restoreModelInstance()
+    public function restoreModelInstance(): \Illuminate\Http\RedirectResponse
     {
         User::onlyTrashed()->findOrFail($this->selectedModelInstance)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
@@ -97,7 +97,7 @@ class AdminAreaUsers extends TableComponent
         return redirect()->route('admin-area.users');
     }
 
-    public function resetFormFields()
+    public function resetFormFields(): void
     {
         $this->name = '';
         $this->username = '';
@@ -105,7 +105,7 @@ class AdminAreaUsers extends TableComponent
         $this->roles = [];
     }
 
-    public function updateRoles()
+    public function updateRoles(): \Illuminate\Http\RedirectResponse
     {
         $user = User::findOrFail($this->selectedModelInstance);
 
@@ -129,7 +129,7 @@ class AdminAreaUsers extends TableComponent
         return redirect()->route('admin-area.users');
     }
 
-    private function setRolesByUser($user)
+    private function setRolesByUser($user): void
     {
         $this->roles = [];
         $availableRoles = Role::all();

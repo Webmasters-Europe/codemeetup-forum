@@ -45,10 +45,8 @@ class LoginController extends Controller
 
     /**
      * Get username.
-     *
-     * @return string
      */
-    public function findLoginFieldType()
+    public function findLoginFieldType(): string
     {
         $login = request()->input('login');
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -59,15 +57,13 @@ class LoginController extends Controller
 
     /**
      * Get username property.
-     *
-     * @return string
      */
-    public function username()
+    public function username(): string
     {
         return $this->login;
     }
 
-    public function redirectToProvider($provider)
+    public function redirectToProvider($provider): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         return Socialite::driver($provider)->redirect();
     }
@@ -116,7 +112,7 @@ class LoginController extends Controller
         return abort(404);
     }
 
-    protected function redirectTo()
+    protected function redirectTo(): string
     {
         return url()->previous();
     }
