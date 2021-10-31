@@ -38,7 +38,7 @@ class SendContactForm extends Notification
      *
      * @param  mixed  $notifiable
      */
-    public function toMail($notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
                     ->subject('Contact from '.config('app.settings.forum_name'))

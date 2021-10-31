@@ -45,7 +45,7 @@ class ReplyToPost extends Notification
      *
      * @param  mixed  $notifiable
      */
-    public function toMail($notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
             ->line('There is a new reply to your post:')
