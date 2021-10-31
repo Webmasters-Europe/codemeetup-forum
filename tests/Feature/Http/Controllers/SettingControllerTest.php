@@ -45,7 +45,7 @@ class SettingControllerTest extends TestCase
      */
     public function it_checks_if_only_the_first_instance_of_settings_is_used()
     {
-        $setting = Setting::create([
+        Setting::create([
             'primary_color' => 'test',
             'button_text_color' => 'test',
             'category_icons_color' => 'test',

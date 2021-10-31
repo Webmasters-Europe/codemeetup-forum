@@ -16,8 +16,6 @@ class CreatePostTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    private $userRole;
-
     /**
      * @test
      */

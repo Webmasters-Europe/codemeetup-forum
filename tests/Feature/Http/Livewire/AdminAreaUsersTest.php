@@ -15,9 +15,6 @@ class AdminAreaUsersTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
-
-    private $moderatorRole;
-    private $userRole;
     private $authUser;
     private $testUser;
 

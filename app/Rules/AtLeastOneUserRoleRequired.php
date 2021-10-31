@@ -25,7 +25,7 @@ class AtLeastOneUserRoleRequired implements Rule
      */
     public function passes($attribute, $value)
     {
-        foreach ($value as $key => $isChosen) {
+        foreach ($value as $isChosen) {
             if ($isChosen) {
                 return true;
             }
