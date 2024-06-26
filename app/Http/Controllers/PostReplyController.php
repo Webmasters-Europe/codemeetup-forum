@@ -74,7 +74,6 @@ class PostReplyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Post  $post
      */
-    // public function update(PostReplyRequest $request, PostReply $postReply): \Illuminate\Http\Response
     public function update(PostReplyRequest $request, PostReply $postReply): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('update', PostReply::class);
@@ -90,7 +89,6 @@ class PostReplyController extends Controller
      *
      * @param  \App\Models\Post  $post
      */
-    // public function destroy(PostReply $postReply): \Illuminate\Http\Response
     public function destroy(PostReply $postReply): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('delete', [PostReply::class, $postReply]);

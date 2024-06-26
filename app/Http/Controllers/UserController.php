@@ -53,7 +53,6 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    // public function update(UserRequest $request, User $user): \Illuminate\Http\Response
     public function update(UserRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('update', [User::class, $user]);
