@@ -36,7 +36,7 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function reply(): \Illuminate\Database\Query\Builder
+    public function reply(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(PostReply::class)->whereNull('parent_id');
     }
