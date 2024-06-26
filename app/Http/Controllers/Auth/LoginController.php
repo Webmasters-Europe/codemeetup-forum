@@ -109,7 +109,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return abort(404);
+        abort(404);
     }
 
     protected function redirectTo(): string

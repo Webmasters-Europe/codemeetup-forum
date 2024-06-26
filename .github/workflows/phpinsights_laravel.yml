@@ -16,6 +16,8 @@ jobs:
           php-version: 7.4
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
+    - name: configure composer
+      run: composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
     - name: Install Dependencies & phpinsights
       run: composer require nunomaduro/phpinsights --dev
       # run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
