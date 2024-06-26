@@ -18,6 +18,6 @@ class FileDownloadController extends Controller
             return response()->download(public_path('storage/'.$path));
         }
 
-        return abort(404);
+        abort(404);
     }
 }

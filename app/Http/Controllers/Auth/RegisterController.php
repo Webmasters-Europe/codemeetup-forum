@@ -69,6 +69,6 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return abort(404);
+        abort(404);
     }
 }
