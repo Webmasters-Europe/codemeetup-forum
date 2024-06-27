@@ -192,7 +192,7 @@ class AdminAreaCategoriesTest extends TestCase
             ->call('restore')
             ->assertDispatchedBrowserEvent('closeRestoreModelInstanceModal')
             ->assertRedirect(route('admin-area.categories'));
-        
+
         Livewire::test(AdminAreaCategories::class)
             ->call('render')
             ->set('showDeletedCategories', true)

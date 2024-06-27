@@ -197,7 +197,7 @@ class AdminAreaUsersTest extends TestCase
             ->call('deleteModelInstance')
             ->assertDispatchedBrowserEvent('closeDeleteModelInstanceModal')
             ->assertRedirect(route('admin-area.users'));
-        
+
         Livewire::test(AdminAreaUsers::class)
             ->call('render')
             ->assertDontSee('Rolf Liebermann')
