@@ -196,6 +196,10 @@ class AdminAreaUsersTest extends TestCase
             ->assertSee('Yes, Delete')
             ->call('deleteModelInstance')
             ->assertDispatchedBrowserEvent('closeDeleteModelInstanceModal')
+            ->assertRedirect(route('admin-area.users'));
+        
+        Livewire::test(AdminAreaUsers::class)
+            ->call('render')
             ->assertDontSee('Rolf Liebermann')
             ->set('showDeletedElements', true)
             ->assertSee('Rolf Liebermann');
@@ -216,6 +220,10 @@ class AdminAreaUsersTest extends TestCase
             ->assertSee('Yes, Restore')
             ->call('restoreModelInstance')
             ->assertDispatchedBrowserEvent('closeRestoreModelInstanceModal')
+            ->assertRedirect(route('admin-area.users'));
+
+        Livewire::test(AdminAreaUsers::class)
+            ->set('showDeletedElements', true)
             ->assertDontSee('Rolf Liebermann')
             ->set('showDeletedElements', false)
             ->assertSee('Rolf Liebermann');

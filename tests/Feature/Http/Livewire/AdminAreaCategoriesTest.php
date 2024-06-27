@@ -168,6 +168,10 @@ class AdminAreaCategoriesTest extends TestCase
             ->assertSee('Delete this Category')
             ->call('delete')
             ->assertDispatchedBrowserEvent('closeDeleteModelInstanceModal')
+            ->assertRedirect(route('admin-area.categories'));
+
+        Livewire::test(AdminAreaCategories::class)
+            ->call('render')
             ->assertDontSee($this->testCategory->name)
             ->set('showDeletedCategories', true)
             ->assertSee($this->testCategory->name);
@@ -179,6 +183,7 @@ class AdminAreaCategoriesTest extends TestCase
 
         // Restore category:
         Livewire::test(AdminAreaCategories::class)
+            ->call('render')
             ->set('showDeletedCategories', true)
             ->assertSee('Michael')
             ->assertSeeHtml('<i class="fas fa-trash-restore"></i>')
@@ -186,6 +191,11 @@ class AdminAreaCategoriesTest extends TestCase
             ->assertSee('Restore this Category')
             ->call('restore')
             ->assertDispatchedBrowserEvent('closeRestoreModelInstanceModal')
+            ->assertRedirect(route('admin-area.categories'));
+        
+        Livewire::test(AdminAreaCategories::class)
+            ->call('render')
+            ->set('showDeletedCategories', true)
             ->assertDontSee('Michael')
             ->set('showDeletedCategories', false)
             ->assertSee('Michael');

@@ -24,7 +24,7 @@ class CreatePost extends Component
         'files.*' => 'max:5000',
     ];
 
-    public function submitForm(): \Illuminate\Http\RedirectResponse
+    public function submitForm(): \Livewire\Redirector
     {
         $this->authorize('create', Post::class);
 

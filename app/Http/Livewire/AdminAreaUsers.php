@@ -77,7 +77,7 @@ class AdminAreaUsers extends TableComponent
         $this->dispatchBrowserEventByAction($action);
     }
 
-    public function deleteModelInstance(): \Illuminate\Http\RedirectResponse
+    public function deleteModelInstance(): \Livewire\Redirector
     {
         User::findOrFail($this->selectedModelInstance)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
@@ -88,7 +88,7 @@ class AdminAreaUsers extends TableComponent
         return redirect()->route('admin-area.users');
     }
 
-    public function restoreModelInstance(): \Illuminate\Http\RedirectResponse
+    public function restoreModelInstance(): \Livewire\Redirector
     {
         User::onlyTrashed()->findOrFail($this->selectedModelInstance)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
@@ -105,7 +105,7 @@ class AdminAreaUsers extends TableComponent
         $this->roles = [];
     }
 
-    public function updateRoles(): \Illuminate\Http\RedirectResponse
+    public function updateRoles(): \Livewire\Redirector
     {
         $user = User::findOrFail($this->selectedModelInstance);
 

@@ -61,7 +61,7 @@ class AdminAreaCategories extends TableComponent
         $this->dispatchBrowserEvent('openAddModelInstanceModal');
     }
 
-    public function addNewCategory(): \Illuminate\Http\RedirectResponse
+    public function addNewCategory(): \Livewire\Redirector
     {
         $this->validate();
 
@@ -88,7 +88,7 @@ class AdminAreaCategories extends TableComponent
         $this->dispatchBrowserEventByAction($action);
     }
 
-    public function update(): \Illuminate\Http\RedirectResponse
+    public function update(): \Livewire\Redirector
     {
         $this->validate();
         $category = Category::findOrFail($this->selectedCategory);
@@ -103,7 +103,7 @@ class AdminAreaCategories extends TableComponent
         return redirect()->route('admin-area.categories');
     }
 
-    public function delete(): \Illuminate\Http\RedirectResponse
+    public function delete(): \Livewire\Redirector
     {
         Category::findOrFail($this->selectedCategory)->delete();
         $this->dispatchBrowserEvent('closeDeleteModelInstanceModal');
@@ -113,7 +113,7 @@ class AdminAreaCategories extends TableComponent
         return redirect()->route('admin-area.categories');
     }
 
-    public function restore(): \Illuminate\Http\RedirectResponse
+    public function restore(): \Livewire\Redirector
     {
         Category::onlyTrashed()->findOrFail($this->selectedCategory)->restore();
         $this->dispatchBrowserEvent('closeRestoreModelInstanceModal');
